@@ -12,6 +12,7 @@ namespace TeadingPlatformAPI.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
+            //许学铭傻逼
             return new string[] { "value1", "value2" };
         }
 
