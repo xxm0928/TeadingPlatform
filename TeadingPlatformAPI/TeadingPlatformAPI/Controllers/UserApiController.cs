@@ -12,7 +12,7 @@ namespace TeadingPlatformAPI.Controllers
         //测试
         public int Login()
         {
-            return 1;
+            return 0;
         }
     }
 }
