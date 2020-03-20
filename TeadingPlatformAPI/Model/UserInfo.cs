@@ -45,9 +45,5 @@ namespace Model
         /// 身份证
         /// </summary>
         public string UserIDNumber { get; set; }
-        /// <summary>
-        /// 用户昵称
-        /// </summary>
-        public string UserPass { get; set; }
     }
 }
