@@ -41,11 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommodityInfo.cs" />
-    <Compile Include="LogisticsInfo.cs" />
-    <Compile Include="Orderform.cs" />
-    <Compile Include="ShopInfo.cs" />
-    <Compile Include="TypeInfo.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
