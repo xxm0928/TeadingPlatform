@@ -551,6 +551,10 @@
     <Content Include="admin\lib\ueditor\ueditor.parse.js" />
     <Content Include="admin\lib\ueditor\ueditor.parse.min.js" />
     <Content Include="Content\admin.css" />
+    <Content Include="Content\admin\css\style.css" />
+    <Content Include="Content\admin\images\._bg.jpg" />
+    <Content Include="Content\admin\images\bg.jpg" />
+    <Content Include="Content\admin\js\script.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -680,6 +684,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\_Layoutlogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
