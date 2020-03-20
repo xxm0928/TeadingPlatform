@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace TeadingPlatformAPI.Controllers
 {
-    [RoutePrefix("ycx")]
+    [RoutePrefix("ycx")]  //路由名字
     public class Ycx_WiseController : ApiController
     {
 
