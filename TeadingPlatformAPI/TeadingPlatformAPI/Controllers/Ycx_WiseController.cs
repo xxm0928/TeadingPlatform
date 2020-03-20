@@ -15,6 +15,8 @@ namespace TeadingPlatformAPI.Controllers
     [RoutePrefix("ycx")]  //路由名字
     public class Ycx_WiseController : ApiController
     {
+
+        YcxBll b = new YcxBll();
         /// <summary>
         /// 个人信息（存储过程的）
         /// </summary>
@@ -23,10 +25,8 @@ namespace TeadingPlatformAPI.Controllers
         [Route("PersonalInformation"), HttpGet]
         public IHttpActionResult PersonalInformation()
         {
-            ycxModel model = new ycxModel();
-            YcxHelper help = new YcxHelper();
-            string textSql = "exec UserInfo_proc_Select";
-            List<ycxModel> list = help.Getlist<ycxModel>(textSql);
+
+            List<UserInfo> list = b.PersonalInformation();
             return Json(list.ToList());
         }
         /// <summary>
@@ -34,11 +34,10 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("AddPersonalInformation"), HttpPost]
-        public IHttpActionResult AddPersonalInformation(ycxModel model)
+        public IHttpActionResult AddPersonalInformation(UserInfo model)
         {
-            YcxHelper help = new YcxHelper();
-            string textSql = $"exec UserInfo_proc_Add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
-            int result = help.GetLine(textSql);
+
+            int result = b.AddPersonalInformation(model);
             return Json(result);
 
         }
