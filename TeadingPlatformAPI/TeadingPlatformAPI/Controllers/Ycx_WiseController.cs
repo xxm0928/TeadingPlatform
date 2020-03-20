@@ -30,7 +30,19 @@ namespace TeadingPlatformAPI.Controllers
             List<ycxModel> list = help.Getlist<ycxModel>(textSql);
             return Json(list.ToList());
         }
-        
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
+        /// <returns></returns>
+        [Route("AddPersonalInformation"),HttpPost]
+        public IHttpActionResult AddPersonalInformation(ycxModel model)
+        {
+            YcxHelper help = new YcxHelper();
+            string textSql = $"exec UserInfo_proc_Add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
+            int result = help.GetLine(textSql);
+            return Json(result);
+
+        }
 
 
     }
@@ -113,6 +125,23 @@ namespace TeadingPlatformAPI.Controllers
                 return JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(e));
             }
           
+        }
+
+        public int GetLine(string sql)
+        {
+            using (SqlConnection conn = new SqlConnection(strconn))
+            {
+                conn.Open();
+                SqlCommand com = conn.CreateCommand();
+                com.Connection = conn;
+                com.CommandText = sql;
+                com.CommandType = CommandType.StoredProcedure;
+
+                int result = com.ExecuteNonQuery();
+                conn.Close();
+                return result;
+            }
+
         }
     }
 
