@@ -24,9 +24,9 @@ namespace DAL
             //把data转换成类的类型 
             UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
             //sql语句
-            var sql = string.Format($"$select count(1) from UserInfo u where u.Uname='{userInfo.UserName}'");
+            var sql = string.Format($"select count(1) from UserInfo u where u.Uname='{userInfo.UserNumder}' and '{userInfo.UserPass}'");
             //返回值
-            var res =Convert.ToInt32( dBHelper.ExecuteScalar(sql));
+            var res = Convert.ToInt32(dBHelper.ExecuteScalar(sql));
             UnitedReturn united = new UnitedReturn();
             //如果登陆成功 给统一返回类型的model赋值
             if (res > 0)
@@ -41,6 +41,34 @@ namespace DAL
                 //给统一返回类型的model赋值
                 united.data = null;
                 united.msg = "登陆失败";
+                united.res = 0;
+            }
+            return united;
+        }
+        /// <summary>
+        /// 商品添加
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn AddCommdity(object data)
+        {
+            CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+            var sql = string.Format($"insert into CommdityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}','{commodity.CommodityState}','{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}','{commodity.PutawayTime}','{commodity.OutTime}')");
+            var res = Convert.ToInt32(dBHelper.ExecuteNonQuery(sql));
+            UnitedReturn united = new UnitedReturn();
+            //如果登陆成功 给统一返回类型的model赋值
+            if (res > 0)
+            {
+                //给统一返回类型的model赋值
+                united.data = null;//返回的数据
+                united.msg = "添加成功";//返回的字符串
+                united.res = 1;//返回的int值
+            }
+            else
+            {
+                //给统一返回类型的model赋值
+                united.data = null;
+                united.msg = "添加失败";
                 united.res = 0;
             }
             return united;
