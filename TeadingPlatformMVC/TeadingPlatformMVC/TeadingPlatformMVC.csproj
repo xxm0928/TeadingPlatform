@@ -601,6 +601,7 @@
     <Content Include="lay\modules\tree.js" />
     <Content Include="lay\modules\upload.js" />
     <Content Include="lay\modules\util.js" />
+    <Content Include="Logo.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="iconfont.woff" />
