@@ -13,5 +13,9 @@ namespace TeadingPlatformMVC.Controllers
         {
             return View();
         }
+        public ActionResult UserSelect()
+        {
+            return View();
+        }
     }
 }
