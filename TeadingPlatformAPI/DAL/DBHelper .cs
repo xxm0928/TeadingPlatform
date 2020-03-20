@@ -24,7 +24,7 @@ namespace DAL
                 /// <summary>
                 /// 连接字符串 自己写自己本地的数据库
                 /// </summary>
-                conn = new SqlConnection("");
+                conn = new SqlConnection("Data Source=.;Initial Catalog=TeadingPlatform;Integrated Security=True");
             }
         }
         /// <summary>
