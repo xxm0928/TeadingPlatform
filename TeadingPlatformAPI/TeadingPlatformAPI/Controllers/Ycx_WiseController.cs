@@ -13,10 +13,6 @@ namespace TeadingPlatformAPI.Controllers
     [RoutePrefix("ycx")]  //路由名字
     public class Ycx_WiseController : ApiController
     {
-
-
-
-
         /// <summary>
         /// 个人信息（存储过程的）
         /// </summary>
@@ -43,8 +39,6 @@ namespace TeadingPlatformAPI.Controllers
             return Json(result);
 
         }
-
-
     }
     /// <summary>
     /// ycx 临时model
@@ -83,8 +77,6 @@ namespace TeadingPlatformAPI.Controllers
         /// 用户身份证
         /// </summary>
         public string UserIDNumber { get; set; }
-
-
     }
 
     /// <summary>
@@ -116,17 +108,13 @@ namespace TeadingPlatformAPI.Controllers
 
                     conn.Close();//断开连接
                     return JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(dt)); //序列化出需要的
-
                 }
             }
             catch (Exception e)
             {
-
                 return JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(e));
             }
-          
         }
-
         public int GetLine(string sql)
         {
             using (SqlConnection conn = new SqlConnection(strconn))
@@ -141,7 +129,6 @@ namespace TeadingPlatformAPI.Controllers
                 conn.Close();
                 return result;
             }
-
         }
     }
 
