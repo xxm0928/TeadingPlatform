@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using BLL;
+using Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,9 +27,8 @@ namespace TeadingPlatformAPI.Controllers
         [Route("PersonalInformation"), HttpGet]
         public IHttpActionResult PersonalInformation()
         {
-            YcxHelper help = new YcxHelper();
-            string textSql = "exec UserInfo_proc_Select";
-            List<ycxModel> list = help.Getlist<ycxModel>(textSql);
+            bll b = new bll();
+            List<UserInfo> list= b.PersonalInformation();
             return Json(list.ToList());
         }
         /// <summary>
@@ -35,11 +36,10 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("AddPersonalInformation"),HttpPost]
-        public IHttpActionResult AddPersonalInformation(ycxModel model)
+        public IHttpActionResult AddPersonalInformation(UserInfo model)
         {
-            YcxHelper help = new YcxHelper();
-            string textSql = $"exec UserInfo_proc_Add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
-            int result = help.GetLine(textSql);
+            bll b = new bll();
+            int result=b.AddPersonalInformation(model);
             return Json(result);
 
         }
