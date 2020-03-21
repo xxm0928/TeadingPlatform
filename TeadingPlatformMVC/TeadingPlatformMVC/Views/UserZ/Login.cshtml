@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/_Layoutlogin.cshtml";
+}
+
+<h2></h2>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    function login() {
+        var datas = {
+            phone: $("#phone").val(),
+            pwd: $("#pwd").val()
+        }
+        $.ajax({
+            url: "http://localhost:55041/api/UserApi/UserLogin",
+            type: "POST",
+            data: JSON.stringify(datas),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (res) {
+                alert( "返回信息" + res.msg + "")
+            }
+        })
+    }
+</script>

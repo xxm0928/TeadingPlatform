@@ -11,15 +11,15 @@
         <div class="form sign-in">
             <h2>欢迎回来</h2>
             <label>
-                <span>邮箱</span>
-                <input type="email" />
+                <span>手机号</span>
+                <input type="email"id="phone" />
             </label>
             <label>
                 <span>密码</span>
-                <input type="password" />
+                <input type="password" id="pwd"/>
             </label>
             <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
-            <button type="button" class="submit">登 录</button>
+            <button type="button" class="submit" onclick="login()">登 录</button>
             <button type="button" class="fb-btn">使用 <span>QQ</span> 帐号登录</button>
         </div>
         <div class="sub-cont">
@@ -41,15 +41,15 @@
                 <h2>立即注册</h2>
                 <label>
                     <span>用户名</span>
-                    <input type="text" />
-                </label>
-                <label>
-                    <span>邮箱</span>
-                    <input type="email" />
+                    <input type="text" id="name" />
                 </label>
                 <label>
                     <span>密码</span>
-                    <input type="password" />
+                    <input type="password" id="pwd"/>
+                </label>
+                <label>
+                    <span>确认密码</span>
+                    <input type="password" id="pwdtwo"/>
                 </label>
                 <button type="button" class="submit">注 册</button>
             </div>

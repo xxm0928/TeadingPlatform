@@ -24,7 +24,7 @@ namespace DAL
             //把data转换成类的类型 
             UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
             //sql语句
-            var sql = string.Format($"$select count(1) from UserInfo u where u.UserNumder='{userInfo.UserName}' and u.UserPass='{userInfo.UserPass}'");
+            var sql = string.Format($"select count(1) from UserInfo u where u.UserNumder='{userInfo.UserNumder}' and u.UserPass='{userInfo.UserPass}'");
             //返回值
             var res = Convert.ToInt32(dBHelper.ExecuteScalar(sql));
             UnitedReturn united = new UnitedReturn();
