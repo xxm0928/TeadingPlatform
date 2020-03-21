@@ -45,5 +45,33 @@ namespace DAL
             }
             return united;
         }
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UserAdd(object data)
+        {
+            UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+            var sql = string.Format("insert into [dbo].[UserInfo] values('{0}''{1}''{2}''{3}''{4}''{5}''{6}''{7}')",Info.UserName,Info.UserPass,"","","","","","");
+            var res = dBHelper.ExecuteNonQuery(sql);
+            UnitedReturn united = new UnitedReturn();
+            //如果登陆成功 给统一返回类型的model赋值
+            if (res > 0)
+            {
+                //给统一返回类型的model赋值
+                united.data = null;//返回的数据
+                united.msg = "注册成功";//返回的字符串
+                united.res = 1;//返回的int值
+            }
+            else
+            {
+                //给统一返回类型的model赋值
+                united.data = null;
+                united.msg = "zhuce失败";
+                united.res = 0;
+            }
+            return united;
+        }
     }
 }
