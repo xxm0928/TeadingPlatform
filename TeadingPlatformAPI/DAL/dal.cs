@@ -23,7 +23,7 @@ namespace DAL
             //把data转换成类的类型 
             UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
             //sql语句
-            var sql = string.Format($"$select count(1) from UserInfo u where u.Uname='{userInfo.UserName}'");
+            var sql = string.Format($"$select count(1) from UserInfo u where u.UserNumder='{userInfo.UserName}' and u.UserPass='{userInfo.UserPass}'");
             //返回值
             var res =Convert.ToInt32( dBHelper.ExecuteScalar(sql));
             UnitedReturn united = new UnitedReturn();
@@ -40,6 +40,34 @@ namespace DAL
                 //给统一返回类型的model赋值
                 united.data = null;
                 united.msg = "登陆失败";
+                united.res = 0;
+            }
+            return united;
+        }
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UserAdd(object data)
+        {
+            UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+            var sql = string.Format("insert into [dbo].[UserInfo] values('{0}''{1}''{2}''{3}''{4}''{5}''{6}''{7}')",Info.UserName,Info.UserPass,"","","","","","");
+            var res = dBHelper.ExecuteNonQuery(sql);
+            UnitedReturn united = new UnitedReturn();
+            //如果登陆成功 给统一返回类型的model赋值
+            if (res > 0)
+            {
+                //给统一返回类型的model赋值
+                united.data = null;//返回的数据
+                united.msg = "添加成功";//返回的字符串
+                united.res = 1;//返回的int值
+            }
+            else
+            {
+                //给统一返回类型的model赋值
+                united.data = null;
+                united.msg = "添加失败";
                 united.res = 0;
             }
             return united;

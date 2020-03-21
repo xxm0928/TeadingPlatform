@@ -21,5 +21,14 @@ namespace BLL
         {
             return dal.UserLogin(data);
         }
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UserAdd(object data)
+        {
+            return dal.UserAdd(data);
+        }
     }
 }
