@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using BLL;
+using Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,9 +16,7 @@ namespace TeadingPlatformAPI.Controllers
     public class Ycx_WiseController : ApiController
     {
 
-
-
-
+        YcxBll b = new YcxBll();
         /// <summary>
         /// 个人信息（存储过程的）
         /// </summary>
@@ -25,26 +25,22 @@ namespace TeadingPlatformAPI.Controllers
         [Route("PersonalInformation"), HttpGet]
         public IHttpActionResult PersonalInformation()
         {
-            YcxHelper help = new YcxHelper();
-            string textSql = "exec UserInfo_proc_Select";
-            List<ycxModel> list = help.Getlist<ycxModel>(textSql);
+
+            List<UserInfo> list = b.PersonalInformation();
             return Json(list.ToList());
         }
         /// <summary>
         /// 添加用户信息
         /// </summary>
         /// <returns></returns>
-        [Route("AddPersonalInformation"),HttpPost]
-        public IHttpActionResult AddPersonalInformation(ycxModel model)
+        [Route("AddPersonalInformation"), HttpPost]
+        public IHttpActionResult AddPersonalInformation(UserInfo model)
         {
-            YcxHelper help = new YcxHelper();
-            string textSql = $"exec UserInfo_proc_Add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
-            int result = help.GetLine(textSql);
+
+            int result = b.AddPersonalInformation(model);
             return Json(result);
 
         }
-
-
     }
     /// <summary>
     /// ycx 临时model
@@ -66,7 +62,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <summary>
         /// 用户性别  1 男 0 女
         /// </summary>
-        public bool UserSex { get; set; }
+        public int UserSex { get; set; }
         /// <summary>
         /// 店铺ID 对应商品
         /// </summary>
@@ -83,8 +79,6 @@ namespace TeadingPlatformAPI.Controllers
         /// 用户身份证
         /// </summary>
         public string UserIDNumber { get; set; }
-
-
     }
 
     /// <summary>
@@ -116,17 +110,13 @@ namespace TeadingPlatformAPI.Controllers
 
                     conn.Close();//断开连接
                     return JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(dt)); //序列化出需要的
-
                 }
             }
             catch (Exception e)
             {
-
                 return JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(e));
             }
-          
         }
-
         public int GetLine(string sql)
         {
             using (SqlConnection conn = new SqlConnection(strconn))
@@ -141,7 +131,6 @@ namespace TeadingPlatformAPI.Controllers
                 conn.Close();
                 return result;
             }
-
         }
     }
 
