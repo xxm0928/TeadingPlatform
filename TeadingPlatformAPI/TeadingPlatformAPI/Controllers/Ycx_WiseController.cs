@@ -25,7 +25,6 @@ namespace TeadingPlatformAPI.Controllers
         [Route("PersonalInformation"), HttpGet]
         public IHttpActionResult PersonalInformation()
         {
-
             List<UserInfo> list = b.PersonalInformation();
             return Json(list.ToList());
         }
