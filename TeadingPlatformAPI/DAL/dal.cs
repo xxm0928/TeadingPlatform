@@ -68,7 +68,7 @@ namespace DAL
             {
                 //给统一返回类型的model赋值
                 united.data = null;
-                united.msg = "zhuce失败";
+                united.msg = "注册失败";
                 united.res = 0;
             }
             return united;
