@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>订单详情</h2>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+@using Model
+@ViewBag.Id
+<table>
+    @foreach (var item in ViewBag.List as List<Orderform>)
+    {
+        <tr>
+            <td>@item.OrderState</td>
+        </tr>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        var a = 1;
+        $.ajax({
+            url: "/Order/Order",
+            success: function (res) {
+                alert(res.data);
+            }
+        })
+    })
+</script>
