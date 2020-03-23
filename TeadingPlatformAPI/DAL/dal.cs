@@ -53,7 +53,7 @@ namespace DAL
         public UnitedReturn UserAdd(object data)
         {
             UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
-            var sql = string.Format("insert into [dbo].[UserInfo] values('{0}''{1}''{2}''{3}''{4}''{5}''{6}''{7}')",Info.UserName,Info.UserPass,"","","","","","");
+            var sql = string.Format("insert into [dbo].[UserInfo] values('{0}''{1}''{2}''{3}''{4}''{5}''{6}''{7}')","",Info.UserPass,"","","",Info.UserNumder,"","");
             var res = dBHelper.ExecuteNonQuery(sql);
             UnitedReturn united = new UnitedReturn();
             //如果登陆成功 给统一返回类型的model赋值
