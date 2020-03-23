@@ -17,9 +17,6 @@ namespace TeadingPlatformMVC.Controllers
         {
             return View();
         }
-        public ActionResult Regist()
-        {
-            return View();
-        }
+
     }
 }
