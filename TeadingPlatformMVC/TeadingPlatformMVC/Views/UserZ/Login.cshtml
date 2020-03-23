@@ -9,8 +9,8 @@
 <script>
     function login() {
         var datas = {
-            phone: $("#phone").val(),
-            pwd: $("#pwd").val()
+            UserNumder: $("#phone").val(),
+            UserPass: $("#pwd").val()
         }
         $.ajax({
             url: "http://localhost:55041/api/UserApi/UserLogin",
@@ -19,8 +19,10 @@
             dataType: "JSON",
             contentType: "application/json",
             success: function (res) {
-                alert( "返回信息" + res.msg + "")
+                alert(res.msg);
             }
         })
     }
+
+
 </script>

@@ -24,6 +24,10 @@ namespace Model
         /// </summary>
         public int TypeId { get; set; }
         /// <summary>
+        /// 类型名称
+        /// </summary>
+        public string TypeName { get; set; }
+        /// <summary>
         /// 商品图片
         /// </summary>
         public string ComndityImg { get; set; }

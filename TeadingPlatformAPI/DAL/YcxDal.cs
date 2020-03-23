@@ -33,9 +33,9 @@ namespace DAL
             int result = help.GetLine(textsql);
             return result;
         }
-
+        #endregion
     }
-    #endregion
+
 
 }
 
