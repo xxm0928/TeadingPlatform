@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <title>HTML注册登录页面</title>
@@ -12,11 +11,11 @@
             <h2>欢迎回来</h2>
             <label>
                 <span>手机号</span>
-                <input type="email"id="phone" />
+                <input type="text" id="phone" />
             </label>
             <label>
                 <span>密码</span>
-                <input type="password" id="pwd"/>
+                <input type="password" id="pwd" />
             </label>
             <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
             <button type="button" class="submit" onclick="login()">登 录</button>
@@ -40,13 +39,8 @@
             <div class="form sign-up">
                 <h2>立即注册</h2>
                 <label>
-                    <span>手机号</span>
-                    <input type="text" id="phone" />
-                </label>
-                <button type="button" class="submit">发送信息</button>
-                <label>
-                    <span>短信验证码</span>
-                    <input type="password" id="pwdtwo" />
+                    <span>昵称</span>
+                    <input type="text" id="name" />
                 </label>
                 <label>
                     <span>密码</span>
@@ -56,7 +50,11 @@
                     <span>确认密码</span>
                     <input type="password" id="pwdtwo" />
                 </label>
-                <button type="button" class="submit">注 册</button>
+                <label>
+                    <span>手机号</span>
+                    <input type="text" id="phone" />
+                </label>
+                <button type="button" class="submit" onclick="regist()">注 册</button>
             </div>
         </div>
     </div>
@@ -68,3 +66,4 @@
     </div>
 </body>
 </html>
+

@@ -33,4 +33,5 @@ namespace BLL
         {
             return dal.UserAdd(data);
         }
+    }
 }
