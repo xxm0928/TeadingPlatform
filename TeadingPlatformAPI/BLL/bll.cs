@@ -11,6 +11,7 @@ namespace BLL
     public class Bll
     {
         Dal dal = new Dal();
+
         /// <summary>
         /// 用户登录
         /// data 是统一参数值
@@ -22,36 +23,7 @@ namespace BLL
         {
             return dal.UserLogin(data);
         }
-       
-            #region 3/20 20:25
-            /// <summary>
-            /// 通过 bll 传递数据
-            /// </summary>
-            /// <returns></returns>
-            //public List<UserInfo> PersonalInformation()
-            //{
-            //    dal d = new dal();
-            //    List<UserInfo> list = d.PersonalInformation();
-            //    return list.ToList();
 
-
-            //}
-            /// <summary>
-            /// 通过 bll 传递数据
-            /// </summary>
-            /// <param name="model"></param>
-            /// <returns></returns>
-            //public int AddPersonalInformation(UserInfo model)
-            //{
-            //    dal d = new dal();
-            //    int result=d.AddPersonalInformation(model);
-            //    return result;
-            //}
-
-            #endregion
-
-
-       
         /// <summary>
         /// 用户注册
         /// </summary>
@@ -61,5 +33,4 @@ namespace BLL
         {
             return dal.UserAdd(data);
         }
-    }
 }
