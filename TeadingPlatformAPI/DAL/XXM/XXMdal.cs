@@ -53,7 +53,6 @@ namespace DAL
 
                 return new UnitedReturn() { data = ex.InnerException.Message,res=-1,msg=ex.Message };
             }
-
         }
     }
 }
