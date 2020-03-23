@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    /// <summary>
+    /// 商品信息表
+    /// </summary>
     public class CommodityInfo
     {
         /// <summary>

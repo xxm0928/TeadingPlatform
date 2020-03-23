@@ -48,6 +48,8 @@
     <Compile Include="Dal.cs" />
     <Compile Include="DBHelper .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YxDal\YxDBHelper .cs" />
+    <Compile Include="YxDal\YxDal.cs" />
     <Compile Include="YcxDal.cs" />
     <Compile Include="Ycx_Helper.cs" />
   </ItemGroup>
