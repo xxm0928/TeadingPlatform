@@ -159,7 +159,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\zhaoController\UserApiController.cs" />
+    <Compile Include="Controllers\ZhController\UserApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\XXM_CommodityController.cs" />
     <Compile Include="Controllers\Ycx_WiseController.cs" />

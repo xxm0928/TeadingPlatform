@@ -25,9 +25,7 @@
     }
 
     function regist() {
-        var pwd = $("#pwd").val();
-        var pwdtwo = $("#pwdtwo").val();
-        if (pwd == pwdtwo && pwd != "") {
+        
             var datas = {
                 UserName: $("#name").val(),
                 UserPass: $("#pwd").val(),
@@ -43,7 +41,7 @@
                     alert(res.msg);
                 }
             });
-        }
+        
     }
 </script>
 

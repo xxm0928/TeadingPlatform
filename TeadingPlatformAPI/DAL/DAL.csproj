@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="zhaodal\Dal.cs" />
+    <Compile Include="Zhdal\Dal.cs" />
     <Compile Include="DBHelper .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XXM\XXMdal.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="YxDal\YxDal.cs" />
     <Compile Include="YcxDal.cs" />
     <Compile Include="Ycx_Helper.cs" />
-    <Compile Include="zhaodal\OrmDbHelper.cs" />
+    <Compile Include="Zhdal\OrmDbHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

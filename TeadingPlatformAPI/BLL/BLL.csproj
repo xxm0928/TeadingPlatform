@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="zhaobll\Bll.cs" />
+    <Compile Include="Zhbll\Bll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XXMbll\xxmbll.cs" />
     <Compile Include="YcxBll.cs" />
