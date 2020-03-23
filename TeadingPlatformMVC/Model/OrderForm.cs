@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    /// <summary>
-    /// 订单表
-    /// </summary>
     public class Orderform
     {
         /// <summary>
@@ -127,6 +124,5 @@ namespace Model
         /// 身份证
         /// </summary>
         public string UserIDNumber { get; set; }
-
     }
 }

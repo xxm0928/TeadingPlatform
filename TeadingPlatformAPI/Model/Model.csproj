@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommodityInfo.cs" />
+    <Compile Include="CommodityPaging.cs" />
     <Compile Include="LogisticsInfo.cs" />
     <Compile Include="Orderform.cs" />
     <Compile Include="ShopInfo.cs" />
