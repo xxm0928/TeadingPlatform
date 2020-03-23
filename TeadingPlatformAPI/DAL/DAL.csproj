@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dal.cs" />
+    <Compile Include="zhaodal\Dal.cs" />
     <Compile Include="DBHelper .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XXMdal.cs" />
