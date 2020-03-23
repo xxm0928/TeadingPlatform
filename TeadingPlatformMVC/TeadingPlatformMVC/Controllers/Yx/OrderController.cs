@@ -11,24 +11,30 @@ namespace TeadingPlatformMVC.Controllers
 {
     public class OrderController : Controller
     {
-        Orderform Orderform = new Orderform();
         public ActionResult Order()
         {
-            UnitedReturn unitedReturn = new UnitedReturn();
-            var data =1;
-            var url = Request.Url.ToString();
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("http://localhost:55041/");
-            HttpContent content = new StringContent(data.ToString());
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage message = httpClient.PostAsync("api/YxApi/OrderShow", content).Result;
-            if (message.IsSuccessStatusCode)
+            var data = Request["data"];
+            HttpClientHelper clientHelper = new HttpClientHelper();
+            var res = clientHelper.Post("api/YxApi/OrderShow", data);
+            if (res != null)
             {
-                var res = message.Content.ReadAsStringAsync().Result;
-                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res);
-                ViewBag.List = mata.data;
-                ViewBag.Id = mata.res;
-                return View(mata);
+                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                var dataOrder = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                ViewBag.OrderList = "";
+                if (mata.msg == "获取信息成功,但是没有查询到结果")
+                {
+                    ViewBag.OrderList = "";
+                }
+                else
+                {
+                    ViewBag.OrderList = dataOrder;
+                }
+                
+            }
+            var LogisticsList = clientHelper.Post("api/YxApi/LogisticsShow", data);
+            if (LogisticsList != null)
+            {
+                ViewBag.LogisticsList = JsonConvert.DeserializeObject<List<Orderform>>((JsonConvert.DeserializeObject<UnitedReturn>(LogisticsList.ToString())).data.ToString());
             }
             return View();
         }

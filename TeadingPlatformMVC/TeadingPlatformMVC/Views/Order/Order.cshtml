@@ -4,29 +4,83 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>订单详情</h2>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-
+<div>
+    @*<a>待付款</a> 丨<a>待发货</a> 丨<a>已发货</a>丨 <a>已完成</a> 丨<a>已关闭</a>*@
+</div>
 @using Model
-@ViewBag.Id
-<table>
-    @foreach (var item in ViewBag.List as List<Orderform>)
-    {
-        <tr>
-            <td>@item.OrderState</td>
-        </tr>
-    }
-</table>
 
+<div class="wrap-container">
+    <div style="margin-top:20px">
+        <span style="margin-left:10px;margin-top:10px">
+            订单编号:<input id="OrderformId" type="text" placeholder="输入订单编号" />
+            用户名:<input id="UserName" type="text" placeholder="输入姓名" />
+            手机号:<input id="UserNumder" type="text" value="输入手机号" />
+        </span>
+        <br />
+        <br />
+        <span style="margin-left:10px;margin-top:10px">
+            商品名称:<input id="CommodityName" type="text" placeholder="输入商品名称" />
+            发货公司:
+            <select name="category" id="LogisticsName" lay-verify="required">
+                <option value="0">请选择发货公司</option>
+                @foreach (var item in ViewBag.LogisticsList as List<Orderform>)
+                {
+                    <option value="@item.LogisticsId">@item.LogisticsName</option>
+                }
+            </select>
+            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:80px" lay-submit lay-filter="formDemo">搜索</button>
+            <button class="layui-btn layui-btn-normal" onclick="" style="height:40px;width:80px" lay-submit lay-filter="formDemo">重置</button>
+        </span>
+    </div>
+    <div class="layui-form" id="category-table-list">
+        <table class="layui-table" lay-even lay-skin="nob">
+            <tr>
+                <td>订单信息</td>
+                <td>商品信息</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>买家信息</td>
+                <td>实收款</td>
+                <td>操作</td>
+            </tr>
+
+            <tr>
+
+                @foreach (var item in ViewBag.OrderList as List<Orderform>)
+                {
+                    <td class="hidden-xs" style="width:200px">订单编号:@item.OrderformId  订单类型: @item.TypeName 创建时间: @DateTime.Now.ToString()</td>
+                    var @sum = (@item.Price * @item.CommodityCount);
+                    <td class="hidden-xs">@item.CommodityName</td>
+                    <td class="hidden-xs">(@item.Price)</td>
+                    <td class="hidden-xs">@item.CommodityCount</td>
+                    <td class="hidden-xs">@item.UserName<br />@item.UserNumder</td>
+                    <td class="hidden-xs">@sum</td>
+                    <td class="hidden-xs"><a style="color:#00ff21">详情</a></td>
+                }
+
+            </tr>
+
+
+        </table>
+    </div>
+
+</div>
 <script>
-    $(document).ready(function () {
-        var a = 1;
+    function Query() {
+
+        var datass = {
+            OrderformId: $("#OrderformId").val(),
+            UserName: $("#UserName").val(),
+            UserNumder: $("#UserNumder").val(),
+            CommodityName: $("#CommodityName").val(),
+            LogisticsName: $("#LogisticsName").val()
+        };
         $.ajax({
             url: "/Order/Order",
-            success: function (res) {
-                alert(res.data);
-            }
+            data: { data: JSON.stringify(datass) },
+            dataType: "json"
         })
-    })
+    }
 </script>
