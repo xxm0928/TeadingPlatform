@@ -12,13 +12,12 @@ namespace DAL
         YxDBHelper YxDBHelper = new YxDBHelper();
         public UnitedReturn OrderShow(object data)
         {
-            List<Orderform> list= JsonConvert.DeserializeObject<List<Orderform>>(data.ToString());
             string sql = string.Format("select * from Orderform o join UserInfo u on u.UserId=o.UserId join CommodityInfo c on c.CommodityId = o.CommodityId join LogisticsInfo l on l.LogisticsId = o.LogisticsId join ShopInfo s on s.CommodityId = c.CommodityId join TypeInfo t on t.TypeId = c.TypeId where o.OrderState=1");
-            var res = YxDBHelper.GetToList<List<Orderform>>(sql);
+            var res = YxDBHelper.GetToList<Orderform>(sql);
             UnitedReturn unitedReturn = new UnitedReturn();
             if (res.Count > 0)
             {
-                unitedReturn.data = res;
+                unitedReturn.data=res;
                 unitedReturn.res = 1;
                 unitedReturn.msg = "获取信息成功";
             }
