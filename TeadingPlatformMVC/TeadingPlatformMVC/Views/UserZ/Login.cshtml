@@ -24,5 +24,24 @@
         })
     }
 
-
+    function regist() {
+        
+            var datas = {
+                UserName: $("#name").val(),
+                UserPass: $("#pwd").val(),
+                UserNumder: $("#phone").val()
+            };
+            $.ajax({
+                url: "http://localhost:55041/api/UserApi/UserAdd",
+                type: "POST",
+                data: JSON.stringify(datas),
+                dataType: "JSON",
+                contentType: "application/json",
+                success: function (res) {
+                    alert(res.msg);
+                }
+            });
+        
+    }
 </script>
+

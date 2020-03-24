@@ -128,6 +128,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserZController.cs" />
     <Compile Include="Controllers\YcxCodeController.cs" />
+    <Compile Include="Controllers\Yx\HttpClientHelper.cs" />
+    <Compile Include="Controllers\Yx\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -652,6 +654,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -662,8 +666,35 @@
     <Content Include="Scripts\js\module\formate.js" />
     <Content Include="Scripts\js\module\tool.js" />
     <Content Include="Scripts\layui.js" />
+    <Content Include="Scripts\layui\admin.css" />
+    <Content Include="Scripts\layui\layui.css" />
+    <Content Include="Scripts\layui\My97DatePicker\demo.htm" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\calendar.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\lang\en.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="Scripts\lay\dest\layui.all.js" />
     <Content Include="Scripts\lay\modules\code.js" />
+    <Content Include="Scripts\lay\modules\dialog.js" />
     <Content Include="Scripts\lay\modules\element.js" />
     <Content Include="Scripts\lay\modules\flow.js" />
     <Content Include="Scripts\lay\modules\form.js" />
@@ -673,6 +704,7 @@
     <Content Include="Scripts\lay\modules\layer.js" />
     <Content Include="Scripts\lay\modules\laypage.js" />
     <Content Include="Scripts\lay\modules\laytpl.js" />
+    <Content Include="Scripts\lay\modules\layui.js" />
     <Content Include="Scripts\lay\modules\mobile.js" />
     <Content Include="Scripts\lay\modules\tree.js" />
     <Content Include="Scripts\lay\modules\upload.js" />
@@ -695,6 +727,7 @@
     <Content Include="Views\_Layoutlogin.cshtml" />
     <Content Include="Views\UserZ\Login.cshtml" />
     <Content Include="Views\YcxCode\UserSelect.cshtml" />
+    <Content Include="Views\Order\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -711,6 +744,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{006bfa31-a6f9-4ccd-a229-1febb0dfcda1}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

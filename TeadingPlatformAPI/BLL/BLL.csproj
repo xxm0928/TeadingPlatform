@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bll.cs" />
+    <Compile Include="Zhbll\Bll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XXMbll\xxmbll.cs" />
     <Compile Include="YcxBll.cs" />
+    <Compile Include="YxBll\YxBll.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

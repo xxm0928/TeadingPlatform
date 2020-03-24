@@ -17,6 +17,5 @@ namespace TeadingPlatformMVC.Controllers
         {
             return View();
         }
-
     }
 }

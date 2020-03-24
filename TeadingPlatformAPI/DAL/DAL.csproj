@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>C:\Users\Dell\Desktop\专高 dll &amp; 跨域配置\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\96549\Desktop\Newtonsoft.Json.dll</HintPath>
@@ -45,12 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dal.cs" />
+    <Compile Include="Zhdal\Dal.cs" />
     <Compile Include="DBHelper .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XXMdal.cs" />
+    <Compile Include="XXM\XXMdal.cs" />
+    <Compile Include="YxDal\YxDBHelper .cs" />
+    <Compile Include="YxDal\YxDal.cs" />
     <Compile Include="YcxDal.cs" />
     <Compile Include="Ycx_Helper.cs" />
+    <Compile Include="Zhdal\OrmDbHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

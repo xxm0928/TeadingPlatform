@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<div style="margin-top:10px;margin-left:10px">
+    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(0)">已关闭</a>
+</div>
+
+<div class="wrap-container">
+    <div style="margin-top:20px">
+        <span style="margin-left:10px;margin-top:10px">
+            订单编号:<input id="OrderformId" type="text" placeholder="输入订单编号" />
+            用户名:<input id="UserName" type="text" placeholder="输入姓名" />
+            手机号:<input id="UserNumder" type="text" placeholder="输入手机号" />
+        </span>
+        <br />
+        <br />
+        <span style="margin-left:10px;margin-top:10px">
+            商品名称:<input id="CommodityName" type="text" placeholder="输入商品名称" />
+            发货公司:
+            <select name="category" id="LogisticsName" lay-verify="required"><option value="0">请选择</option></select>
+            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:80px" lay-submit lay-filter="formDemo">搜索</button>
+            <button class="layui-btn layui-btn-normal" onclick="" style="height:40px;width:80px" lay-submit lay-filter="formDemo">重置</button>
+        </span>
+    </div>
+    <div class="layui-form" id="category-table-list">
+        <table class="layui-table" lay-even lay-skin="nob">
+            <tr>
+                <td></td>
+                <td>订单信息</td>
+                <td>商品信息</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>买家信息</td>
+                <td>实收款</td>
+                <td>操作</td>
+            </tr>
+            <tbody id="datas"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Order/DropListLogistics",
+            dataType: "json",
+            type: "POST",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<option value=" + this.LogisticsId + ">" + this.LogisticsName + "</option>";
+                })
+                $("#LogisticsName").append(select);
+            }
+        })
+    })
+
+    $.ajax({
+        url: "/Order/GetOrder",
+        dataType: "json",
+        type: "POST",
+        success: function (res) {
+            var select = "";
+            $(res).each(function () {
+                select += "<tr>" +
+                    "<td><input id='Checkbox1' type='checkbox' value=" + this.OrderformId + " /></td>" +
+                    "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "快递公司:" + this.LogisticsName + "</td>" +
+                    "<td>" + this.CommodityName + "</td>" +
+                    "<td>" + this.Price + ".00" + "</td>" +
+                    "<td>" + this.CommodityCount + "</td>" +
+                    "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                    "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                    "<td><a>详情</a></td>" +
+                    "</tr>";
+            })
+            $("#datas").html(select);
+        }
+
+    })
+
+    function Query(type) {
+        var ass = 0;
+        if ($("#OrderformId").val() == "") {
+            var ass = 0;
+        }
+        else {
+            ass = $("#OrderformId").val();
+        }
+        var datass = {
+            OrderState: type,
+            OrderformId: ass,
+            UserName: $("#UserName").val(),
+            UserNumder: $("#UserNumder").val(),
+            CommodityName: $("#CommodityName").val(),
+            LogisticsId: $("#LogisticsName").val()
+        };
+        $.ajax({
+            url: "/Order/GetOrder",
+            type: "POST",
+            data: { data: JSON.stringify(datass) },
+            dataType: "json",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<tr>" +
+                        "<td><input type='checkbox' value=" + this.OrderformId + "/></td>" +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "快递公司:" + this.LogisticsName + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.Price + ".00" + "</td>" +
+                        "<td>" + this.CommodityCount + "</td>" +
+                        "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                        "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                        "<td><a>详情</a></td>" +
+                        "</tr>";
+                })
+                $("#datas").html(select);
+            }
+        })
+    }
+</script>
