@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>C:\Users\Dell\Desktop\专高 dll &amp; 跨域配置\Dapper.dll</HintPath>
+      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

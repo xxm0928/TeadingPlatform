@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+@*<link href="~/Scripts/layui/layui.css" rel="stylesheet" />
+    <link href="~/Scripts/layui/admin.css" rel="stylesheet" />*@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <div style="margin-top:10px;margin-left:10px">
@@ -24,20 +25,21 @@
             商品名称:<input id="CommodityName" type="text" placeholder="输入商品名称" />
             发货公司:
             <select name="category" id="LogisticsName" lay-verify="required"><option value="0">请选择</option></select>
-            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:80px" lay-submit lay-filter="formDemo">搜索</button>
-            <button class="layui-btn layui-btn-normal" onclick="" style="height:40px;width:80px" lay-submit lay-filter="formDemo">重置</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:70px" value="搜索" lay-submit lay-filter="formDemo">查询</button>
+
         </span>
     </div>
     <div class="layui-form" id="category-table-list">
         <table class="layui-table" lay-even lay-skin="nob">
             <tr>
-                <td></td>
                 <td>订单信息</td>
                 <td>商品信息</td>
                 <td>单价</td>
                 <td>数量</td>
                 <td>买家信息</td>
                 <td>实收款</td>
+                <td>状态</td>
                 <td>操作</td>
             </tr>
             <tbody id="datas"></tbody>
@@ -60,30 +62,31 @@
                 $("#LogisticsName").append(select);
             }
         })
+        $.ajax({
+            url: "/Order/GetOrder",
+            dataType: "json",
+            type: "POST",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<tr>" +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家选择发货方式:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        "<td>" + this.CommodityCount + "</td>" +
+                        "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                        "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                        "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#datas").html(select);
+            }
+
+        })
     })
 
-    $.ajax({
-        url: "/Order/GetOrder",
-        dataType: "json",
-        type: "POST",
-        success: function (res) {
-            var select = "";
-            $(res).each(function () {
-                select += "<tr>" +
-                    "<td><input id='Checkbox1' type='checkbox' value=" + this.OrderformId + " /></td>" +
-                    "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "快递公司:" + this.LogisticsName + "</td>" +
-                    "<td>" + this.CommodityName + "</td>" +
-                    "<td>" + this.Price + ".00" + "</td>" +
-                    "<td>" + this.CommodityCount + "</td>" +
-                    "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
-                    "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
-                    "<td><a>详情</a></td>" +
-                    "</tr>";
-            })
-            $("#datas").html(select);
-        }
 
-    })
 
     function Query(type) {
         var ass = 0;
@@ -110,18 +113,57 @@
                 var select = "";
                 $(res).each(function () {
                     select += "<tr>" +
-                        "<td><input type='checkbox' value=" + this.OrderformId + "/></td>" +
-                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "快递公司:" + this.LogisticsName + "</td>" +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家选择发货方式:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
                         "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.Price + ".00" + "</td>" +
+                        "<td>" + this.Price + "</td>" +
                         "<td>" + this.CommodityCount + "</td>" +
                         "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
                         "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
-                        "<td><a>详情</a></td>" +
+                        "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
                         "</tr>";
                 })
                 $("#datas").html(select);
             }
         })
+    }
+    function Update(Id) {
+        $.ajax({
+            url: "/Order/GetState",
+            dataType: "json",
+            type: "POST",
+            data: {
+                data: Id
+            },
+            success: function (res) {
+                $(res).each(function () {
+                    var state = this.OrderState;//如果状态为2 则为待发货 可以进行发货 否则为查看订单详情
+                    if (state != 2) {
+                        //查看详情
+                        location.href = '/Order/GetOrderDetail/' + 'OsPAda1klw764335ppqeHKAPwq342terwGTEqs' + Id;
+                    }
+                    else {
+                        //修改订单状态
+                        $.ajax({
+                            url: "/Order/UpdateOrderState",
+                            type: "POST",
+                            data: { data: JSON.stringify(Id) },
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.res > 0) {
+                                    alert(res.msg);
+                                    location.reload();
+                                }
+                                else {
+                                    alert(res.msg);
+                                }
+                            }
+                        })
+                    }
+                })
+
+            }
+        })
+
     }
 </script>
