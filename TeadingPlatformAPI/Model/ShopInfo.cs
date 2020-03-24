@@ -20,5 +20,9 @@ namespace Model
         /// 商品Id
         /// </summary>
         public int CommodityId { get; set; }
+        /// <summary>
+        /// 店铺状态
+        /// </summary>
+        public int ShopState { get; set; }
     }
 }
