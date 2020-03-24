@@ -8,29 +8,53 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
     function login() {
-        var datas = {
-            UserNumder: $("#phone").val(),
-            UserPass: $("#pwd").val()
-        }
+        var phone = $("#phone").val();
+        var yzm = $("#yzm").val();
         $.ajax({
-            url: "http://localhost:55041/api/UserApi/UserLogin",
+            url: "/UserZ/Loginyanz/yzm",
             type: "POST",
-            data: JSON.stringify(datas),
+            data: {
+                yzm: yzm
+            },
             dataType: "JSON",
-            contentType: "application/json",
             success: function (res) {
-                alert(res.msg);
+                if (res > 0) {
+                    var datas = {
+                        UserNumder: $("#phone").val(),
+                        UserPass: $("#pwd").val()
+                    };
+                    $.ajax({
+                        url: "http://localhost:55041/api/UserApi/UserLogin",
+                        type: "POST",
+                        data: JSON.stringify(datas),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function (res) {
+                            alert(res.msg);
+                        }
+                    });
+                }
+                else {
+                    alert("验证码不正确");
+                }
             }
-        })
+        });
+
+       
     }
 
+
     function regist() {
-        
+        var pwd = $("#Rpwd").val();
+        var pwdtwo = $("#Rpwdtwo").val();
+        if (pwd == pwdtwo && pwd!="") {
+
             var datas = {
                 UserName: $("#name").val(),
-                UserPass: $("#pwd").val(),
-                UserNumder: $("#phone").val()
-            };
+                UserPass: $("#Rpwd").val(),
+                UserNumder: $("#Rphone").val()
+                };
+
             $.ajax({
                 url: "http://localhost:55041/api/UserApi/UserAdd",
                 type: "POST",
@@ -39,9 +63,14 @@
                 contentType: "application/json",
                 success: function (res) {
                     alert(res.msg);
+                    if (res.msg=="注册成功") {
+                         location.reload();
+                    }
                 }
             });
-        
+           
+        }
+
     }
 </script>
 
