@@ -18,51 +18,55 @@ namespace DAL
         public UnitedReturn OrderShow(object data)
         {
             var ass = 0;
-            Orderform orderform = new Orderform();
+            Orderform orderforms = new Orderform();
             //object初始值是System.object 所以判断一下
             if (data.ToString() != "System.object" && data.ToString() != "1")
             {
-                orderform = JsonConvert.DeserializeObject<Orderform>(data.ToString());
+                orderforms = JsonConvert.DeserializeObject<Orderform>(data.ToString());
             }
             else
             {
                 ass = 1;
                 data = 1;
             }
-            string sql = string.Format("select * from Orderform o join UserInfo u on u.UserId=o.UserId join CommodityInfo c on c.CommodityId = o.CommodityId join LogisticsInfo l on l.LogisticsId = o.LogisticsId join ShopInfo s on s.CommodityId = c.CommodityId join TypeInfo t on t.TypeId = c.TypeId where o.OrderState=1");
-            var res = YxDBHelper.GetToList<Orderform>(sql);
+            string sql = string.Format("select * from Orderform o join UserInfo u on u.UserId=o.UserId join CommodityInfo c on c.CommodityId = o.CommodityId join LogisticsInfo l on l.LogisticsId = o.LogisticsId join ShopInfo s on s.CommodityId = c.CommodityId join TypeInfo t on t.TypeId = c.TypeId ");
+            var datas = YxDBHelper.GetToList<Orderform>(sql);
             UnitedReturn unitedReturn = new UnitedReturn();
-            if (res.Count > 0 && res != null)
+            if (datas.Count > 0 && datas != null)
             {
                 if (ass != 1)
                 {
-                    if (orderform.OrderformId > 0)
+                    if (orderforms.OrderState >= 0)
                     {
-                        res = res.Where(s => s.OrderformId == orderform.OrderformId).ToList();
+                        datas = datas.Where(s => s.OrderState == orderforms.OrderState).ToList();
                     }
-                    if (orderform.UserName.Length > 0 && !string.IsNullOrEmpty(orderform.UserName))
+                    if (Convert.ToInt32(orderforms.OrderformId) > 0)
                     {
-                        res = res.Where(s => s.UserName.Equals(orderform.UserName)).ToList();
+                        datas = datas.Where(s => s.OrderformId == orderforms.OrderformId).ToList();
                     }
-                    if (orderform.UserNumder.Length > 0 && !string.IsNullOrEmpty(orderform.UserNumder))
+                    if (orderforms.UserName.Length > 0 && !string.IsNullOrEmpty(orderforms.UserName))
                     {
-                        res = res.Where(s => s.UserNumder == orderform.UserNumder).ToList();
+                        datas = datas.Where(s => s.UserName.Contains(orderforms.UserName)).ToList();
                     }
-                    if (orderform.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderform.CommodityName))
+                    if (orderforms.UserNumder.Length > 0 && !string.IsNullOrEmpty(orderforms.UserNumder))
                     {
-                        res = res.Where(s => s.CommodityName == orderform.CommodityName).ToList();
+                        datas = datas.Where(s => s.UserNumder == orderforms.UserNumder).ToList();
                     }
-                    if (orderform.LogisticsId > 0)
+                    if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
                     {
-                        res = res.Where(s => s.LogisticsId == orderform.LogisticsId).ToList();
+                        datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
+                    }
+                    if (orderforms.LogisticsId > 0)
+                    {
+                        datas = datas.Where(s => s.LogisticsId == orderforms.LogisticsId).ToList();
                     }
                 }
 
-                unitedReturn.data = res;
+                unitedReturn.data = datas;
                 unitedReturn.res = 1;
                 unitedReturn.msg = "获取信息成功";
                 //如果res为空 说明查询没有结果
-                if (res.Count == 0)
+                if (datas.Count == 0)
                 {
                     unitedReturn.msg = "获取信息成功,但是没有查询到结果";
                 }
@@ -96,6 +100,33 @@ namespace DAL
                 unitedReturn.data = null;
                 unitedReturn.res = 0;
                 unitedReturn.msg = "获取信息失败";
+            }
+            return unitedReturn;
+        }
+        /// <summary>
+        /// 修改订单状态 发货 State=1 待付款  2 待发货 3 已发货 4 已签收 5 已完成
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UpdateOrderState(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            if (Convert.ToInt32(data) > 0)
+            {
+                string sql = string.Format($"Update Orderform set OrderState=3 where OrderformId='{Convert.ToInt32(data)}'");
+                var res = YxDBHelper.ExecuteNonQuery(sql);
+                if (res > 0)
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 1;
+                    unitedReturn.msg = "发货成功";
+                }
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.res = 0;
+                unitedReturn.msg = "请选择要发货的订单";
             }
             return unitedReturn;
         }

@@ -4,34 +4,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<link href="~/Scripts/layui/layui.css" rel="stylesheet" />
+    <link href="~/Scripts/layui/admin.css" rel="stylesheet" />*@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<div>
-    @*<a>待付款</a> 丨<a>待发货</a> 丨<a>已发货</a>丨 <a>已完成</a> 丨<a>已关闭</a>*@
+<div style="margin-top:10px;margin-left:10px">
+    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(0)">已关闭</a>
 </div>
-@using Model
 
 <div class="wrap-container">
     <div style="margin-top:20px">
         <span style="margin-left:10px;margin-top:10px">
             订单编号:<input id="OrderformId" type="text" placeholder="输入订单编号" />
             用户名:<input id="UserName" type="text" placeholder="输入姓名" />
-            手机号:<input id="UserNumder" type="text" value="输入手机号" />
+            手机号:<input id="UserNumder" type="text" placeholder="输入手机号" />
         </span>
         <br />
         <br />
         <span style="margin-left:10px;margin-top:10px">
             商品名称:<input id="CommodityName" type="text" placeholder="输入商品名称" />
             发货公司:
-            <select name="category" id="LogisticsName" lay-verify="required">
-                <option value="0">请选择发货公司</option>
-                @foreach (var item in ViewBag.LogisticsList as List<Orderform>)
-                {
-                    <option value="@item.LogisticsId">@item.LogisticsName</option>
-                }
-            </select>
-            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:80px" lay-submit lay-filter="formDemo">搜索</button>
-            <button class="layui-btn layui-btn-normal" onclick="" style="height:40px;width:80px" lay-submit lay-filter="formDemo">重置</button>
+            <select name="category" id="LogisticsName" lay-verify="required"><option value="0">请选择</option></select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:70px" value="搜索" lay-submit lay-filter="formDemo">查询</button>
+
         </span>
     </div>
     <div class="layui-form" id="category-table-list">
@@ -43,44 +39,131 @@
                 <td>数量</td>
                 <td>买家信息</td>
                 <td>实收款</td>
+                <td>状态</td>
                 <td>操作</td>
             </tr>
-
-            <tr>
-
-                @foreach (var item in ViewBag.OrderList as List<Orderform>)
-                {
-                    <td class="hidden-xs" style="width:200px">订单编号:@item.OrderformId  订单类型: @item.TypeName 创建时间: @DateTime.Now.ToString()</td>
-                    var @sum = (@item.Price * @item.CommodityCount);
-                    <td class="hidden-xs">@item.CommodityName</td>
-                    <td class="hidden-xs">(@item.Price)</td>
-                    <td class="hidden-xs">@item.CommodityCount</td>
-                    <td class="hidden-xs">@item.UserName<br />@item.UserNumder</td>
-                    <td class="hidden-xs">@sum</td>
-                    <td class="hidden-xs"><a style="color:#00ff21">详情</a></td>
-                }
-
-            </tr>
-
-
+            <tbody id="datas"></tbody>
         </table>
     </div>
 
 </div>
-<script>
-    function Query() {
 
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Order/DropListLogistics",
+            dataType: "json",
+            type: "POST",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<option value=" + this.LogisticsId + ">" + this.LogisticsName + "</option>";
+                })
+                $("#LogisticsName").append(select);
+            }
+        })
+        $.ajax({
+            url: "/Order/GetOrder",
+            dataType: "json",
+            type: "POST",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<tr>" +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家选择发货方式:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        "<td>" + this.CommodityCount + "</td>" +
+                        "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                        "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                        "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#datas").html(select);
+            }
+
+        })
+    })
+
+
+
+    function Query(type) {
+        var ass = 0;
+        if ($("#OrderformId").val() == "") {
+            var ass = 0;
+        }
+        else {
+            ass = $("#OrderformId").val();
+        }
         var datass = {
-            OrderformId: $("#OrderformId").val(),
+            OrderState: type,
+            OrderformId: ass,
             UserName: $("#UserName").val(),
             UserNumder: $("#UserNumder").val(),
             CommodityName: $("#CommodityName").val(),
-            LogisticsName: $("#LogisticsName").val()
+            LogisticsId: $("#LogisticsName").val()
         };
         $.ajax({
-            url: "/Order/Order",
+            url: "/Order/GetOrder",
+            type: "POST",
             data: { data: JSON.stringify(datass) },
-            dataType: "json"
+            dataType: "json",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<tr>" +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家选择发货方式:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        "<td>" + this.CommodityCount + "</td>" +
+                        "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                        "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                        "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#datas").html(select);
+            }
         })
+    }
+    function Update(Id) {
+        $.ajax({
+            url: "/Order/GetState",
+            dataType: "json",
+            type: "POST",
+            data: {
+                data: Id
+            },
+            success: function (res) {
+                $(res).each(function () {
+                    var state = this.OrderState;//如果状态为2 则为待发货 可以进行发货 否则为查看订单详情
+                    if (state != 2) {
+                        //查看详情
+                        location.href = '/Order/GetOrderDetail/' + 'OsPAda1klw764335ppqeHKAPwq342terwGTEqs' + Id;
+                    }
+                    else {
+                        //修改订单状态
+                        $.ajax({
+                            url: "/Order/UpdateOrderState",
+                            type: "POST",
+                            data: { data: JSON.stringify(Id) },
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.res > 0) {
+                                    alert(res.msg);
+                                    location.reload();
+                                }
+                                else {
+                                    alert(res.msg);
+                                }
+                            }
+                        })
+                    }
+                })
+
+            }
+        })
+
     }
 </script>

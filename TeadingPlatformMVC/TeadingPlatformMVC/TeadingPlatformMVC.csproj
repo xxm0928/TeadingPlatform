@@ -705,6 +705,7 @@
     <Content Include="Scripts\layui\My97DatePicker\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="Scripts\lay\dest\layui.all.js" />
     <Content Include="Scripts\lay\modules\code.js" />
+    <Content Include="Scripts\lay\modules\dialog.js" />
     <Content Include="Scripts\lay\modules\element.js" />
     <Content Include="Scripts\lay\modules\flow.js" />
     <Content Include="Scripts\lay\modules\form.js" />
@@ -714,6 +715,7 @@
     <Content Include="Scripts\lay\modules\layer.js" />
     <Content Include="Scripts\lay\modules\laypage.js" />
     <Content Include="Scripts\lay\modules\laytpl.js" />
+    <Content Include="Scripts\lay\modules\layui.js" />
     <Content Include="Scripts\lay\modules\mobile.js" />
     <Content Include="Scripts\lay\modules\tree.js" />
     <Content Include="Scripts\lay\modules\upload.js" />
@@ -737,6 +739,7 @@
     <Content Include="Views\UserZ\Login.cshtml" />
     <Content Include="Views\YcxCode\UserSelect.cshtml" />
     <Content Include="Views\Order\Order.cshtml" />
+    <Content Include="Views\Order\GetOrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

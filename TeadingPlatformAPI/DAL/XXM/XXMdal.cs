@@ -25,7 +25,11 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                CommodityInfo commodity = new CommodityInfo();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                }
                 var sql = String.Format($"insert into CommodityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}','{commodity.CommodityState}','{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}','{commodity.PutawayTime}','{commodity.OutTime}')");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
@@ -51,7 +55,7 @@ namespace DAL
                 //3错误信息
                 //4请求时间
 
-                return new UnitedReturn() { data = ex.InnerException.Message,res=-1,msg=ex.Message };
+                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
             }
         }
 
@@ -64,7 +68,11 @@ namespace DAL
         {
             try
             {
-                TypeInfo info = JsonConvert.DeserializeObject<TypeInfo>(data.ToString());
+                TypeInfo info = new TypeInfo();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    info = JsonConvert.DeserializeObject<TypeInfo>(data.ToString());
+                }
                 var sql = String.Format($"select * from TyoeInfo");
                 var res = DBHelper.GetToList<TypeInfo>(sql);
                 UnitedReturn united = new UnitedReturn();
@@ -102,11 +110,15 @@ namespace DAL
         /// <param name="name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public UnitedReturn SelCommodity(object data,string name,int id)
+        public UnitedReturn SelCommodity(object data, string name, int id)
         {
             try
             {
-                CommodityPaging info = JsonConvert.DeserializeObject<CommodityPaging>(data.ToString());
+                CommodityPaging info = new CommodityPaging();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    info = JsonConvert.DeserializeObject<CommodityPaging>(data.ToString());
+                }
                 var sql = String.Format($"exec ShowCommdity @id,@username,@pageindex,@pagesize,@totalcount out");
 
                 SqlParameter[] sqls = new SqlParameter[]
@@ -158,7 +170,11 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                CommodityInfo commodity = new CommodityInfo();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                }
                 var sql = String.Format($"Update CommodityInfo set CommodityState=-1 where CommodityName='{commodity.CommodityName}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
@@ -197,7 +213,11 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                CommodityInfo commodity = new CommodityInfo();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                }
                 var sql = String.Format($"Update CommodityInfo set CommodityState=1 where CommodityName='{commodity.CommodityName}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
