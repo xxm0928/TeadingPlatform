@@ -121,10 +121,10 @@ namespace TeadingPlatformAPI.Controllers
             using (SqlConnection conn = new SqlConnection(strconn))
             {
                 conn.Open();
-                SqlCommand com = conn.CreateCommand();
+                SqlCommand com = new SqlCommand();
                 com.Connection = conn;
                 com.CommandText = sql;
-                com.CommandType = CommandType.StoredProcedure;
+               
 
                 int result = com.ExecuteNonQuery();
                 conn.Close();
