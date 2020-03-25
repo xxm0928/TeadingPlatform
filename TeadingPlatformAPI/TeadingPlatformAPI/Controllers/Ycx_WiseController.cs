@@ -32,7 +32,7 @@ namespace TeadingPlatformAPI.Controllers
         /// 添加用户信息
         /// </summary>
         /// <returns></returns>
-        [Route("AddPersonalInformation"), HttpPost]
+        [Route("add"), HttpPost]
         public IHttpActionResult AddPersonalInformation(UserInfo model)
         {
 

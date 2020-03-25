@@ -25,7 +25,7 @@ namespace TeadingPlatformMVC.Controllers
         [HttpPost]
         public void UserSelect(Ycx_User model)
         {
-            string url = "http://localhost:55041/ycx/AddPersonalInformation";  //api链接
+            string url = "http://localhost:8044/ycx/AddPersonalInformation";  //api链接
             HttpClient client = new HttpClient();  //
             string str = JsonConvert.SerializeObject(model);
             HttpContent content = new StringContent(str);
