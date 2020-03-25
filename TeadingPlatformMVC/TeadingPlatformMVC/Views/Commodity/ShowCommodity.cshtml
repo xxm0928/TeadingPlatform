@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "ShowCommodity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Scripts/layui/layui.css" rel="stylesheet" />
+<link href="~/Scripts/layui/admin.css" rel="stylesheet" />
+<div class="wrap-container clearfix">
+    <div class="column-content-detail">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline tool-btn">
+                    <button class="layui-btn layui-btn-small layui-btn-normal addBtn" data-url="article-add.html"><i class="layui-icon">&#xe654;</i></button>
+                    <button class="layui-btn layui-btn-small layui-btn-danger delBtn" data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
+                    <button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+                    <select id="category">
+                        <option value="0">---请选择商品分类---</option>
+                    </select>
+                </div>
+                <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+            </div>
+        </form>
+        <div class="layui-form" id="table-list">
+            <table class="layui-table" lay-even lay-skin="nob">
+                <colgroup>
+                    <col width="50">
+                    <col class="hidden-xs" width="50">
+                    <col class="hidden-xs" width="100">
+                    <col>
+                    <col class="hidden-xs" width="150">
+                    <col class="hidden-xs" width="150">
+                    <col width="80">
+                    <col width="150">
+                </colgroup>
+                <thead class="layui-tab-item layui-show">
+                    <tr>
+                        <th>图片</th>
+                        <th>名称</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="rb"></tbody>
+            </table>
+            <div class="page-wrap">
+                <ul class="pagination">
+                    <li class="disabled"><span>«</span></li>
+                    <li class="active"><span>1</span></li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">»</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/lay/modules/layui.js"></script>
+<script src="~/Scripts/js/common.js"></script>
+
