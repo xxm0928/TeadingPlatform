@@ -26,13 +26,13 @@ namespace DAL
             //sql语句
             var sql = string.Format($"select u.UserName from UserInfo u where u.UserNumder='{userInfo.UserNumder}' and u.UserPass='{userInfo.UserPass}'");
             //返回值
-            var res = Convert.ToInt32(dBHelper.ExecuteScalar(sql));
+            var res = dBHelper.ExecuteScalar(sql);
             UnitedReturn united = new UnitedReturn();
             //如果登陆成功 给统一返回类型的model赋值
-            if (res > 0)
+            if (res !=null)
             {
                 //给统一返回类型的model赋值
-                united.data = null;//返回的数据
+                united.data = res;//返回的数据
                 united.msg = "登陆成功";//返回的字符串
                 united.res = 1;//返回的int值
             }

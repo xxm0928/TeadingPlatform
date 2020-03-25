@@ -743,6 +743,7 @@
     <Content Include="Views\Order\GetOrderDetailView.cshtml" />
     <Content Include="Views\Commodity\AddCommodity.cshtml" />
     <Content Include="Views\Commodity\ShowCommodity.cshtml" />
+    <Content Include="Views\UserZ\Mainpage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
