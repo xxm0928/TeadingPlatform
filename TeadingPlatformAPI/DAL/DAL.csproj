@@ -51,8 +51,8 @@
     <Compile Include="XXM\XXMdal.cs" />
     <Compile Include="YxDal\YxDBHelper .cs" />
     <Compile Include="YxDal\YxDal.cs" />
-    <Compile Include="YcxDal.cs" />
-    <Compile Include="Ycx_Helper.cs" />
+    <Compile Include="YcxDal\YcxDal.cs" />
+    <Compile Include="YcxDal\Ycx_Helper.cs" />
     <Compile Include="Zhdal\OrmDbHelper.cs" />
   </ItemGroup>
   <ItemGroup>
