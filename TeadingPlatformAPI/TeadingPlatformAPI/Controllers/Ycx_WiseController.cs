@@ -40,6 +40,20 @@ namespace TeadingPlatformAPI.Controllers
             return Json(result);
 
         }
+
+        /// <summary>
+        /// 编辑个人信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("exit"),HttpPost]
+        public IHttpActionResult ExitPersonalInformation(UserInfo model, int id)
+        {
+            int result = b.ExitPersonalInformation(model, id);
+            return Json(result);
+        }
+
     }
     /// <summary>
     /// ycx 临时model
@@ -131,6 +145,8 @@ namespace TeadingPlatformAPI.Controllers
                 return result;
             }
         }
+       
+
     }
 
 

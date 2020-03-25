@@ -34,6 +34,21 @@ namespace DAL
             return result;
         }
         #endregion
+        /// <summary>
+        /// 编辑个人信息 ycx
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int ExitPersonalInformation(UserInfo model,int id)
+        {
+            string sql = $"exec UserInfo_proc_Exit {id},'{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
+            Ycx_Helper help = new Ycx_Helper();
+            int result =help.GetLine(sql);
+            return result;
+
+
+        }
     }
 
 
