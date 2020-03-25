@@ -728,7 +728,7 @@
     <Content Include="Views\UserZ\Login.cshtml" />
     <Content Include="Views\YcxCode\UserSelect.cshtml" />
     <Content Include="Views\Order\Order.cshtml" />
-    <Content Include="Views\Order\GetOrderDetail.cshtml" />
+    <Content Include="Views\Order\GetOrderDetailView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

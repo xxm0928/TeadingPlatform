@@ -18,6 +18,9 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public ActionResult Order()
         {
+            HttpCookie cookie = new HttpCookie("NamePass");
+            cookie.Value = "张三";
+            Response.Cookies.Add(cookie);
             return View();
         }
         /// <summary>
@@ -28,7 +31,7 @@ namespace TeadingPlatformMVC.Controllers
         {
             var request = Request["data"];
             var res = clientHelper.Post("api/YxApi/OrderShow", 1);
-            var data = new List<Orderform>();
+            List<Orderform> data = new List<Orderform>();
             if (res != null)
             {
                 var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
@@ -63,6 +66,12 @@ namespace TeadingPlatformMVC.Controllers
                 }
             }
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public string GetCookie()
+        {
+            HttpCookie cookies = System.Web.HttpContext.Current.Request.Cookies["NamePass"];
+            string Name = cookies.Value;
+            return Name;
         }
         /// <summary>
         /// 快递类型下拉列表
@@ -112,15 +121,25 @@ namespace TeadingPlatformMVC.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// 获取订单详情
+        /// 获取订单详情的视图
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetOrderDetail()
+        public ActionResult GetOrderDetailView()
         {
             var strUrl = Request.Url.ToString();
             var splitArr = strUrl.Split('/');
             var splitId = (splitArr[splitArr.Length - 1]).Split('s');
             var Id = splitId[splitId.Length - 1];
+            ViewBag.Id = Id;
+            return View();
+        }
+        /// <summary>
+        /// 获取订单详情返回前台的数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetOrderDetail()
+        {
+            var request = Request["data"];
             var res = clientHelper.Post("api/YxApi/OrderShow", 1);
             var data = new List<Orderform>();
             if (res != null)
@@ -128,8 +147,9 @@ namespace TeadingPlatformMVC.Controllers
                 var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
                 data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
             }
-            data = data.Where(s => s.OrderformId == Convert.ToInt32(Id)).ToList();
-            return Json(data,JsonRequestBehavior.AllowGet);
+            data = data.Where(s => s.OrderformId == Convert.ToInt32(request)).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

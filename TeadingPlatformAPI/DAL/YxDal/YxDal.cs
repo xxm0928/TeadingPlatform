@@ -11,7 +11,7 @@ namespace DAL
     {
         YxDBHelper YxDBHelper = new YxDBHelper();
         /// <summary>
-        /// 订单显示
+        /// 订单显示 。。。
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
