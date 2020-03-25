@@ -26,7 +26,7 @@ namespace DAL
             try
             {
                 CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
-                var sql = String.Format($"insert into CommodityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}','{commodity.CommodityState}','{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}','{commodity.PutawayTime}','{commodity.OutTime}')");
+                var sql = String.Format($"insert into CommodityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}','{commodity.CommodityState}','{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}',GETDATE())");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -199,7 +199,7 @@ namespace DAL
         {
             try
             {
-                var sql = String.Format($"Update CommodityInfo set CommodityState=1 where CommodityName='{data.ToString()}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=1,PutawayTime=GETDATE() where CommodityName='{data.ToString()}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -237,7 +237,7 @@ namespace DAL
         {
             try
             {
-                var sql = String.Format($"Update CommodityInfo set CommodityState=0 where CommodityName='{data.ToString()}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=0,OutTime=GETDATE() where CommodityName='{data.ToString()}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
