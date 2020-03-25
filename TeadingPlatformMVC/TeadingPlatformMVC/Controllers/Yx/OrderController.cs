@@ -19,7 +19,7 @@ namespace TeadingPlatformMVC.Controllers
         public ActionResult Order()
         {
             HttpCookie cookie = new HttpCookie("NamePass");
-            cookie.Value = "张三";
+            cookie.Value = HttpUtility.UrlEncode("张三");
             Response.Cookies.Add(cookie);
             return View();
         }
@@ -67,11 +67,19 @@ namespace TeadingPlatformMVC.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public string GetCookie()
+        /// <summary>
+        /// 获取cookie
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetCookie()
         {
             HttpCookie cookies = System.Web.HttpContext.Current.Request.Cookies["NamePass"];
-            string Name = cookies.Value;
-            return Name;
+            string Name = HttpUtility.UrlDecode(cookies.Value);
+            GetName getName = new GetName()
+            {
+                Name = Name
+            };
+            return Json(getName, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// 快递类型下拉列表

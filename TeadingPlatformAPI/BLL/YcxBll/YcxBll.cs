@@ -35,5 +35,11 @@ namespace BLL
             return result;
         }
 
+        public int ExitPersonalInformation(UserInfo model, int id)
+        {
+            int result = d.ExitPersonalInformation(model, id);
+            return result;
+        }
+
     }
 }

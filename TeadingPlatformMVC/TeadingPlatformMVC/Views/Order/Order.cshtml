@@ -8,27 +8,26 @@
     <link href="~/Scripts/layui/admin.css" rel="stylesheet" />*@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<div style="margin-top:10px;margin-left:10px">
-    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(5)">已关闭</a>
+<div style="margin-top:10px;margin-left:10px;width:300px;border-color:aqua;">
+    <a  onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(5)">已关闭</a>
 </div>
 
-<div class="wrap-container">
+<div class="wrap-container" style="padding-top:20px">
     <div style="margin-top:20px">
         <span style="margin-left:10px;margin-top:10px">
             订单编号:<input id="OrderformId" type="text" placeholder="输入订单编号" />
             用户名:<input id="UserName" type="text" placeholder="输入姓名" />
             手机号:<input id="UserNumder" type="text" placeholder="输入手机号" />
-            <input id="Text1" type="text" value="@ViewBag.Name" />
+            <input id="Text1" type="hidden" value="@ViewBag.Name" />
         </span>
         <br />
         <br />
-        <span style="margin-left:10px;margin-top:10px">
+        <span style="margin-left:10px;margin-top:20px">
             商品名称:<input id="CommodityName" type="text" placeholder="输入商品名称" />
             发货公司:
             <select name="category" id="LogisticsName" lay-verify="required"><option value="0">请选择</option></select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:70px" value="搜索" lay-submit lay-filter="formDemo">查询</button>
-
         </span>
     </div>
     <div class="layui-form" id="category-table-list">
@@ -42,6 +41,7 @@
                 <td>实收款</td>
                 <td>状态</td>
                 <td>操作</td>
+                <td>订单修改</td>
             </tr>
             <tbody id="datas"></tbody>
         </table>
@@ -51,7 +51,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         $.ajax({
             url: "/Order/DropListLogistics",
             dataType: "json",
@@ -80,24 +80,25 @@
                         "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
                         "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
                         '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
                         "</tr>";
                 })
                 $("#datas").html(select);
             }
         })
+        ///cookie
         $.ajax({
             url: "/Order/GetCookie",
             dataType: "json",
             type: "POST",
-            success: function (res)
-            {
+            success: function (res) {
                 $(res).each(function () {
-                    alert(res);
-                })  
+                    $("#Text1").val(this.Name);
+                })
             }
         })
-    })
 
+    })
 
 
     function Query(type) {
@@ -133,6 +134,7 @@
                         "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
                         "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
                         '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
                         "</tr>";
                 })
                 $("#datas").html(select);
@@ -177,6 +179,6 @@
             }
         })
 
-        }
-    
+    }
+
 </script>
