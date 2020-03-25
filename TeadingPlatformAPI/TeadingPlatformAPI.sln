@@ -14,6 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Model", "1.Model", "{68149C94-3CDF-470C-9764-C7F64B200DDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.DAL", "2.DAL", "{8951C697-786C-44AE-9688-A0802E461782}"
+	ProjectSection(SolutionItems) = preProject
+		Model\UserInfo.cs = Model\UserInfo.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.BLL", "3.BLL", "{E48A7CF5-2F13-403F-84F1-F2B9E7495A29}"
 EndProject

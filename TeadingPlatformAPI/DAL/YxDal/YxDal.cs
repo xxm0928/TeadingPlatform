@@ -11,7 +11,7 @@ namespace DAL
     {
         YxDBHelper YxDBHelper = new YxDBHelper();
         /// <summary>
-        /// 订单显示
+        /// 订单显示 。。。
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -100,6 +100,33 @@ namespace DAL
                 unitedReturn.data = null;
                 unitedReturn.res = 0;
                 unitedReturn.msg = "获取信息失败";
+            }
+            return unitedReturn;
+        }
+        /// <summary>
+        /// 修改订单状态 发货 State=1 待付款  2 待发货 3 已发货 4 已签收 5 已完成
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UpdateOrderState(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            if (Convert.ToInt32(data) > 0)
+            {
+                string sql = string.Format($"Update Orderform set OrderState=3 where OrderformId='{Convert.ToInt32(data)}'");
+                var res = YxDBHelper.ExecuteNonQuery(sql);
+                if (res > 0)
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 1;
+                    unitedReturn.msg = "发货成功";
+                }
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.res = 0;
+                unitedReturn.msg = "请选择要发货的订单";
             }
             return unitedReturn;
         }

@@ -17,9 +17,15 @@
                 <span>密码</span>
                 <input type="password" id="pwd" />
             </label>
+            <label>
+                <span>验证码</span>
+                <input type="text" id="yzm" />
+            </label>
+            <label>
+                <img class="verifyImg" src="/Content/验证码/ValidateCode.ashx" onclick="this.src='/Content/验证码/ValidateCode.ashx?d'+new Date()" style="margin-top:10px;margin-left:-10px" />
+            </label>
             <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
             <button type="button" class="submit" onclick="login()">登 录</button>
-            <button type="button" class="fb-btn">使用 <span>QQ</span> 帐号登录</button>
         </div>
         <div class="sub-cont">
             <div class="img">
@@ -44,15 +50,15 @@
                 </label>
                 <label>
                     <span>密码</span>
-                    <input type="password" id="pwd" />
+                    <input type="password" id="Rpwd" />
                 </label>
                 <label>
                     <span>确认密码</span>
-                    <input type="password" id="pwdtwo" />
+                    <input type="password" id="Rpwdtwo"/>
                 </label>
                 <label>
                     <span>手机号</span>
-                    <input type="text" id="phone" />
+                    <input type="text" id="Rphone" />
                 </label>
                 <button type="button" class="submit" onclick="regist()">注 册</button>
             </div>

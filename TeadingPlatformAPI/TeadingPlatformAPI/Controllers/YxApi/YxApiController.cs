@@ -31,5 +31,15 @@ namespace TeadingPlatformAPI.Controllers
         {
             return YxBll.LogisticsShow(data);
         }
+        /// <summary>
+        /// 修改订单状态 发货 State=1 待付款  2 待发货 3 已发货 4 已签收 5 已完成
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn UpdateOrderState(object data)
+        {
+            return YxBll.UpdateOrderState(data);
+        }
     }
 }

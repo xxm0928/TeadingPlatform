@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "GetOrderDetailView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<input id="Text1" type="text" value="@ViewBag.Id" />
+<div class="wrap-container">
+    <div class="layui-form" id="category-table-list">
+        <table class="layui-table" lay-even lay-skin="nob">
+            <tr>
+                <td>订单编号</td>
+                <td>订单状态</td>
+                <td>数量</td>
+                <td>商品名称</td>
+                <td>物流名称</td>
+                <td>单价</td>
+                <td>总价格</td>
+                <td>购买人</td>
+            </tr>
+            <tbody id="datas"></tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var id = $("#Text1").val();
+        if (id == "GetOrderDetailView" || id <= 0) {
+            alert("请先选择要查看的商品");
+            location.href = '/Order/Order';
+        }
+        else {
+            $.ajax({
+                url: "/Order/GetOrderDetail",
+                data: {
+                    data: id
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var select = "";
+                    $(res).each(function () {
+                        select += "<tr>" +
+                            "<td>" + "3328992142" + this.OrderformId + "</td>" +
+                            "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                            "<td>" + this.CommodityCount + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.LogisticsName + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                            "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                            "</tr>";
+                    })
+                    $("#datas").html(select);
+                }
+            })
+        }
+
+    })
+</script>
+
+
+

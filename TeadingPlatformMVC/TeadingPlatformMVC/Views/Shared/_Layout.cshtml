@@ -43,7 +43,6 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="iconfont">&#xe608;</i>订单管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="article-list.html" data-id='3' data-text="审核订单列表" onclick="CheckOrder()"><span class="l-line"></span>审核订单列表</a></dd>
                         <dd><a href="/Order/Order" data-url="" data-id='9' data-text="查看订单列表" onclick="LookOrder()"><span class="l-line"></span>查看订单列表</a></dd>
                     </dl>
                 </li>
@@ -56,7 +55,7 @@
                 <ul class="layui-nav" lay-filter="rightNav">
                     <li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i class="iconfont">&#xe603;</i></a></li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">超级管理员</a>
+                        <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">@Session["name"]</a>
                     </li>
                     <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
                 </ul>

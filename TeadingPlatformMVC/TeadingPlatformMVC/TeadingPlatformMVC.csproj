@@ -125,6 +125,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="App_Start\RouteConfig3.cs" />
+    <Compile Include="Content\验证码\ValidateCode.ashx.cs">
+      <DependentUpon>ValidateCode.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserZController.cs" />
     <Compile Include="Controllers\YcxCodeController.cs" />
@@ -571,6 +574,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\layui.css" />
     <Content Include="Content\css\layui.mobile.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\modules\code.css" />
     <Content Include="Content\css\modules\laydate\icon.png" />
     <Content Include="Content\css\modules\laydate\laydate.css" />
@@ -582,6 +586,12 @@
     <Content Include="Content\css\modules\layer\default\loading-1.gif" />
     <Content Include="Content\css\modules\layer\default\loading-2.gif" />
     <Content Include="Content\css\modules\layer\default\loading-4.gif" />
+    <Content Include="Content\images\l-line-white.png" />
+    <Content Include="Content\images\l-line.png" />
+    <Content Include="Content\images\login\login_bg.png" />
+    <Content Include="Content\images\login\login_line.jpg" />
+    <Content Include="Content\images\login\yzm.jpg" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\demo.css" />
     <Content Include="fonts\demo.html" />
@@ -648,6 +658,7 @@
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.eot" />
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.woff" />
+    <Content Include="Content\验证码\ValidateCode.ashx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -728,6 +739,7 @@
     <Content Include="Views\UserZ\Login.cshtml" />
     <Content Include="Views\YcxCode\UserSelect.cshtml" />
     <Content Include="Views\Order\Order.cshtml" />
+    <Content Include="Views\Order\GetOrderDetailView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,8 +12,15 @@ namespace TeadingPlatformMVC.Controllers
     public class OrderController : Controller
     {
         HttpClientHelper clientHelper = new HttpClientHelper();
+        /// <summary>
+        /// 订单视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Order()
         {
+            HttpCookie cookie = new HttpCookie("NamePass");
+            cookie.Value = "张三";
+            Response.Cookies.Add(cookie);
             return View();
         }
         /// <summary>
@@ -24,7 +31,7 @@ namespace TeadingPlatformMVC.Controllers
         {
             var request = Request["data"];
             var res = clientHelper.Post("api/YxApi/OrderShow", 1);
-            var data = new List<Orderform>();
+            List<Orderform> data = new List<Orderform>();
             if (res != null)
             {
                 var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
@@ -33,7 +40,7 @@ namespace TeadingPlatformMVC.Controllers
             if (request != null)
             {
                 var orderforms = JsonConvert.DeserializeObject<Orderform>(request);
-                if (orderforms.OrderState >= 0)
+                if (orderforms.OrderState > 0)
                 {
                     data = data.Where(s => s.OrderState == orderforms.OrderState).ToList();
                 }
@@ -58,7 +65,13 @@ namespace TeadingPlatformMVC.Controllers
                     data = data.Where(s => s.LogisticsId == orderforms.LogisticsId).ToList();
                 }
             }
-            return Json(data);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public string GetCookie()
+        {
+            HttpCookie cookies = System.Web.HttpContext.Current.Request.Cookies["NamePass"];
+            string Name = cookies.Value;
+            return Name;
         }
         /// <summary>
         /// 快递类型下拉列表
@@ -75,5 +88,68 @@ namespace TeadingPlatformMVC.Controllers
 
             return Json(ress, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// 修改订单状态
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult UpdateOrderState()
+        {
+            var data = Request["data"];
+            var UpdateOrderState = clientHelper.Post("api/YxApi/UpdateOrderState", data);
+            var list = new UnitedReturn();
+            if (UpdateOrderState != null)
+            {
+                list = JsonConvert.DeserializeObject<UnitedReturn>(UpdateOrderState.ToString());
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 通过订单编号来获取订单状态 进行不同的操作 查看详情 或者 订单发货
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetState()
+        {
+            var request = Request["data"];
+            var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+            var data = new List<Orderform>();
+            if (res != null)
+            {
+                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+            }
+            data = data.Where(s => s.OrderformId == Convert.ToInt32(request)).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 获取订单详情的视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetOrderDetailView()
+        {
+            var strUrl = Request.Url.ToString();
+            var splitArr = strUrl.Split('/');
+            var splitId = (splitArr[splitArr.Length - 1]).Split('s');
+            var Id = splitId[splitId.Length - 1];
+            ViewBag.Id = Id;
+            return View();
+        }
+        /// <summary>
+        /// 获取订单详情返回前台的数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetOrderDetail()
+        {
+            var request = Request["data"];
+            var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+            var data = new List<Orderform>();
+            if (res != null)
+            {
+                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+            }
+            data = data.Where(s => s.OrderformId == Convert.ToInt32(request)).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
