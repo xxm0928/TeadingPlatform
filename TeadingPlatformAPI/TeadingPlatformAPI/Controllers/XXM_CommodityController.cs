@@ -20,20 +20,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <returns></returns>
         public UnitedReturn Commodity(object data)
         {
-            try
-            {
-                return xxmbll.Commodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return xxmbll.Commodity(data);
         }
 
         /// <summary>
@@ -43,20 +30,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <returns></returns>
         public UnitedReturn SelCommodityType(object data)
         {
-            try
-            {
-                return xxmbll.SelCommodityType(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return xxmbll.SelCommodityType(data);
         }
 
         /// <summary>
@@ -69,20 +43,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <returns></returns>
         public UnitedReturn SelCommodity(object data, string name, int id)
         {
-            try
-            {
-                return xxmbll.SelCommodity(data, name, id);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return xxmbll.SelCommodity(data, name, id);
         }
 
         /// <summary>
@@ -92,20 +53,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <returns></returns>
         public UnitedReturn DelCommodity(object data)
         {
-            try
-            {
-                return xxmbll.DelCommodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return xxmbll.DelCommodity(data);
         }
 
         /// <summary>
@@ -115,20 +63,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <returns></returns>
         public UnitedReturn PutawayCommodity(object data)
         {
-            try
-            {
-                return xxmbll.PutawayCommodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return xxmbll.PutawayCommodity(data);
         }
 
         /// <summary>
@@ -138,20 +73,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <returns></returns>
         public UnitedReturn OutCommodity(object data)
         {
-            try
-            {
-                return xxmbll.OutCommodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return xxmbll.OutCommodity(data);
         }
     }
 }

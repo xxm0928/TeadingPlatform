@@ -68,15 +68,10 @@ namespace DAL
         {
             try
             {
-                TypeInfo info = new TypeInfo();
-                if (data.ToString() != "System.object" && data.ToString() != "1")
-                {
-                    info = JsonConvert.DeserializeObject<TypeInfo>(data.ToString());
-                }
                 var sql = String.Format($"select * from TyoeInfo");
                 var res = DBHelper.GetToList<TypeInfo>(sql);
                 UnitedReturn united = new UnitedReturn();
-                if (res != null)
+                if (res != null&& res.Count>0)
                 {
                     united.data = res;
                     united.msg = "成功!";
@@ -170,12 +165,7 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = new CommodityInfo();
-                if (data.ToString() != "System.object" && data.ToString() != "1")
-                {
-                    commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
-                }
-                var sql = String.Format($"Update CommodityInfo set CommodityState=-1 where CommodityName='{commodity.CommodityName}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=-1 where CommodityName='{data.ToString()}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -213,12 +203,7 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = new CommodityInfo();
-                if (data.ToString() != "System.object" && data.ToString() != "1")
-                {
-                    commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
-                }
-                var sql = String.Format($"Update CommodityInfo set CommodityState=1 where CommodityName='{commodity.CommodityName}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=1 where CommodityName='{data.ToString()}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -256,8 +241,7 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
-                var sql = String.Format($"Update CommodityInfo set CommodityState=0 where CommodityName='{commodity.CommodityName}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=0 where CommodityName='{data.ToString()}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
