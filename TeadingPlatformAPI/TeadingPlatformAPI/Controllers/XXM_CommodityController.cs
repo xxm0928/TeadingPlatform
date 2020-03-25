@@ -18,6 +18,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn Commodity(object data)
         {
             return xxmbll.Commodity(data);
@@ -28,6 +29,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn SelCommodityType(object data)
         {
             return xxmbll.SelCommodityType(data);
@@ -41,6 +43,7 @@ namespace TeadingPlatformAPI.Controllers
         /// <param name="name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn SelCommodity(object data, string name, int id)
         {
             return xxmbll.SelCommodity(data, name, id);
@@ -51,6 +54,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn DelCommodity(object data)
         {
             return xxmbll.DelCommodity(data);
@@ -61,6 +65,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn PutawayCommodity(object data)
         {
             return xxmbll.PutawayCommodity(data);
@@ -71,6 +76,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn OutCommodity(object data)
         {
             return xxmbll.OutCommodity(data);
