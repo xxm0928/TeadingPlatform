@@ -18,20 +18,7 @@ namespace BLL.XXMbll
         /// <returns></returns>
         public UnitedReturn Commodity(object data)
         {
-            try
-            {
-                return XXMdal.Commodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return XXMdal.Commodity(data);
         }
 
         /// <summary>
@@ -41,20 +28,7 @@ namespace BLL.XXMbll
         /// <returns></returns>
         public UnitedReturn SelCommodityType(object data)
         {
-            try
-            {
-                return XXMdal.SelCommodityType(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return XXMdal.SelCommodityType(data);
         }
 
         /// <summary>
@@ -67,20 +41,7 @@ namespace BLL.XXMbll
         /// <returns></returns>
         public UnitedReturn SelCommodity(object data, string name, int id)
         {
-            try
-            {
-                return XXMdal.SelCommodity(data,name,id);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return XXMdal.SelCommodity(data, name, id);
         }
 
         /// <summary>
@@ -90,20 +51,7 @@ namespace BLL.XXMbll
         /// <returns></returns>
         public UnitedReturn DelCommodity(object data)
         {
-            try
-            {
-                return XXMdal.DelCommodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return XXMdal.DelCommodity(data);
         }
 
         /// <summary>
@@ -113,20 +61,7 @@ namespace BLL.XXMbll
         /// <returns></returns>
         public UnitedReturn PutawayCommodity(object data)
         {
-            try
-            {
-                return XXMdal.PutawayCommodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return XXMdal.PutawayCommodity(data);
         }
 
         /// <summary>
@@ -136,20 +71,7 @@ namespace BLL.XXMbll
         /// <returns></returns>
         public UnitedReturn OutCommodity(object data)
         {
-            try
-            {
-                return XXMdal.OutCommodity(data);
-            }
-            catch (Exception ex)
-            {
-                //错误日志 log4net
-                //1请求接口
-                //2请求参数
-                //3错误信息
-                //4请求时间
-
-                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
-            }
+            return XXMdal.OutCommodity(data);
         }
     }
 }
