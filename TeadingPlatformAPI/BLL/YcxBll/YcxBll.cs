@@ -34,7 +34,12 @@ namespace BLL
             int result = d.addpersonalinformation(model);
             return result;
         }
-
+        /// <summary>
+        /// 编辑个人信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public int ExitPersonalInformation(UserInfo model, int id)
         {
             int result = d.ExitPersonalInformation(model, id);
