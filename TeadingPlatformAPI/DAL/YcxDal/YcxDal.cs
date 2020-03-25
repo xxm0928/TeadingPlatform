@@ -44,6 +44,7 @@ namespace DAL
         {
             string sql = $"exec UserInfo_proc_Exit {id},'{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
             Ycx_Helper help = new Ycx_Helper();
+            
             int result =help.GetLine(sql);
             return result;
 
