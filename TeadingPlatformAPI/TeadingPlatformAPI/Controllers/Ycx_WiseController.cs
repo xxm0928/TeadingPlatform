@@ -42,7 +42,7 @@ namespace TeadingPlatformAPI.Controllers
         }
 
         /// <summary>
-        /// 编辑个人信息
+        /// 编辑个人信息 api方法接口名称exit
         /// </summary>
         /// <param name="model"></param>
         /// <param name="id"></param>
