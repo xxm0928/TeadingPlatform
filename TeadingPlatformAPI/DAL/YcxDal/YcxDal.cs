@@ -28,6 +28,7 @@ namespace DAL
         /// <returns></returns>
         public int addpersonalinformation(UserInfo model)
         {
+            
             Ycx_Helper help = new Ycx_Helper();
             string textsql = $"exec userinfo_proc_add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
             int result = help.GetLine(textsql);
