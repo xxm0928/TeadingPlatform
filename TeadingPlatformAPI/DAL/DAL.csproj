@@ -55,7 +55,6 @@
     <Compile Include="Ycx_Helper.cs" />
     <Compile Include="YcxDal\YcxDal.cs" />
     <Compile Include="YcxDal\Ycx_Helper.cs" />
-    <Compile Include="Zhdal\OrmDbHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
