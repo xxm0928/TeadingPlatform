@@ -9,7 +9,7 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <div style="margin-top:10px;margin-left:10px">
-    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(0)">已关闭</a>
+    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(5)">已关闭</a>
 </div>
 
 <div class="wrap-container">
@@ -18,6 +18,7 @@
             订单编号:<input id="OrderformId" type="text" placeholder="输入订单编号" />
             用户名:<input id="UserName" type="text" placeholder="输入姓名" />
             手机号:<input id="UserNumder" type="text" placeholder="输入手机号" />
+            <input id="Text1" type="text" value="@ViewBag.Name" />
         </span>
         <br />
         <br />
@@ -50,6 +51,7 @@
 
 <script>
     $(document).ready(function () {
+        
         $.ajax({
             url: "/Order/DropListLogistics",
             dataType: "json",
@@ -70,7 +72,7 @@
                 var select = "";
                 $(res).each(function () {
                     select += "<tr>" +
-                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家选择发货方式:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家常用快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
                         "<td>" + this.CommodityName + "</td>" +
                         "<td>" + this.Price + "</td>" +
                         "<td>" + this.CommodityCount + "</td>" +
@@ -82,7 +84,17 @@
                 })
                 $("#datas").html(select);
             }
-
+        })
+        $.ajax({
+            url: "/Order/GetCookie",
+            dataType: "json",
+            type: "POST",
+            success: function (res)
+            {
+                $(res).each(function () {
+                    alert(res);
+                })  
+            }
         })
     })
 
@@ -140,7 +152,7 @@
                     var state = this.OrderState;//如果状态为2 则为待发货 可以进行发货 否则为查看订单详情
                     if (state != 2) {
                         //查看详情
-                        location.href = '/Order/GetOrderDetail/' + 'OsPAda1klw764335ppqeHKAPwq342terwGTEqs' + Id;
+                        location.href = '/Order/GetOrderDetailView/' + 'OsPAda1klw764335ppqeHKAPwq342terwGTEqs' + Id;
                     }
                     else {
                         //修改订单状态
@@ -165,5 +177,6 @@
             }
         })
 
-    }
+        }
+    
 </script>
