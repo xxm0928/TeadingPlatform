@@ -105,7 +105,7 @@ namespace DAL
         }
         /// <summary>
         /// 修改订单状态 发货 State=1 待付款  2 待发货 3 已发货 4 已签收 5 已完成
-        /// </summary>
+        /// </summary>11
         /// <param name="data"></param>
         /// <returns></returns>
         public UnitedReturn UpdateOrderState(object data)
@@ -127,6 +127,87 @@ namespace DAL
                 unitedReturn.data = null;
                 unitedReturn.res = 0;
                 unitedReturn.msg = "请选择要发货的订单";
+            }
+            return unitedReturn;
+        }
+        /// <summary>
+        /// 店铺下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn DropListShop(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            string sql = string.Format("select * from ShopInfo");
+            var res = YxDBHelper.GetToList<ShopInfo>(sql);
+            if (res != null)
+            {
+                unitedReturn.data = res;
+                unitedReturn.res = 1;
+                unitedReturn.msg = "查询成功";
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.res = 0;
+                unitedReturn.msg = "查询失败";
+            }
+            return unitedReturn;
+        }
+        /// <summary>
+        /// 快递下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn DropListLogistics(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            string sql = string.Format("select * from LogisticsInfo");
+            var res = YxDBHelper.GetToList<List<LogisticsInfo>>(sql);
+            if (res != null)
+            {
+                unitedReturn.data = res;
+                unitedReturn.res = 1;
+                unitedReturn.msg = "查询成功";
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.res = 0;
+                unitedReturn.msg = "查询失败";
+            }
+            return unitedReturn;
+        }
+        /// <summary>
+        /// 修改订单并接受返回数据
+        /// </summary>
+        /// <returns></returns>
+        public UnitedReturn UpdateOrderDataAndReturnData(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            if (data != null || data.ToString() != "System.object")
+            {
+                var info = JsonConvert.DeserializeObject<Orderform>(data.ToString());
+                string sql = string.Format($"update Orderform set CommodityCount={info.CommodityCount} where OrderformId={info.OrderformId}");
+                var res = YxDBHelper.ExecuteNonQuery(sql);
+                string sqls = string.Format($"update UserInfo set UserName='{info.UserName}', UserNumder='{info.UserNumder}' where UserId='{info.UserId}'");
+                var ress = YxDBHelper.ExecuteNonQuery(sqls);
+                if (res > 0 && ress > 0)
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 1;
+                    unitedReturn.msg = "修改成功";
+                }
+                else
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 0;
+                    unitedReturn.msg = "修改失败";
+                }
+            }
+            else
+            {
+                unitedReturn.res = 0;
             }
             return unitedReturn;
         }

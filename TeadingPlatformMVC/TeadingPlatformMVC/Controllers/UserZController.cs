@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -47,13 +48,52 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public int LoginUser(string name = "")
         {
-            if (name!=null)
+            if (name != null)
             {
                 Session["name"] = name;
                 return 1;
             }
             return 0;
         }
-
+        public ActionResult Mainpage()
+        {
+            return View();
+        }
+        public JsonResult AddCookie()
+        {
+            var lala = Request["data"];
+            HttpCookie cookie = new HttpCookie("Name");
+            cookie.Value = HttpUtility.UrlEncode(lala);
+            Response.Cookies.Add(cookie);
+            GetName getName = new GetName()
+            {
+                Name = lala
+            };
+            return Json(getName, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetCookie()
+        {
+            HttpCookie cookies = System.Web.HttpContext.Current.Request.Cookies["Name"];
+            string Name = HttpUtility.UrlEncode(cookies.Value);
+            GetName getName = new GetName()
+            {
+                Name = Name
+            };
+            return Json(getName, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Cookie()
+        {
+            var res = Request.Cookies["Name"];
+            GetName getName = new GetName();
+            if (res == null)
+            {
+                getName.Name = "";
+            }
+            else
+            {
+                getName.Name = HttpUtility.UrlDecode(res.Value);
+            }
+            return Json(getName,JsonRequestBehavior.AllowGet);
+        }
     }
 }
