@@ -42,5 +42,35 @@ namespace TeadingPlatformMVC.Controllers
                 Response.Write("<script>alert('添加失败');</script>");
             }
         }
+
+        public ActionResult SelectUser()
+        {
+            string url = "http://localhost:55041/ycx/";
+            HttpClient client = new HttpClient();
+            HttpResponseMessage message = client.GetAsync(url).Result;
+            string result = message.Content.ReadAsStringAsync().Result;
+            List<Ycx_User> list = JsonConvert.DeserializeObject<List<Ycx_User>>(result);
+            return View(list.ToList());
+        }
+
+        public ActionResult ExitUser(Ycx_User model,int id)
+        {
+            string url = "http://localhost:55041/ycx/";
+            HttpClient client = new HttpClient();
+            string str = JsonConvert.SerializeObject(model);
+            HttpContent content = new StringContent(str);
+            HttpResponseMessage message = client.PostAsync(url, content).Result;
+            string result = message.Content.ReadAsStringAsync().Result;
+            int key = Convert.ToInt32(result);
+            if (key>0)
+            {
+                Response.Write("<script>alert('添加成功');</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('添加失败')</script>");
+            }
+
+        }
     }
 }
