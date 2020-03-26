@@ -18,9 +18,9 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public ActionResult Order()
         {
-            HttpCookie cookie = new HttpCookie("NamePass");
-            cookie.Value = HttpUtility.UrlEncode("张三");
-            Response.Cookies.Add(cookie);
+            //HttpCookie cookie = new HttpCookie("NamePass");
+            //cookie.Value = HttpUtility.UrlEncode("张三");
+            //Response.Cookies.Add(cookie);
             return View();
         }
         /// <summary>
@@ -93,7 +93,6 @@ namespace TeadingPlatformMVC.Controllers
             {
                 ress = JsonConvert.DeserializeObject<List<Orderform>>((JsonConvert.DeserializeObject<UnitedReturn>(LogisticsList.ToString())).data.ToString());
             }
-
             return Json(ress, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -158,6 +157,113 @@ namespace TeadingPlatformMVC.Controllers
             data = data.Where(s => s.OrderformId == Convert.ToInt32(request)).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
+        /// <summary>
+        /// 判断cookie是否通过登录来保存
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Cookie()
+        {
+            var res = Request.Cookies["Name"];
+            GetName getName = new GetName();
+            if (res == null)
+            {
+                getName.Name = "";
+            }
+            else
+            {
+                getName.Name = HttpUtility.UrlDecode(res.Value);
+            }
+            return Json(getName, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 用cookie保存修改订单的id
+        /// </summary>
+        public void UpdateOrder()
+        {
+            HttpCookie cookie = new HttpCookie("UpdateOrderId");
+            var Id = Convert.ToString(Request["data"]);
+            cookie.Value = HttpUtility.UrlEncode(Id);
+            Response.Cookies.Add(cookie);
+        }
+        /// <summary>
+        /// 这是做修改的视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UpdateOrderView()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 反填用的视图
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult UpdateOrderData()
+        {
+            var Id = Request.Cookies["UpdateOrderId"];
+            var requsetId = 0;
+            if (Id == null)
+            {
+                requsetId = 0;
+            }
+            else
+            {
+                //解码后把id传到前台
+                requsetId = Convert.ToInt32(HttpUtility.UrlDecode(Id.Value));
+            }
+            var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+            List<Orderform> data = new List<Orderform>();
+            if (res != null)
+            {
+                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+            }
+            if (requsetId > 0)
+            {
+                data = data.Where(s => s.OrderformId == requsetId).ToList();
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 店铺的下拉列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult DropListShop()
+        {
+            var request = Request["data"];
+            var res = clientHelper.Post("api/YxApi/DropListShop", 1);
+            List<Orderform> data = new List<Orderform>();
+            if (res != null)
+            {
+                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 修改订单并接受返回数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult UpdateOrderDataAndReturnData()
+        {
+            var request = Request["data"];
+            GetName get = new GetName();
+            if (request != null)
+            {
+                var res = clientHelper.Post("api/YxApi/UpdateOrderDataAndReturnData", request);
+                var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                var Id = data.res;
+                if (Id > 0)
+                {
+                    get.Name = "修改成功";
+                }
+                else
+                {
+                    get.Name = "修改失败";
+                }
+            }
+            return Json(get, JsonRequestBehavior.AllowGet);
+            
+            
+        }
     }
 }

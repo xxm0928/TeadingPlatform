@@ -38,5 +38,31 @@ namespace BLL
         {
             return YxDal.UpdateOrderState(data);
         }
+        /// <summary>
+        /// 店铺下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn DropListShop(object data)
+        {
+            return YxDal.DropListShop(data);
+        }
+        /// <summary>
+        /// 快递下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn DropListLogistics(object data)
+        {
+            return YxDal.DropListLogistics(data);
+        }
+        /// <summary>
+        /// 修改订单并接受返回数据
+        /// </summary>
+        /// <returns></returns>
+        public UnitedReturn UpdateOrderDataAndReturnData(object data)
+        {
+            return YxDal.UpdateOrderDataAndReturnData(data);
+        }
     }
 }

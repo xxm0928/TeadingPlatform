@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "UpdateOrderView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<div class="wrap-container" style="padding-top:20px;margin-left:20px">
+    <div class="layui-form" id="category-table-list">
+        <table class="layui-table" lay-even lay-skin="nob">
+            <tr>
+                <td>商品名称</td>
+                <td><input id="CommodityName" type="text" /><span style="color:red">*不可更改</span></td>
+            </tr>
+            <tr>
+                <td>用户姓名</td>
+                <td><input id="UserName" type="text" /></td>
+            </tr>
+            <tr>
+                <td>订单编号</td>
+                <td><input id="OrderformId" readonly type="text" /><span style="color:red">*不可更改</span></td>
+            </tr>
+            <tr>
+                <td>购买数量</td>
+                <td>
+                    <input id="CommodityCount" type="text" onchange="SumPrices()" />
+                </td>
+            </tr>
+            <tr>
+                <td>所选店铺</td>
+                <td>
+                    <input id="ShopName" type="text" /><span style="color:red">*不可更改</span>
+                </td>
+            </tr>
+            <tr>
+                <td>所选快递</td>
+                <td>
+                    <input id="LogisticsName" type="text" /><span style="color:red">*不可更改</span>
+                </td>
+            </tr>
+            <tr>
+                <td>单价</td>
+                <td>
+                    <input id="Price" type="text" />
+                    <span style="color:red">*不可更改</span>
+                </td>
+            </tr>
+            <tr>
+                <td>购买价格</td>
+                <td><input id="SumPrice" type="text" /><span style="color:red">*不可更改</span></td>
+            </tr>
+            <tr>
+                <td>订单状态</td>
+                <td>
+                    <input id="OrderState" type="text" readonly value="" /><span style="color:red">*不可更改</span>
+                </td>
+            </tr>
+            <tr>
+                <td>用户手机号</td>
+                <td><input id="UserNumder" type="text" /></td>
+            </tr>
+            <tr>
+                <td>用户编号</td>
+                <td>
+                    <input id="UserId" type="text" readonly value="" /><span style="color:red">*不可更改</span>
+                </td>
+            </tr>
+        </table>
+        <button class="layui-btn layui-btn-normal" onclick="UpdateOrderData()" style="height:40px;width:100px" value="搜索" lay-submit lay-filter="formDemo">保存修改</button>
+        <button class="layui-btn layui-btn-normal" style="height:40px;width:100px" value="搜索" lay-submit lay-filter="formDemo">取消修改</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        //判断是否通过登录保存cookie
+        $.ajax({
+            url: "/Order/Cookie",
+            type: "POST",
+            data: {
+            },
+            dataType: "JSON",
+            success: function (res) {
+                $(res).each(function () {
+                    if (this.Name == "" || this.Name == null) {
+                        alert("请先登录");
+                        location.href = "/UserZ/Login";
+                    }
+                    else {
+                        $.ajax({
+                            url: "/Order/UpdateOrderData",
+                            dataType: "json",
+                            type: "POST",
+                            data: {
+                            },
+                            success: function (res) {
+                                $(res).each(function () {
+                                    var SumPrice = this.CommodityCount * this.Price;
+                                    if (this.OrderState == 1) {
+                                        $("#OrderState").val("待付款");
+                                    }
+                                    if (this.OrderState == 2) {
+                                        $("#OrderState").val("待发货");
+                                    }
+                                    if (this.OrderState == 3) {
+                                        $("#OrderState").val("待收货");
+                                    }
+                                    if (this.OrderState == 4) {
+                                        $("#OrderState").val("已完成");
+                                    }
+                                    if (this.OrderState == 5) {
+                                        $("#OrderState").val("已关闭");
+                                    }
+                                    if (this.OrderState != 1 && this.OrderState != 2 && this.OrderState != 3 && this.OrderState != 4 && this.OrderState != 5) {
+                                        $("#OrderState").val("异常");
+                                    }
+                                    $("#CommodityName").val(this.CommodityName);
+                                    $("#UserName").val(this.UserName);
+                                    $("#OrderformId").val(this.OrderformId);
+                                    $("#Price").val(this.Price);
+                                    $("#CommodityCount").val(this.CommodityCount);
+                                    $("#SumPrice").val(SumPrice);
+                                    $("#UserNumder").val(this.UserNumder);
+                                    $("#LogisticsName").val(this.LogisticsName);
+                                    $("#ShopName").val(this.ShopName);
+                                    $("#UserId").val(this.UserId);
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
+    function SumPrices() {
+        var a = $("#Price").val();
+        var b = $("#CommodityCount").val();
+        $("#SumPrice").val(a * b);
+    }
+    function UpdateOrderData() {
+        var UserName_ = $("#UserName").val();
+        var OrderformId_ = $("#OrderformId").val();
+        var CommodityCount_ = $("#CommodityCount").val();
+        var UserNumder_ = $("#UserNumder").val();
+        var UserId_ = $("#UserId").val();
+        if (UserId_ == null || UserName_ == null || OrderformId_ == null || CommodityCount_ == null || UserNumder_ == null) {
+            alert("要修改的数据不能为空");
+            return;
+        }
+        var data = {
+            UserName: UserName_,
+            OrderformId: OrderformId_,
+            CommodityCount: CommodityCount_,
+            UserNumder: UserNumder_,
+            UserId: UserId_
+        };
+        $.ajax({
+            url: "/Order/UpdateOrderDataAndReturnData",
+            type: "POST",
+            data: {
+                data: JSON.stringify(data)
+            },
+            dataType: "JSON",
+            success: function (res) {
+                $(res).each(function () {
+                    if (this.Name == "修改成功") {
+                        location.href = '/Order/Order';
+                    }
+                    else {
+                        alert(this.Name);
+                    }
+
+                })
+            }
+        })
+    }
+</script>

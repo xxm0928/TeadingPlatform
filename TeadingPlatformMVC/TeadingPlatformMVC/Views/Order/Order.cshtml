@@ -9,7 +9,7 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <div style="margin-top:10px;margin-left:10px;width:300px;border-color:aqua;">
-    <a  onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(5)">已关闭</a>
+    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(5)">已关闭</a>
 </div>
 
 <div class="wrap-container" style="padding-top:20px">
@@ -51,52 +51,77 @@
 
 <script>
     $(document).ready(function () {
+        //判断是否通过登录保存cookie
+        var Sid = 0;
+        $.ajax({
+            url: "/Order/Cookie",
+            type: "POST",
+            data: {
+            },
+            dataType: "JSON",
+            success: function (res) {
+                $(res).each(function () {
+                    if (this.Name == "" || this.Name == null) {
+                        alert("请先登录");
+                        Sid = 1;
+                        location.href = "/UserZ/Login";
+                    }
+                })
+            }
+        })
+        if (Sid != 1) {
+            $.ajax({
+                url: "/Order/DropListLogistics",
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var select = "";
+                    $(res).each(function () {
+                        select += "<option value=" + this.LogisticsId + ">" + this.LogisticsName + "</option>";
+                    })
+                    $("#LogisticsName").append(select);
+                }
+            })
+            var str = "";
+            ///店铺的下拉列表
+            $.ajax({
+                url: "/Order/DropListShop",
+                dataType: "json",
+                type: "POST",
+                data: { data: str },
+                success: function (res) {
+                    var select = "";
+                    $(res).each(function () {
+                        select += "<option value=" + this.ShopId + ">" + this.ShopName + "</option>";
+                    })
+                    $("#ShopName").append(select);
+                }
+            })
+            $.ajax({
+                url: "/Order/GetOrder",
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var select = "";
+                    $(res).each(function () {
+                        select += "<tr>" +
+                            "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家常用快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            "<td>" + this.CommodityCount + "</td>" +
+                            "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                            "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                            "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
+                            "</tr>";
+                    })
+                    $("#datas").html(select);
+                }
+            })
+        }
 
-        $.ajax({
-            url: "/Order/DropListLogistics",
-            dataType: "json",
-            type: "POST",
-            success: function (res) {
-                var select = "";
-                $(res).each(function () {
-                    select += "<option value=" + this.LogisticsId + ">" + this.LogisticsName + "</option>";
-                })
-                $("#LogisticsName").append(select);
-            }
-        })
-        $.ajax({
-            url: "/Order/GetOrder",
-            dataType: "json",
-            type: "POST",
-            success: function (res) {
-                var select = "";
-                $(res).each(function () {
-                    select += "<tr>" +
-                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家常用快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
-                        "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.Price + "</td>" +
-                        "<td>" + this.CommodityCount + "</td>" +
-                        "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
-                        "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
-                        "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
-                        "</tr>";
-                })
-                $("#datas").html(select);
-            }
-        })
-        ///cookie
-        $.ajax({
-            url: "/Order/GetCookie",
-            dataType: "json",
-            type: "POST",
-            success: function (res) {
-                $(res).each(function () {
-                    $("#Text1").val(this.Name);
-                })
-            }
-        })
+
 
     })
 
@@ -134,7 +159,7 @@
                         "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
                         "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
                         '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
                         "</tr>";
                 })
                 $("#datas").html(select);
@@ -179,6 +204,22 @@
             }
         })
 
+    }
+    function UpdateOrder(id) {
+        $.ajax({
+            url: "/Order/UpdateOrder",
+            dataType: "json",
+            type: "POST",
+            data: {
+                data: id
+            },
+            success: function (res) {
+
+            }
+        })
+        if (id > 0) {
+            location.href = '/Order/UpdateOrderView';
+        }
     }
 
 </script>

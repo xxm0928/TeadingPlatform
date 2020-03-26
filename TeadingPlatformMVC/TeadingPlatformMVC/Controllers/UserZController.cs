@@ -84,11 +84,15 @@ namespace TeadingPlatformMVC.Controllers
         public JsonResult Cookie()
         {
             var res = Request.Cookies["Name"];
-            var Cookie = HttpUtility.UrlDecode(res.Value);
-            GetName getName = new GetName()
+            GetName getName = new GetName();
+            if (res == null)
             {
-                Name = Cookie
-            };
+                getName.Name = "";
+            }
+            else
+            {
+                getName.Name = HttpUtility.UrlDecode(res.Value);
+            }
             return Json(getName,JsonRequestBehavior.AllowGet);
         }
     }
