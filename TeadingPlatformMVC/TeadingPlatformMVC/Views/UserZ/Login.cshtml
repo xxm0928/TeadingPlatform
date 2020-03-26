@@ -6,9 +6,10 @@
 
 <h2></h2>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <script>
     function login() {
-        var phone = $("#phone").val();
+
         var yzm = $("#yzm").val();
         $.ajax({
             url: "/UserZ/Loginyanz/yzm",
@@ -30,7 +31,22 @@
                         dataType: "JSON",
                         contentType: "application/json",
                         success: function (res) {
-                            alert(res.msg);
+                            var Rdata = res.data;
+                            if (res.res > 0) {
+                                alert("登录成功");
+                                $.ajax({
+                                    url: "/UserZ/AddCookie",
+                                    type: "POST",
+                                    data: {
+                                        data: Rdata
+                                    },
+                                    dataType: "JSON",
+                                    success: function (res) {
+                                        
+                                    }
+                                })
+                                location.href = "/UserZ/Mainpage";
+                            }
                         }
                     });
                 }
@@ -40,20 +56,20 @@
             }
         });
 
-       
+
     }
 
 
     function regist() {
         var pwd = $("#Rpwd").val();
         var pwdtwo = $("#Rpwdtwo").val();
-        if (pwd == pwdtwo && pwd!="") {
+        if (pwd == pwdtwo && pwd != "") {
 
             var datas = {
                 UserName: $("#name").val(),
                 UserPass: $("#Rpwd").val(),
                 UserNumder: $("#Rphone").val()
-                };
+            };
 
             $.ajax({
                 url: "http://localhost:55041/api/UserApi/UserAdd",
@@ -63,12 +79,12 @@
                 contentType: "application/json",
                 success: function (res) {
                     alert(res.msg);
-                    if (res.msg=="注册成功") {
-                         location.reload();
+                    if (res.msg == "注册成功") {
+                        location.reload();
                     }
                 }
             });
-           
+
         }
 
     }

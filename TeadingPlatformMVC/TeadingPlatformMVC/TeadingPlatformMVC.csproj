@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserZController.cs" />
+    <Compile Include="Controllers\XXM\CommodityController.cs" />
     <Compile Include="Controllers\YcxCodeController.cs" />
     <Compile Include="Controllers\Yx\HttpClientHelper.cs" />
     <Compile Include="Controllers\Yx\OrderController.cs" />
@@ -740,6 +741,9 @@
     <Content Include="Views\YcxCode\UserSelect.cshtml" />
     <Content Include="Views\Order\Order.cshtml" />
     <Content Include="Views\Order\GetOrderDetailView.cshtml" />
+    <Content Include="Views\Commodity\AddCommodity.cshtml" />
+    <Content Include="Views\Commodity\ShowCommodity.cshtml" />
+    <Content Include="Views\UserZ\Mainpage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
