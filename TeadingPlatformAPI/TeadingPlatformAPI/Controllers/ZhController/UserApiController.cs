@@ -19,6 +19,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public UnitedReturn UserLogin(object data)
         {
             return bll.UserLogin(data);
@@ -32,6 +33,46 @@ namespace TeadingPlatformAPI.Controllers
         public UnitedReturn UserAdd(object data)
         {
             return bll.UserAdd(data);
+        }
+        /// <summary>
+        /// 店铺列表
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn GetShopInfo(object data)
+        {
+            return bll.GetShopInfo(data);
+        }
+        /// <summary>
+        /// 添加店铺
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn AddShopInfo(object data)
+        {
+            return bll.AddShopInfo(data);
+        }
+        /// <summary>
+        /// 关闭店铺
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn UpdatShopInfo(object data)
+        {
+            return bll.UpdatShopInfo(data);
+        }
+        /// <summary>
+        /// 商品列表下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn GetCommodityInfo(object data)
+        {
+            return bll.GetCommodityInfo(data);
         }
     }
 }
