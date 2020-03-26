@@ -41,5 +41,34 @@ namespace TeadingPlatformAPI.Controllers
         {
             return YxBll.UpdateOrderState(data);
         }
+        /// <summary>
+        /// 店铺下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn DropListShop(object data)
+        {
+            return YxBll.DropListShop(data);
+        }
+        /// <summary>
+        /// 快递下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn DropListLogistics(object data)
+        {
+            return YxBll.DropListLogistics(data);
+        }
+        /// <summary>
+        /// 修改订单并接受返回数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn UpdateOrderDataAndReturnData(object data)
+        {
+            return YxBll.UpdateOrderDataAndReturnData(data);
+        }
     }
 }
