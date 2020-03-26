@@ -36,8 +36,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="iconfont">&#xe608;</i>商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="article-list.html" data-id='3' data-text="发布商品"><span class="l-line"></span>发布商品</a></dd>
-                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="查看已发布商品"><span class="l-line"></span>查看已发布商品</a></dd>
+                        <dd><a href="javascript:;" data-url="article-list.html" data-id='3' data-text="发布商品" onclick="AddCommodity()"><span class="l-line"></span>发布商品</a></dd>
+                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="查看已发布商品" onclick="SelCommodity()"><span class="l-line"></span>查看已发布商品</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -107,5 +107,7 @@
     function CheckOrder() {
         alert("2");
     }
-
+    function AddCommodity() {
+        location.href = '/Commodity/AddCommodity';
+    }
 </script>
