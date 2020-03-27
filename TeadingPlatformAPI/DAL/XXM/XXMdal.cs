@@ -25,8 +25,12 @@ namespace DAL
         {
             try
             {
-                CommodityInfo commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
-                var sql = String.Format($"insert into CommodityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}','{commodity.CommodityState}','{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}',GETDATE())");
+                CommodityInfo commodity = new CommodityInfo();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                }
+                var sql = String.Format($"insert into CommodityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}',1,'{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}',GETDATE())");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)

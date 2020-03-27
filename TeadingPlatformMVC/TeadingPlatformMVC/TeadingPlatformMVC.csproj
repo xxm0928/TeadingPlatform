@@ -749,6 +749,10 @@
     <Content Include="Views\Commodity\ShowCommodity.cshtml" />
     <Content Include="Views\UserZ\Mainpage.cshtml" />
     <Content Include="Views\Order\UpdateOrderView.cshtml" />
+    <Content Include="Views\UserZ\Shop_list.cshtml" />
+    <Content Include="Views\UserZ\ShopInfo.cshtml" />
+    <Content Include="Views\UserZ\ShopAdd.cshtml" />
+    <Content Include="Views\UserZ\AddShopInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

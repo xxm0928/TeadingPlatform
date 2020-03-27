@@ -95,5 +95,21 @@ namespace TeadingPlatformMVC.Controllers
             }
             return Json(getName,JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// 店铺
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ShopInfo()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 添加店铺
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddShopInfo()
+        {
+            return View();
+        }
     }
 }

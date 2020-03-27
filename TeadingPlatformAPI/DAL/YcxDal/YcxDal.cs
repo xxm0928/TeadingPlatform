@@ -30,7 +30,7 @@ namespace DAL
         {
             
             Ycx_Helper help = new Ycx_Helper();
-            string textsql = $"exec userinfo_proc_add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
+            string textsql = $"exec userinfo_proc_add '{model.ShopName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
             int result = help.GetLine(textsql);
             return result;
         }
@@ -43,7 +43,7 @@ namespace DAL
         /// <returns></returns>
         public int ExitPersonalInformation(UserInfo model,int id)
         {
-            string sql = $"exec UserInfo_proc_Exit {id},'{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
+            string sql = $"exec UserInfo_proc_Exit {id},'{model.ShopName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
             Ycx_Helper help = new Ycx_Helper();
             
             int result =help.GetLine(sql);

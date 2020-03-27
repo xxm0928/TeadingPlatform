@@ -33,5 +33,41 @@ namespace BLL
         {
             return dal.UserAdd(data);
         }
+        /// <summary>
+        /// 店铺列表
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn GetShopInfo(object data)
+        {
+            return dal.GetShopInfo(data);
+        }
+        /// <summary>
+        /// 添加店铺
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn AddShopInfo(object data)
+        {
+            return dal.AddShopInfo(data);
+        }
+        /// <summary>
+        /// 关闭店铺
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UpdatShopInfo(object data)
+        {
+            return dal.UpdatShopInfo(data);
+        }
+        /// <summary>
+        /// 商品列表下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn GetCommodityInfo(object data)
+        {
+            return dal.GetCommodityInfo(data);
+        }
     }
 }
