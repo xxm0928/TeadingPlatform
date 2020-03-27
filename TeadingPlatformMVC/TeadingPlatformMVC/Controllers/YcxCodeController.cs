@@ -17,8 +17,7 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         public ActionResult UserSelect()
-        {
-            
+        {          
 
             return View();
         }
@@ -53,7 +52,12 @@ namespace TeadingPlatformMVC.Controllers
             return View(list.ToList());
         }
 
-        public ActionResult ExitUser(Ycx_User model,int id)
+        public ActionResult ExitUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public void ExitUser(Ycx_User model,int id)
         {
             string url = "http://localhost:55041/ycx/";
             HttpClient client = new HttpClient();
