@@ -64,15 +64,6 @@ namespace TeadingPlatformAPI.Controllers
         {
             return bll.UpdatShopInfo(data);
         }
-        /// <summary>
-        /// 商品列表下拉
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public UnitedReturn GetCommodityInfo(object data)
-        {
-            return bll.GetCommodityInfo(data);
-        }
+      
     }
 }

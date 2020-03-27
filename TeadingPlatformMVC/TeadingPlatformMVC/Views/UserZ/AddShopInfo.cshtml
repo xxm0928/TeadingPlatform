@@ -5,4 +5,26 @@
 }
 
 <h2></h2>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    function move() {
+            var datas = {
+                ShopName: $("#name").val(),
+            };
+
+            $.ajax({
+                url: "http://localhost:55041/api/UserApi/UserAdd",
+                type: "POST",
+                data: JSON.stringify(datas),
+                dataType: "JSON",
+                contentType: "application/json",
+                success: function (res) {
+                    alert(res.msg);
+                }
+            });
+
+        
+
+    }
+</script>
 
