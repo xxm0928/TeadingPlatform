@@ -70,7 +70,7 @@ namespace TeadingPlatformMVC.Controllers
             {
                 Response.Write("<script>alert('添加失败')</script>");
             }
-
+            return View();
         }
     }
 }

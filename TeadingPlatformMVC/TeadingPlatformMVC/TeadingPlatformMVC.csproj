@@ -132,6 +132,7 @@
     <Compile Include="Controllers\UserZController.cs" />
     <Compile Include="Controllers\XXM\CommodityController.cs" />
     <Compile Include="Controllers\YcxCodeController.cs" />
+    <Compile Include="Controllers\Yx\Email.cs" />
     <Compile Include="Controllers\Yx\HttpClientHelper.cs" />
     <Compile Include="Controllers\Yx\OrderController.cs" />
     <Compile Include="Global.asax.cs">
@@ -753,6 +754,7 @@
     <Content Include="Views\UserZ\ShopInfo.cshtml" />
     <Content Include="Views\UserZ\ShopAdd.cshtml" />
     <Content Include="Views\UserZ\AddShopInfo.cshtml" />
+    <Content Include="Views\UserZ\GetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

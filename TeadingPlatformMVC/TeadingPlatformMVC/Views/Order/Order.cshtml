@@ -9,7 +9,7 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <div style="margin-top:10px;margin-left:10px;width:300px;border-color:aqua;">
-    <a onclick="Query(1)">待付款</a> 丨<a onclick="Query(2)">待发货</a> 丨<a onclick="Query(3)">已发货</a>丨 <a onclick="Query(4)">已完成</a> 丨<a onclick="Query(5)">已关闭</a>
+    <a style="color:#0026ff" onclick="Query(1)">待付款</a> 丨<a style="color:#ff0000" onclick="Query(2)">待发货</a> 丨<a style="color:#00ff21" onclick="Query(3)">已发货</a>丨 <a style="color:#ff00dc" onclick="Query(4)">已完成</a> 丨<a style="color:#ffd800" onclick="Query(5)">已关闭</a>
 </div>
 
 <div class="wrap-container" style="padding-top:20px">
@@ -27,7 +27,7 @@
             发货公司:
             <select name="category" id="LogisticsName" lay-verify="required"><option value="0">请选择</option></select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="layui-btn layui-btn-normal" onclick="Query()" style="height:40px;width:70px" value="搜索" lay-submit lay-filter="formDemo">查询</button>
+            <button class="layui-btn layui-layer-btn-c" onclick="Query()" style="height:35px;width:90px;color:#ffffff;margin-left:1200px;margin-top:-60px" value="搜索" lay-submit lay-filter="formDemo">查询</button>
         </span>
     </div>
     <div class="layui-form" id="category-table-list">
@@ -45,6 +45,18 @@
                 <td>订单修改</td>
             </tr>
             <tbody id="datas"></tbody>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
         </table>
     </div>
 </div>
