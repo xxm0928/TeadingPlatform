@@ -33,6 +33,7 @@
     <div class="layui-form" id="category-table-list">
         <table class="layui-table" lay-even lay-skin="nob">
             <tr>
+                <td>商品图片</td>
                 <td>订单信息</td>
                 <td>商品信息</td>
                 <td>单价</td>
@@ -46,7 +47,6 @@
             <tbody id="datas"></tbody>
         </table>
     </div>
-
 </div>
 
 <script>
@@ -105,7 +105,8 @@
                     var select = "";
                     $(res).each(function () {
                         select += "<tr>" +
-                            "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家常用快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                            '<td><img src=' + this.ComndityImg + ' style="width:100px;height:100px"/></td>' +
+                            "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "发货快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
                             "<td>" + this.CommodityName + "</td>" +
                             "<td>" + this.Price + "</td>" +
                             "<td>" + this.CommodityCount + "</td>" +
@@ -120,9 +121,6 @@
                 }
             })
         }
-
-
-
     })
 
 
@@ -151,7 +149,8 @@
                 var select = "";
                 $(res).each(function () {
                     select += "<tr>" +
-                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "买家选择发货方式:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                        '<td><img src=' + this.ComndityImg + ' style="width:100px;height:100px"/></td>' +
+                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "发货快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
                         "<td>" + this.CommodityName + "</td>" +
                         "<td>" + this.Price + "</td>" +
                         "<td>" + this.CommodityCount + "</td>" +

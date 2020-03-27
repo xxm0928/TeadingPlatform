@@ -48,9 +48,9 @@ namespace TeadingPlatformAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("exit"),HttpPost]
-        public IHttpActionResult ExitPersonalInformation(UserInfo model, int id)
+        public IHttpActionResult ExitPersonalInformation(UserInfo model, int ids)
         {
-            int result = b.ExitPersonalInformation(model, id);
+            int result = b.ExitPersonalInformation(model, ids);
             return Json(result);
         }
 

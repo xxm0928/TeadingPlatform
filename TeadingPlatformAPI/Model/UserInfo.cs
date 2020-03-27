@@ -13,9 +13,12 @@ namespace Model
         /// </summary>
         public int UserId { get; set; }
         /// <summary>
+        /// 商品名
+        /// </summary>
+        public string ShopName{ get; set; }
+        /// <summary>
         /// 用户昵称
         /// </summary>
-       
         public string UserName { get; set; }
         /// <summary>
         /// 用户密码
