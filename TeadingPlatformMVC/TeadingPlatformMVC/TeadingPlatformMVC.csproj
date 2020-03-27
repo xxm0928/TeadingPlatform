@@ -753,6 +753,8 @@
     <Content Include="Views\UserZ\ShopInfo.cshtml" />
     <Content Include="Views\UserZ\ShopAdd.cshtml" />
     <Content Include="Views\UserZ\AddShopInfo.cshtml" />
+    <Content Include="Views\YcxCode\SelectUser.cshtml" />
+    <Content Include="Views\YcxCode\ExitUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

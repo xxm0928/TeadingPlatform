@@ -44,7 +44,7 @@ namespace TeadingPlatformMVC.Controllers
 
         public ActionResult SelectUser()
         {
-            string url = "http://localhost:55041/ycx/";
+            string url = "http://localhost:55041/ycx/PersonalInformation";
             HttpClient client = new HttpClient();
             HttpResponseMessage message = client.GetAsync(url).Result;
             string result = message.Content.ReadAsStringAsync().Result;
@@ -59,20 +59,21 @@ namespace TeadingPlatformMVC.Controllers
         [HttpPost]
         public void ExitUser(Ycx_User model,int id)
         {
-            string url = "http://localhost:55041/ycx/";
+            string url = "http://localhost:55041/ycx/exit?ids=" + id;
             HttpClient client = new HttpClient();
             string str = JsonConvert.SerializeObject(model);
             HttpContent content = new StringContent(str);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             HttpResponseMessage message = client.PostAsync(url, content).Result;
             string result = message.Content.ReadAsStringAsync().Result;
             int key = Convert.ToInt32(result);
             if (key>0)
             {
-                Response.Write("<script>alert('添加成功');</script>");
+                Response.Write("<script>alert('修改成功');</script>");
             }
             else
             {
-                Response.Write("<script>alert('添加失败')</script>");
+                Response.Write("<script>alert('修改失败')</script>");
             }
 
         }
