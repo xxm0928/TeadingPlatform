@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using TeadingPlatformMVC.Models;
 
 namespace TeadingPlatformMVC.Controllers
@@ -77,5 +78,36 @@ namespace TeadingPlatformMVC.Controllers
             }
 
         }
+
+
     }
+
+    public class Upload
+    {
+        public string uploadImage(FileUpload FUSShopURL, string UpladURL)
+        {
+            if (FUSShopURL.HasFile)
+            {
+                //获取当前时间，当作图片的名字
+                string fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + DateTime.Now.Millisecond.ToString();
+                //获取图片的扩展名
+                string Extent = System.IO.Path.GetExtension(FUSShopURL.PostedFile.FileName);
+                //重命名图片
+                fileName += Extent;
+                //设置上传图片保存的文件夹
+                string dir = System.Web.HttpContext.Current.Server.MapPath(UpladURL);
+                //指定图片的路径及文件名
+                string path = dir + "\\" + fileName;
+                //把上传的图片保存到指定的文件中
+                FUSShopURL.PostedFile.SaveAs(path);
+                return fileName;
+            }
+            else
+            {
+                return "";
+            }
+        }
+    }
+
+
 }
