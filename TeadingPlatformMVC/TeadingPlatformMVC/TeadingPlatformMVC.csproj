@@ -611,6 +611,10 @@
     <Content Include="images\login\login_line.jpg" />
     <Content Include="images\login\yzm.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="Image\头像.jpg" />
+    <Content Include="Image\娃哈哈.jpg" />
+    <Content Include="Image\矿泉水.jpg" />
+    <Content Include="Image\面包.jpg" />
     <Content Include="lay\dest\layui.all.js" />
     <Content Include="lay\modules\code.js" />
     <Content Include="lay\modules\element.js" />
@@ -745,6 +749,10 @@
     <Content Include="Views\Commodity\ShowCommodity.cshtml" />
     <Content Include="Views\UserZ\Mainpage.cshtml" />
     <Content Include="Views\Order\UpdateOrderView.cshtml" />
+    <Content Include="Views\UserZ\Shop_list.cshtml" />
+    <Content Include="Views\UserZ\ShopInfo.cshtml" />
+    <Content Include="Views\UserZ\ShopAdd.cshtml" />
+    <Content Include="Views\UserZ\AddShopInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

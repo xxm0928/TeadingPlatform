@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/admin/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-content-wrap">
+       
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <select name="category" lay-filter="status"  autocomplete="off" class="layui-input">
+                        <option value="0">请选择</option>
+                    </select>
+                </div>
+                <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+            </div>
+
+        <div class="layui-form" id="table-list">
+            <table class="layui-table" lay-even lay-skin="nob">
+                <colgroup>
+                    <col width="150">
+                    <col class="hidden-xs" width="150">
+                    <col class="hidden-xs" width="150">
+                    <col>
+                    <col width="80">
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th >ID</th>
+                        <th>菜单名称</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                    </tr>
+                    <tr>
+                       
+                    </tr>
+                    <tr>
+                       
+                    </tr>
+                    <tr>
+                        @*<td>
+                            <div class="layui-inline">
+                                <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="del.html"><i class="layui-icon">&#xe640;</i></button>
+                            </div>
+                        </td>*@
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="~/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+    
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
