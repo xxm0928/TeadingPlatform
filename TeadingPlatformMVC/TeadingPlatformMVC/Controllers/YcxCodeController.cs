@@ -76,7 +76,7 @@ namespace TeadingPlatformMVC.Controllers
             {
                 Response.Write("<script>alert('修改失败')</script>");
             }
-            return View();
+            
         }
 
 
