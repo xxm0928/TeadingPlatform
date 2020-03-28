@@ -78,7 +78,7 @@ namespace DAL
         /// <returns></returns>
         public UnitedReturn GetShopInfo(object data)
         {  
-            var sql = string.Format("select c.CommodityName,s.* from [dbo].[ShopInfo] as s join [dbo].[CommodityInfo] as c on s.CommodityId=c.CommodityId where s.ShopState=2");
+            var sql = string.Format("select s.ShopName,u.UserName from [dbo].[UserInfo] as u join [dbo].[ShopInfo] as s on u.ShopId=s.ShopId where s.ShopState=2");
             var res = dBHelper.GetToList<ShopInfo>(sql);
             UnitedReturn united = new UnitedReturn();
             if (res.Count > 0 && res != null)
@@ -97,32 +97,7 @@ namespace DAL
             }
             return united;
         }
-        /// <summary>
-        /// 商品列表下拉
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public UnitedReturn GetCommodityInfo(object data)
-        {
-            var sql = string.Format("select c.CommodityId,c.CommodityName from [dbo].[CommodityInfo] as c");
-            var res = dBHelper.GetToList<CommodityInfo>(sql);
-            UnitedReturn united = new UnitedReturn();
-            if (res.Count > 0 && res != null)
-            {
-                //给统一返回类型的model赋值
-                united.data = res;//返回的数据
-                united.msg = "获取店铺信息成功";//返回的字符串
-                united.res = 1;//返回的int值
-            }
-            else
-            {
-                //给统一返回类型的model赋值
-                united.data = null;
-                united.msg = "获取店铺信息失败";
-                united.res = 0;
-            }
-            return united;
-        }
+       
         /// <summary>
         /// 添加店铺
         /// </summary>
@@ -131,7 +106,7 @@ namespace DAL
         public UnitedReturn AddShopInfo(object data)
         {
             ShopInfo Info = JsonConvert.DeserializeObject<ShopInfo>(data.ToString());
-            var sql = string.Format($"insert into [dbo].[ShopInfo] values('{Info.ShopName}','{Info.CommodityId}','2')");
+            var sql = string.Format($"insert into [dbo].[ShopInfo] values('{Info.ShopName}',' ','2')");
             var res = dBHelper.ExecuteNonQuery(sql);
             UnitedReturn united = new UnitedReturn();
             if (res > 0)
