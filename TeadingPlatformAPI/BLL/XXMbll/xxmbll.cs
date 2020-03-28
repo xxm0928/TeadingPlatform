@@ -39,9 +39,9 @@ namespace BLL.XXMbll
         /// <param name="name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public UnitedReturn SelCommodity(object data, string name, int id)
+        public UnitedReturn SelCommodity(object data)
         {
-            return XXMdal.SelCommodity(data, name, id);
+            return XXMdal.SelCommodity(data);
         }
 
         /// <summary>
@@ -72,6 +72,39 @@ namespace BLL.XXMbll
         public UnitedReturn OutCommodity(object data)
         {
             return XXMdal.OutCommodity(data);
+        }
+
+        /// <summary>
+        /// 已下架商品展示
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="paging"></param>
+        /// <param name="name"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public UnitedReturn SelOutCommodity(object data)
+        {
+            return XXMdal.SelOutCommodity(data);
+        }
+
+        /// <summary>
+        /// 添加商品分类
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn CommodityType(object data)
+        {
+            return XXMdal.CommodityType(data);
+        }
+
+        /// <summary>
+        /// 店铺下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn DropListShop(object data)
+        {
+            return XXMdal.DropListShop(data);
         }
     }
 }

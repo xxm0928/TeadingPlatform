@@ -1,0 +1,78 @@
+﻿
+
+@{
+    Layout = null;
+}
+@model IEnumerable<TeadingPlatformMVC.Models.Ycx_User>
+
+
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <div>
+        <table class="table">
+            <tr>
+                <td>
+                    用户编号
+                </td>
+                <td>
+                    用户昵称
+                </td>
+                <td>
+                    用户头像
+                </td>
+                <td>
+                    用户性别
+                </td>
+
+                <td>
+                    用户手机号
+                </td>
+                <td>
+                    用户年龄
+                </td>
+                <td>
+                    用户身份证
+                </td>
+                <td>
+                </td>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.UserId
+                    </td>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td>
+                        
+                        @item.UserPhoto
+                    </td>
+                    <td>
+                        @item.UserSex
+                    </td>
+
+                    <td>
+                        @item.UserNumder
+                    </td>
+                    <td>
+                        @item.UserAge
+                    </td>
+                    <td>
+                        @item.UserIDNumber
+                    </td>
+                    <td>
+                        @Html.ActionLink("编辑", "ExitUser", new { @id=item.UserId}) |
+                        @Html.ActionLink("删除", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>

@@ -64,8 +64,12 @@ namespace Model
         /// </summary>
         public DateTime OutTime { get; set; }
         /// <summary>
-        /// 店铺id
+        /// 店铺Id
         /// </summary>
         public int ShopId { get; set; }
+        /// <summary>
+        /// 店铺名称
+        /// </summary>
+        public string ShopName { get; set; }
     }
 }
