@@ -13,8 +13,6 @@ namespace DAL
     {
         //SQL语句
         DBHelper DBHelper = new DBHelper();
-        //存储过程
-        Ycx_Helper helper = new Ycx_Helper();
 
         /// <summary>
         /// 添加商品
@@ -30,12 +28,55 @@ namespace DAL
                 {
                     commodity = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                var sql = String.Format($"insert into CommodityInfo values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}',1,'{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}',GETDATE())");
+                var sql = String.Format($"insert into CommodityInfo (CommodityName,TypeId,ComndityImg,Price,CommditySum,CommodityState,Descride,CommditySize,Testuer,PutawayTime,ShopId) values('{commodity.CommodityName}','{commodity.TypeId}','{commodity.ComndityImg}','{commodity.Price}','{commodity.CommditySum}',1,'{commodity.Descride}','{commodity.CommditySize}','{commodity.Testuer}',GETDATE(),'{commodity.ShopId}')");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
                 {
+                    united.data = res;
+                    united.msg = "添加成功!";
+                    united.res = 1;
+                }
+                else
+                {
                     united.data = null;
+                    united.msg = "添加失败!";
+                    united.res = 0;
+                }
+                return united;
+            }
+            catch (Exception ex)
+            {
+                //错误日志 log4net
+                //1请求接口
+                //2请求参数
+                //3错误信息
+                //4请求时间
+
+                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
+            }
+        }
+
+        /// <summary>
+        /// 添加商品分类
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn CommodityType(object data)
+        {
+            try
+            {
+                TypeInfo commodity = new TypeInfo();
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    commodity = JsonConvert.DeserializeObject<TypeInfo>(data.ToString());
+                }
+                var sql = String.Format($"insert into TypeInfo values('{commodity.TypeName}'");
+                var res = DBHelper.ExecuteNonQuery(sql);
+                UnitedReturn united = new UnitedReturn();
+                if (res > 0)
+                {
+                    united.data = res;
                     united.msg = "添加成功!";
                     united.res = 1;
                 }
@@ -98,51 +139,201 @@ namespace DAL
         }
 
         /// <summary>
-        /// 已发布商品展示
+        /// 店铺下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn DropListShop(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            string sql = string.Format("select * from ShopInfo");
+            var res = DBHelper.GetToList<ShopInfo>(sql);
+            if (res != null)
+            {
+                unitedReturn.data = res;
+                unitedReturn.res = 1;
+                unitedReturn.msg = "查询成功";
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.res = 0;
+                unitedReturn.msg = "查询失败";
+            }
+            return unitedReturn;
+        }
+
+        /// <summary>
+        /// 已上架商品展示
         /// </summary>
         /// <param name="data"></param>
         /// <param name="paging"></param>
         /// <param name="name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public UnitedReturn SelCommodity(object data, string name, int id)
+        public UnitedReturn SelCommodity(object data)
         {
             try
             {
-                CommodityPaging info = new CommodityPaging();
+                var ass = 0;
+                CommodityInfo orderforms = new CommodityInfo();
+                //object初始值是System.object 所以判断一下
                 if (data.ToString() != "System.object" && data.ToString() != "1")
                 {
-                    info = JsonConvert.DeserializeObject<CommodityPaging>(data.ToString());
-                }
-                var sql = String.Format($"exec ShowCommdity @id,@username,@pageindex,@pagesize,@totalcount out");
-
-                SqlParameter[] sqls = new SqlParameter[]
-                    {
-                        new SqlParameter{ ParameterName="@id",SqlDbType=System.Data.SqlDbType.Int,SqlValue=id},
-                        new SqlParameter{ ParameterName="@username",SqlDbType=System.Data.SqlDbType.VarChar,SqlValue=name},
-                        new SqlParameter{ ParameterName="@pageindex",SqlDbType=System.Data.SqlDbType.Int,SqlValue=info.PagingPagIndex},
-                        new SqlParameter{ ParameterName="@pagesize",SqlDbType=System.Data.SqlDbType.Int,SqlValue=info.PagingSize},
-                        new SqlParameter{ ParameterName="@totalcount",SqlDbType=System.Data.SqlDbType.Int,Direction=System.Data.ParameterDirection.ReturnValue}
-                    };
-
-                var res = DBHelper.GetToList<CommodityPaging>(sql);
-
-                UnitedReturn united = new UnitedReturn();
-
-                if (res != null)
-                {
-                    united.data = res;
-                    united.msg = "成功!";
-                    united.res = 1;
+                    orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
                 else
                 {
-                    united.data = null;
-                    united.msg = "失败!";
-                    united.res = 0;
+                    ass = 1;
+                    data = 1;
                 }
+                string sql = string.Format("select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState > 0");
+                var datas = DBHelper.GetToList<CommodityInfo>(sql);
+                UnitedReturn unitedReturn = new UnitedReturn();
+                if (datas.Count > 0 && datas != null)
+                {
+                    if (ass != 1)
+                    {
+                        if (orderforms.CommodityState >= 0)
+                        {
+                            datas = datas.Where(s => s.CommodityState == orderforms.CommodityState).ToList();
+                        }
+                        if (Convert.ToInt32(orderforms.CommodityId) > 0)
+                        {
+                            datas = datas.Where(s => s.CommodityId == orderforms.CommodityId).ToList();
+                        }
+                        if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
+                        {
+                            datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
+                        }
+                        if (orderforms.TypeName.Length > 0 && !string.IsNullOrEmpty(orderforms.TypeName))
+                        {
+                            datas = datas.Where(s => s.TypeName.Contains(orderforms.TypeName)).ToList();
+                        }
+                        if (orderforms.ShopName.Length > 0 && !string.IsNullOrEmpty(orderforms.ShopName))
+                        {
+                            datas = datas.Where(s => s.ShopName.Contains(orderforms.ShopName)).ToList();
+                        }
+                        if (orderforms.ComndityImg.Length > 0 && !string.IsNullOrEmpty(orderforms.ComndityImg))
+                        {
+                            datas = datas.Where(s => s.ComndityImg == orderforms.ComndityImg).ToList();
+                        }
+                        if (orderforms.CommditySum > 0)
+                        {
+                            datas = datas.Where(s => s.CommditySum==orderforms.CommditySum).ToList();
+                        }
+                        if (orderforms.Price > 0)
+                        {
+                            datas = datas.Where(s => s.Price == orderforms.Price).ToList();
+                        }
+                    }
 
-                return united;
+                    unitedReturn.data = datas;
+                    unitedReturn.res = 1;
+                    unitedReturn.msg = "获取信息成功";
+                    //如果res为空 说明查询没有结果
+                    if (datas.Count == 0)
+                    {
+                        unitedReturn.msg = "获取信息成功,但是没有查询到结果";
+                    }
+                }
+                else
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 0;
+                    unitedReturn.msg = "获取信息失败";
+                }
+                return unitedReturn;
+            }
+            catch (Exception ex)
+            {
+                //错误日志 log4net
+                //1请求接口
+                //2请求参数
+                //3错误信息
+                //4请求时间
+
+                return new UnitedReturn() { data = ex.InnerException.Message, res = -1, msg = ex.Message };
+            }
+        }
+
+        /// <summary>
+        /// 已下架商品展示
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="paging"></param>
+        /// <param name="name"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public UnitedReturn SelOutCommodity(object data)
+        {
+            try
+            {
+                var ass = 0;
+                CommodityInfo orderforms = new CommodityInfo();
+                //object初始值是System.object 所以判断一下
+                if (data.ToString() != "System.object" && data.ToString() != "1")
+                {
+                    orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
+                }
+                else
+                {
+                    ass = 1;
+                    data = 1;
+                }
+                string sql = string.Format("select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState = 0");
+                var datas = DBHelper.GetToList<CommodityInfo>(sql);
+                UnitedReturn unitedReturn = new UnitedReturn();
+                if (datas.Count > 0 && datas != null)
+                {
+                    if (ass != 1)
+                    {
+                        if (orderforms.CommodityState >= 0)
+                        {
+                            datas = datas.Where(s => s.CommodityState == orderforms.CommodityState).ToList();
+                        }
+                        if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
+                        {
+                            datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
+                        }
+                        if (orderforms.TypeName.Length > 0 && !string.IsNullOrEmpty(orderforms.TypeName))
+                        {
+                            datas = datas.Where(s => s.TypeName.Contains(orderforms.TypeName)).ToList();
+                        }
+                        if (orderforms.ShopName.Length > 0 && !string.IsNullOrEmpty(orderforms.ShopName))
+                        {
+                            datas = datas.Where(s => s.ShopName.Contains(orderforms.ShopName)).ToList();
+                        }
+                        if (orderforms.ComndityImg.Length > 0 && !string.IsNullOrEmpty(orderforms.ComndityImg))
+                        {
+                            datas = datas.Where(s => s.ComndityImg == orderforms.ComndityImg).ToList();
+                        }
+                        if (orderforms.CommditySum > 0)
+                        {
+                            datas = datas.Where(s => s.CommditySum == orderforms.CommditySum).ToList();
+                        }
+                        if (orderforms.Price > 0)
+                        {
+                            datas = datas.Where(s => s.Price == orderforms.Price).ToList();
+                        }
+                    }
+
+                    unitedReturn.data = datas;
+                    unitedReturn.res = 1;
+                    unitedReturn.msg = "获取信息成功";
+                    //如果res为空 说明查询没有结果
+                    if (datas.Count == 0)
+                    {
+                        unitedReturn.msg = "获取信息成功,但是没有查询到结果";
+                    }
+                }
+                else
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 0;
+                    unitedReturn.msg = "获取信息失败";
+                }
+                return unitedReturn;
             }
             catch (Exception ex)
             {
@@ -165,7 +356,7 @@ namespace DAL
         {
             try
             {
-                var sql = String.Format($"Update CommodityInfo set CommodityState=-1 where CommodityName='{data.ToString()}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=-1 where CommodityId='{Convert.ToInt32(data)}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -203,7 +394,7 @@ namespace DAL
         {
             try
             {
-                var sql = String.Format($"Update CommodityInfo set CommodityState=1,PutawayTime=GETDATE() where CommodityName='{data.ToString()}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=1,PutawayTime=GETDATE() where CommodityId='{Convert.ToInt32(data)}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -241,7 +432,7 @@ namespace DAL
         {
             try
             {
-                var sql = String.Format($"Update CommodityInfo set CommodityState=0,OutTime=GETDATE() where CommodityName='{data.ToString()}'");
+                var sql = String.Format($"Update CommodityInfo set CommodityState=0,OutTime=GETDATE() where CommodityId='{Convert.ToInt32(data)}'");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)

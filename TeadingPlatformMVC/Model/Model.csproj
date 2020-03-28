@@ -46,6 +46,7 @@
     <Compile Include="GetName.cs" />
     <Compile Include="Orderform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopInfo.cs" />
     <Compile Include="TypeInfo.cs" />
     <Compile Include="UnitedReturn.cs" />
     <Compile Include="User.cs" />

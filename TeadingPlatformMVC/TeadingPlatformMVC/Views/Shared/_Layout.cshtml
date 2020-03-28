@@ -23,21 +23,17 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="menu1.html" data-id='1' data-text="个人信息"><span class="l-line"></span>个人信息</a></dd>
                         <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="添加个人信息"><span class="l-line"></span>添加个人信息</a></dd>
-                        <dd><a href="javascript:;" data-url="menu3.html" data-id='3' data-text="编辑个人信息"><span class="l-line"></span>编辑个人信息</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="iconfont">&#xe608;</i>店铺管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="article-list.html" data-id='3' data-text="我的店铺"><span class="l-line"></span>我的店铺</a></dd>
-                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="添加店铺"><span class="l-line"></span>添加店铺</a></dd>
+                        <dd><a href="javascript:;" data-url="menu3.html" data-id='4' data-text="编辑个人信息"><span class="l-line"></span>编辑个人信息</a></dd>
+                        <dd><a href="javascript:;" data-url="menu3.html" data-id='3' data-text="添加店铺"><span class="l-line"></span>添加店铺</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="iconfont">&#xe608;</i>商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="article-list.html" data-id='3' data-text="发布商品"><span class="l-line"></span>发布商品</a></dd>
-                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="查看已发布商品"><span class="l-line"></span>查看已发布商品</a></dd>
+                        <dd><a href="javascript:;" data-url="article-list.html" data-id='5' data-text="发布商品" onclick="addcommodity()"><span class="l-line"></span>发布商品</a></dd>
+                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='6' data-text="查看已上架商品" onclick="selcommodity()"><span class="l-line"></span>查看已上架商品</a></dd>
+                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="查看已下架商品" onclick="selcommodity()"><span class="l-line"></span>查看已下架商品</a></dd>
+                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="添加商品分类" onclick="selcommodity()"><span class="l-line"></span>添加商品分类</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -108,6 +104,10 @@
     function LookOrder() {
         location.href = '/Order/Order';
     }
-
-
+    function addcommodity() {
+        location.href = '/Commodity/AddCommodity';
+    }
+    function selcommodity() {
+        location.href = '/Commodity/ShowCommodity';
+    }
 </script>
