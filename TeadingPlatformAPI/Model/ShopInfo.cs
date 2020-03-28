@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-     public class ShopInfo
+    public class ShopInfo
     {
         /// <summary>
         /// 店铺Id
@@ -20,5 +20,6 @@ namespace Model
         /// 店铺状态
         /// </summary>
         public int ShopState { get; set; }
+        public int CommodityId { get; set; }
     }
 }
