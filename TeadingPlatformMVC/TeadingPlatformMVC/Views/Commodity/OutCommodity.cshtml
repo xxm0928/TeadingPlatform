@@ -86,7 +86,7 @@
             }
         });
         $.ajax({
-            url: "/Commodity/ShowCommoditys",
+            url: "/Commodity/ShowOutCommoditys",
             type: "POST",
             dataType: "json",
             success: function (res) {
@@ -99,7 +99,8 @@
                         "<td>" + this.TypeName + "</td>" +
                         "<td>" + this.CommditySum + "</td>" +
                         "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.CommodityState == 0 ? "上架" : "下架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                         "</tr>";
                 })
                 $("#rb").html(select);
@@ -116,7 +117,7 @@
             ShopId: sid
         };
         $.ajax({
-            url: "/Commodity/ShowCommoditys",
+            url: "/Commodity/ShowOutCommoditys",
             type: "POST",
             dataType: "json",
             data: { data: JSON.stringify(datass) },
@@ -130,17 +131,17 @@
                         "<td>" + this.TypeName + "</td>" +
                         "<td>" + this.CommditySum + "</td>" +
                         "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.CommodityState == 1 ? "上架" : "下架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.CommodityState == 0 ? "下架" : "上架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                         "</tr>";
                 })
                 $("#rb").html(select);
             }
         });
     }
-
-    function Update(Id) {
+    function UpdateOrder(Id) {
         $.ajax({
-            url: "/Commodity/UpdateCommodityOut",
+            url: "/Commodity/DeleteCommodityState",
             dataType: "json",
             type: "POST",
             data: {
@@ -148,10 +149,29 @@
             },
             success: function (res) {
                 if (res.res > 0) {
-                    alert("已下架!");
+                    alert("删除成功!");
                     location.href = "/Commodity/OutCommodity";
                 } else {
-                    alert("下架失败!");
+                    alert("删除失败!");
+                    return;
+                }
+            }
+        });
+    }
+    function Update(Id) {
+        $.ajax({
+            url: "/Commodity/UpdateCommodityPutaway",
+            dataType: "json",
+            type: "POST",
+            data: {
+                data: Id
+            },
+            success: function (res) {
+                if (res.res > 0) {
+                    alert("已上架!");
+                    location.href = "/Commodity/ShowCommodity";
+                } else {
+                    alert("上架失败!");
                     return;
                 }
             }

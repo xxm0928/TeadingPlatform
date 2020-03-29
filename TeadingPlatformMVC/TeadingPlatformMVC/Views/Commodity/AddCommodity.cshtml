@@ -22,9 +22,19 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">所属店铺：</label>
+            <div class="layui-input-block">
+                <select id="shop" lay-verify="required">
+                    <option value="0">---请选择---</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">图像上传：</label>
             <div class="layui-input-block">
-                <input type="file" id="file" class="layui">
+                <form method="post" enctype="multipart/form-data" id="form">
+                    <input type="file" name="file" id="file" multiple="multiple" />
+                </form>
             </div>
         </div>
         <div class="layui-form-item">
@@ -80,7 +90,20 @@
                 $("#category").append(select);
             }
         });
+        $.ajax({
+            url: "/Commodity/DropListShop",
+            type: "POST",
+            dataType: "json",
+            success: function (res) {
+                var select = "";
+                $(res).each(function () {
+                    select += "<option value=" + this.ShopId + ">" + this.ShopName + "</option>";
+                })
+                $("#shop").append(select);
+            }
+        });
     })
+
     function add() {
         var name = $("#name").val();
         if (name == "") {
@@ -88,8 +111,13 @@
             return;
         }
         var typeid = $("#category").val();
-        if (name == 0) {
+        if (typeid == 0) {
             alert("请选择商品类型!");
+            return;
+        }
+        var shopid = $("#shop").val();
+        if (shopid == 0) {
+            alert("请选择所属店铺!");
             return;
         }
         var img = $("#file").val();
@@ -122,28 +150,45 @@
             alert("商品描述不能为空!");
             return;
         }
-        var data = {
-            CommodityName: name,
-            TypeId: $("#category").val(),
-            ComndityImg: img,
-            Price: price,
-            CommditySum: sum,
-            CommditySize: size,
-            Testuer: testuer,
-            Descride: descride
-        };
+        
+        var param = new FormData(($("#form")[0]));
         $.ajax({
-            url: '/Commodity/AddCommoditys',
+            url: '/Upload.ashx',
             type: 'POST',
-            dataType: 'json',
-            success: function (res) {
-                if (res > 0) {
-                    alert("添加成功!");
-                } else {
-                    alert("添加失败!");
-                    return;
-                }
+            data: param,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var data = {
+                    CommodityName: name,
+                    TypeId: $("#category").val(),
+                    ShopId: shopid,
+                    ComndityImg: data,
+                    Price: price,
+                    CommditySum: sum,
+                    CommditySize: size,
+                    Testuer: testuer,
+                    Descride: descride
+                };
+                $.ajax({
+                    url: '/Commodity/AddCommoditys',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        data: JSON.stringify(data)
+                    },
+                    success: function (res) {
+                        if (res == "[object Object]") {
+                            alert("添加成功!");
+                            location.href = "/Commodity/ShowCommodity";
+                        }
+                        else {
+                            alert("添加失败!");
+                            return;
+                        }
+                    }
+                });
             }
-        });
+        })
     }
 </script>

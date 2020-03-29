@@ -132,10 +132,14 @@
     <Compile Include="Controllers\UserZController.cs" />
     <Compile Include="Controllers\XXM\CommodityController.cs" />
     <Compile Include="Controllers\YcxCodeController.cs" />
+    <Compile Include="Controllers\Yx\Email.cs" />
     <Compile Include="Controllers\Yx\HttpClientHelper.cs" />
     <Compile Include="Controllers\Yx\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Upload.ashx.cs">
+      <DependentUpon>Upload.ashx</DependentUpon>
     </Compile>
     <Compile Include="Models\Ycx_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -664,6 +668,7 @@
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.woff" />
     <Content Include="Content\验证码\ValidateCode.ashx" />
+    <Content Include="Upload.ashx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -749,15 +754,17 @@
     <Content Include="Views\Commodity\ShowCommodity.cshtml" />
     <Content Include="Views\UserZ\Mainpage.cshtml" />
     <Content Include="Views\Order\UpdateOrderView.cshtml" />
+    <Content Include="Views\Commodity\OutCommodity.cshtml" />
+    <Content Include="Views\Commodity\AddCommodityType.cshtml" />
     <Content Include="Views\UserZ\Shop_list.cshtml" />
     <Content Include="Views\UserZ\ShopInfo.cshtml" />
     <Content Include="Views\UserZ\ShopAdd.cshtml" />
     <Content Include="Views\UserZ\AddShopInfo.cshtml" />
-    <Content Include="Views\YcxCode\SelectUser.cshtml" />
-    <Content Include="Views\YcxCode\ExitUser.cshtml" />
+    <Content Include="Views\UserZ\GetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

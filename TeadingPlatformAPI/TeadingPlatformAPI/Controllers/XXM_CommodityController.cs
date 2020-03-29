@@ -44,9 +44,9 @@ namespace TeadingPlatformAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public UnitedReturn SelCommodity(object data, string name, int id)
+        public UnitedReturn SelCommodity(object data)
         {
-            return xxmbll.SelCommodity(data, name, id);
+            return xxmbll.SelCommodity(data);
         }
 
         /// <summary>
@@ -80,6 +80,42 @@ namespace TeadingPlatformAPI.Controllers
         public UnitedReturn OutCommodity(object data)
         {
             return xxmbll.OutCommodity(data);
+        }
+
+        /// <summary>
+        /// 已下架商品展示
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="paging"></param>
+        /// <param name="name"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn SelOutCommodity(object data)
+        {
+            return xxmbll.SelOutCommodity(data);
+        }
+
+        /// <summary>
+        /// 添加商品分类
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn CommodityType(object data)
+        {
+            return xxmbll.CommodityType(data);
+        }
+
+        /// <summary>
+        /// 店铺下拉
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn DropListShop(object data)
+        {
+            return xxmbll.DropListShop(data);
         }
     }
 }

@@ -60,14 +60,6 @@ namespace BLL
         {
             return dal.UpdatShopInfo(data);
         }
-        /// <summary>
-        /// 商品列表下拉
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public UnitedReturn GetCommodityInfo(object data)
-        {
-            return dal.GetCommodityInfo(data);
-        }
+    
     }
 }

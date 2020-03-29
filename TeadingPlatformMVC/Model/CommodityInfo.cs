@@ -63,10 +63,13 @@ namespace Model
         /// 下架时间
         /// </summary>
         public DateTime OutTime { get; set; }
-
-        public static implicit operator CommodityInfo(string v)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// 店铺Id
+        /// </summary>
+        public int ShopId { get; set; }
+        /// <summary>
+        /// 店铺名称
+        /// </summary>
+        public string ShopName { get; set; }
     }
 }
