@@ -66,12 +66,8 @@ namespace DAL
         {
             try
             {
-                TypeInfo commodity = new TypeInfo();
-                if (data.ToString() != "System.object" && data.ToString() != "1")
-                {
-                    commodity = JsonConvert.DeserializeObject<TypeInfo>(data.ToString());
-                }
-                var sql = String.Format($"insert into TypeInfo values('{commodity.TypeName}'");
+                TypeInfo commodity = JsonConvert.DeserializeObject<TypeInfo>(data.ToString());
+                var sql = String.Format($"insert into TypeInfo (TypeName) values('{commodity.TypeName}')");
                 var res = DBHelper.ExecuteNonQuery(sql);
                 UnitedReturn united = new UnitedReturn();
                 if (res > 0)
@@ -175,47 +171,32 @@ namespace DAL
         {
             try
             {
-                var ass = 0;
                 CommodityInfo orderforms = new CommodityInfo();
                 //object初始值是System.object 所以判断一下
                 if (data.ToString() != "System.object" && data.ToString() != "1")
                 {
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                else
+                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState > 0");
+                if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
-                    ass = 1;
-                    data = 1;
+                    sql+=$"and c.CommodityName='%'"+orderforms.CommodityName+"'%'";
                 }
-                string sql = string.Format("select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState > 0");
+                if (orderforms.TypeId>0)
+                {
+                    sql += $"and c.TypeId='{orderforms.TypeId}'";
+                }
+                if (orderforms.ShopId>0)
+                {
+                    sql += $"and c.ShopId='{orderforms.ShopId}'";
+                }
                 var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 UnitedReturn unitedReturn = new UnitedReturn();
                 if (datas.Count > 0 && datas != null)
                 {
-                    if (ass != 1)
-                    {
-                        if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
-                        {
-                            datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
-                        }
-                        if (orderforms.TypeId > 0)
-                        {
-                            datas = datas.Where(s => s.TypeId == orderforms.TypeId).ToList();
-                        }
-                        if (orderforms.ShopId > 0)
-                        {
-                            datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
-                        }
-                    }
-
                     unitedReturn.data = datas;
                     unitedReturn.res = 1;
                     unitedReturn.msg = "获取信息成功";
-                    //如果res为空 说明查询没有结果
-                    if (datas.Count == 0)
-                    {
-                        unitedReturn.msg = "获取信息成功,但是没有查询到结果";
-                    }
                 }
                 else
                 {
@@ -249,47 +230,32 @@ namespace DAL
         {
             try
             {
-                var ass = 0;
                 CommodityInfo orderforms = new CommodityInfo();
                 //object初始值是System.object 所以判断一下
                 if (data.ToString() != "System.object" && data.ToString() != "1")
                 {
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                else
+                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState = 0");
+                if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
-                    ass = 1;
-                    data = 1;
+                    sql += $"and c.CommodityName='%'" + orderforms.CommodityName + "'%'";
                 }
-                string sql = string.Format("select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState = 0");
+                if (orderforms.TypeId > 0)
+                {
+                    sql += $"and c.TypeId='{orderforms.TypeId}'";
+                }
+                if (orderforms.ShopId > 0)
+                {
+                    sql += $"and c.ShopId='{orderforms.ShopId}'";
+                }
                 var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 UnitedReturn unitedReturn = new UnitedReturn();
                 if (datas.Count > 0 && datas != null)
                 {
-                    if (ass != 1)
-                    {
-                        if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
-                        {
-                            datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
-                        }
-                        if (orderforms.TypeId > 0)
-                        {
-                            datas = datas.Where(s => s.TypeId==orderforms.TypeId).ToList();
-                        }
-                        if (orderforms.ShopId > 0)
-                        {
-                            datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
-                        }
-                    }
-
                     unitedReturn.data = datas;
                     unitedReturn.res = 1;
                     unitedReturn.msg = "获取信息成功";
-                    //如果res为空 说明查询没有结果
-                    if (datas.Count == 0)
-                    {
-                        unitedReturn.msg = "获取信息成功,但是没有查询到结果";
-                    }
                 }
                 else
                 {
