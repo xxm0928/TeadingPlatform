@@ -15,7 +15,7 @@ namespace Model
         /// <summary>
         /// 商品名
         /// </summary>
-        public string ShopName{ get; set; }
+        public string ShopName { get; set; }
         /// <summary>
         /// 用户昵称
         /// </summary>
@@ -48,5 +48,6 @@ namespace Model
         /// 身份证
         /// </summary>
         public string UserIDNumber { get; set; }
+        public string token { get; set; }
     }
 }

@@ -184,5 +184,19 @@ namespace TeadingPlatformMVC.Controllers
             }
 
         }
+        /// <summary>
+        /// 页面首次加载 生成token
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Token()
+        {
+            GetName name = new GetName();
+            var res = clientHelper.Post("api/Token/GetAuthToken", 1);
+            if (res != null)
+            {
+                name.Name = res.ToString();
+            }
+            return Json(name, JsonRequestBehavior.AllowGet);
+        }
     }
 }
