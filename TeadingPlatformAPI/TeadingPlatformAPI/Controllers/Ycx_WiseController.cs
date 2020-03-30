@@ -23,20 +23,20 @@ namespace TeadingPlatformAPI.Controllers
         /// <param name="sing"></param>
         /// <returns></returns>
         [Route("PersonalInformation"), HttpGet]
-        public IHttpActionResult PersonalInformation()
+        public IHttpActionResult PersonalInformation(object data)
         {
-            List<UserInfo> list = b.PersonalInformation();
-            return Json(list.ToList());
+            var list = b.PersonalInformation(data);
+            return Json(list);
         }
         /// <summary>
         /// 添加用户信息
         /// </summary>
         /// <returns></returns>
         [Route("add"), HttpPost]
-        public IHttpActionResult AddPersonalInformation(UserInfo model)
+        public IHttpActionResult AddPersonalInformation(UserInfo model,object data)
         {
 
-            int result = b.AddPersonalInformation(model);
+            var result = b.AddPersonalInformation(model, data);
             return Json(result);
 
         }
@@ -48,9 +48,9 @@ namespace TeadingPlatformAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("exit"),HttpPost]
-        public IHttpActionResult ExitPersonalInformation(UserInfo model, int ids)
+        public IHttpActionResult ExitPersonalInformation(UserInfo model, int ids,object data)
         {
-            int result = b.ExitPersonalInformation(model, ids);
+            var result = b.ExitPersonalInformation(model, ids, data);
             return Json(result);
         }
 

@@ -78,7 +78,7 @@ namespace DAL
         /// <returns></returns>
         public UnitedReturn GetShopInfo(object data)
         {  
-            var sql = string.Format("select s.ShopName,u.UserName from [dbo].[UserInfo] as u join [dbo].[ShopInfo] as s on u.ShopId=s.ShopId where s.ShopState=2");
+            var sql = string.Format("select s.ShopName, from [dbo].[UserInfo] as u join [dbo].[ShopInfo] as s on u.ShopId=s.ShopId where s.ShopState=2");
             var res = dBHelper.GetToList<ShopInfo>(sql);
             UnitedReturn united = new UnitedReturn();
             if (res.Count > 0 && res != null)
