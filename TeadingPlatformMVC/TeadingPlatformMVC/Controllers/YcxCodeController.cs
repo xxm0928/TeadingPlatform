@@ -23,7 +23,7 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         [HttpPost]
-        public void UserSelect(Ycx_User model)
+        public void UserSelect(Ycx_User model,object data)
         {
             string url = "http://localhost:55041/ycx/add";  //api链接
             HttpClient client = new HttpClient();  //
@@ -42,11 +42,13 @@ namespace TeadingPlatformMVC.Controllers
                 Response.Write("<script>alert('添加失败');</script>");
             }
         }
-
-        public ActionResult SelectUser()
+     
+        
+        public ActionResult SelectUser(object obj)
         {
             string url = "http://localhost:55041/ycx/PersonalInformation";
             HttpClient client = new HttpClient();
+            
             HttpResponseMessage message = client.GetAsync(url).Result;
             string result = message.Content.ReadAsStringAsync().Result;
             List<Ycx_User> list = JsonConvert.DeserializeObject<List<Ycx_User>>(result);
