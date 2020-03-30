@@ -21,7 +21,7 @@ namespace DAL
         {
             if (conn == null)
             {
-                conn = new SqlConnection("Data Source=LAPTOP-DAC5IJ1J;Initial Catalog=TeadingPlatform;Integrated Security=True");
+                conn = new SqlConnection("Data Source=.;Initial Catalog=TeadingPlatform;Integrated Security=True");
             }
         }
         /// <summary>
