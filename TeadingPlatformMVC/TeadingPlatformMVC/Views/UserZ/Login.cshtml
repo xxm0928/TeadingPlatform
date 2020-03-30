@@ -8,8 +8,20 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/UserZ/Token",
+            type: "POST",
+            data: {},
+            dataType: "JSON",
+            success: function (res) {
+                $(res).each(function () {
+                    $("#token").val(this.Name);
+                })
+            }
+        })
+    })
     function login() {
-
         var yzm = $("#yzm").val();
         $.ajax({
             url: "/UserZ/Loginyanz/yzm",
@@ -22,7 +34,8 @@
                 if (res > 0) {
                     var datas = {
                         UserNumder: $("#phone").val(),
-                        UserPass: $("#pwd").val()
+                        UserPass: $("#pwd").val(),
+                        token: $("#token").val()
                     };
                     $.ajax({
                         url: "http://localhost:55041/api/UserApi/UserLogin",
@@ -42,10 +55,13 @@
                                     },
                                     dataType: "JSON",
                                     success: function (res) {
-                                        
+
                                     }
                                 })
                                 location.href = "/UserZ/Mainpage";
+                            }
+                            else {
+                                alert(res.msg);
                             }
                         }
                     });
@@ -58,8 +74,7 @@
 
 
     }
-    function GetPass()
-    {
+    function GetPass() {
 
     }
 
@@ -91,8 +106,7 @@
         }
 
     }
-    function GetPass()
-    {
+    function GetPass() {
         alert("忘记密码");
     }
 </script>

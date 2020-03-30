@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL;
+using Newtonsoft.Json;
 namespace TeadingPlatformAPI.Controllers
 {
     public class UserApiController : ApiController
@@ -22,7 +23,22 @@ namespace TeadingPlatformAPI.Controllers
         [HttpPost]
         public UnitedReturn UserLogin(object data)
         {
-            return bll.UserLogin(data);
+            var res = System.Web.Configuration.WebConfigurationManager.AppSettings["token"];
+            UnitedReturn united = new UnitedReturn();
+            var datas = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+            var str = '"' + res.ToString() + '"';
+            var token = datas.token;
+            if (str == token)
+            {
+                return bll.UserLogin(data);
+            }
+            else
+            {
+                united.msg = "非法token";
+                united.res = 0;
+                united.data = null;
+                return united;
+            }
         }
         /// <summary>
         /// 用户注册
@@ -64,6 +80,6 @@ namespace TeadingPlatformAPI.Controllers
         {
             return bll.UpdatShopInfo(data);
         }
-      
+
     }
 }
