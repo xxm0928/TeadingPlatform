@@ -19,19 +19,19 @@ namespace BLL
         /// 借dal 传送数据
         /// </summary>
         /// <returns></returns>
-        public List<UserInfo> PersonalInformation()
+        public UnitedReturn PersonalInformation(object data)
         {
-            List<UserInfo> list = d.PersonalInformation();
-            return list.ToList();
+            var list = d.PersonalInformation(data);
+            return list;
         }
         /// <summary>
         /// 传送数据
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int AddPersonalInformation(UserInfo model)
+        public UnitedReturn AddPersonalInformation(UserInfo model,object data)
         {
-            int result = d.addpersonalinformation(model);
+            var result = d.addpersonalinformation(model,data);
             return result;
         }
         /// <summary>
@@ -40,9 +40,9 @@ namespace BLL
         /// <param name="model"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int ExitPersonalInformation(UserInfo model, int id)
+        public UnitedReturn ExitPersonalInformation(UserInfo model, int id,object data)
         {
-            int result = d.ExitPersonalInformation(model, id);
+            var result = d.ExitPersonalInformation(model, id,data);
             return result;
         }
 
