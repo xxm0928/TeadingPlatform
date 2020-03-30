@@ -22,8 +22,9 @@ namespace DAL
             try
             {
                 var textSql = "exec UserInfo_proc_Select";
-                var ListT = helpX.GetToList<TypeInfo>(textSql);
+                List<UserInfo> ListT = helpX.GetToList<UserInfo>(textSql);
                 UnitedReturn united = new UnitedReturn();
+                
                 if (ListT !=null && ListT.Count>0)
                 {
                     united.data = ListT;
@@ -58,16 +59,18 @@ namespace DAL
 
             try
             {
-                if (data.ToString()!="System.object" && data.ToString()!="1")
-                {
-                    model = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(data));
-                }
+                //if (data.ToString()!="System.object" && data.ToString()!="1")
+                //{
+                //    model = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(data));
+                //}
                 var textsql = $"exec userinfo_proc_add '{model.UserName}','{model.UserPhoto}',{model.UserSex},{model.ShopId},'{model.UserNumder}','{model.UserAge}','{model.UserIDNumber}'";
+               
                 var result = helpX.ExecuteNonQuery(textsql);
                 UnitedReturn united = new UnitedReturn();
+
                 if (result > 0)
                 {
-                    united.data = null;
+                    united.data = result;
                     united.msg = "添加成功";
                     united.res = 1;
                 }
