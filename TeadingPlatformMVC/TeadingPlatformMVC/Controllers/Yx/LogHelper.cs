@@ -5,13 +5,16 @@ using System.Web;
 
 namespace TeadingPlatformMVC.Controllers
 {
+    /// <summary>
+    /// log4日志
+    /// </summary>
     public class LogHelper
     {
         /// <summary>
         /// 输出日志到Log4Net
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="ex"></param>
+        /// <param name="Name">你的方法名</param>
+        /// <param name="msg">你的错误信息</param>
         public void WriteLog(string Name, Exception ex)
         {
             log4net.ILog log = log4net.LogManager.GetLogger(Name);
@@ -20,8 +23,8 @@ namespace TeadingPlatformMVC.Controllers
         /// <summary>
         /// 输出日志到Log4Net
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="msg"></param>
+        /// <param name="Name">你的方法名</param>
+        /// <param name="msg">你的错误信息</param>
         public void WriteLog(string Name, string msg)
         {
             log4net.ILog log = log4net.LogManager.GetLogger(Name);
