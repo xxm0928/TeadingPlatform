@@ -29,15 +29,15 @@
             alert("分类名称不能为空!");
             return;
         }
-        var data = {
-            TypeName: name,
+        var datas = {
+           TypeName: name
         };
         $.ajax({
             url: '/Commodity/AddCommodityTypes',
             type: 'POST',
             dataType: 'json',
             data: {
-                data: JSON.stringify(data)
+                data: JSON.stringify(datas)
             },
             success: function (res) {
                 if (res == "[object Object]") {
@@ -51,6 +51,4 @@
             }
         });
     }
-})
-}
 </script>
