@@ -194,37 +194,17 @@ namespace DAL
                 {
                     if (ass != 1)
                     {
-                        if (orderforms.CommodityState >= 0)
-                        {
-                            datas = datas.Where(s => s.CommodityState == orderforms.CommodityState).ToList();
-                        }
-                        if (Convert.ToInt32(orderforms.CommodityId) > 0)
-                        {
-                            datas = datas.Where(s => s.CommodityId == orderforms.CommodityId).ToList();
-                        }
                         if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
                         {
                             datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
                         }
-                        if (orderforms.TypeName.Length > 0 && !string.IsNullOrEmpty(orderforms.TypeName))
+                        if (orderforms.TypeId > 0)
                         {
-                            datas = datas.Where(s => s.TypeName.Contains(orderforms.TypeName)).ToList();
+                            datas = datas.Where(s => s.TypeId == orderforms.TypeId).ToList();
                         }
-                        if (orderforms.ShopName.Length > 0 && !string.IsNullOrEmpty(orderforms.ShopName))
+                        if (orderforms.ShopId > 0)
                         {
-                            datas = datas.Where(s => s.ShopName.Contains(orderforms.ShopName)).ToList();
-                        }
-                        if (orderforms.ComndityImg.Length > 0 && !string.IsNullOrEmpty(orderforms.ComndityImg))
-                        {
-                            datas = datas.Where(s => s.ComndityImg == orderforms.ComndityImg).ToList();
-                        }
-                        if (orderforms.CommditySum > 0)
-                        {
-                            datas = datas.Where(s => s.CommditySum==orderforms.CommditySum).ToList();
-                        }
-                        if (orderforms.Price > 0)
-                        {
-                            datas = datas.Where(s => s.Price == orderforms.Price).ToList();
+                            datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
                         }
                     }
 
@@ -288,33 +268,17 @@ namespace DAL
                 {
                     if (ass != 1)
                     {
-                        if (orderforms.CommodityState >= 0)
-                        {
-                            datas = datas.Where(s => s.CommodityState == orderforms.CommodityState).ToList();
-                        }
                         if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
                         {
                             datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
                         }
-                        if (orderforms.TypeName.Length > 0 && !string.IsNullOrEmpty(orderforms.TypeName))
+                        if (orderforms.TypeId > 0)
                         {
-                            datas = datas.Where(s => s.TypeName.Contains(orderforms.TypeName)).ToList();
+                            datas = datas.Where(s => s.TypeId==orderforms.TypeId).ToList();
                         }
-                        if (orderforms.ShopName.Length > 0 && !string.IsNullOrEmpty(orderforms.ShopName))
+                        if (orderforms.ShopId > 0)
                         {
-                            datas = datas.Where(s => s.ShopName.Contains(orderforms.ShopName)).ToList();
-                        }
-                        if (orderforms.ComndityImg.Length > 0 && !string.IsNullOrEmpty(orderforms.ComndityImg))
-                        {
-                            datas = datas.Where(s => s.ComndityImg == orderforms.ComndityImg).ToList();
-                        }
-                        if (orderforms.CommditySum > 0)
-                        {
-                            datas = datas.Where(s => s.CommditySum == orderforms.CommditySum).ToList();
-                        }
-                        if (orderforms.Price > 0)
-                        {
-                            datas = datas.Where(s => s.Price == orderforms.Price).ToList();
+                            datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
                         }
                     }
 
