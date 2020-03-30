@@ -177,7 +177,7 @@ namespace DAL
                 {
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState > 0");
+                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from UserInfo as u join ShopInfo as s on u.ShopId = s.ShopId join CommodityInfo as c on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState > 0");
                 if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
                     sql+=$"and c.CommodityName='%'"+orderforms.CommodityName+"'%'";
@@ -236,7 +236,7 @@ namespace DAL
                 {
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from CommodityInfo as c join TypeInfo as t on c.TypeId = t.TypeId join ShopInfo as s on c.ShopId = s.ShopId join UserInfo as u on u.ShopId = s.ShopId where c.CommodityState = 0");
+                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from UserInfo as u join ShopInfo as s on u.ShopId = s.ShopId join CommodityInfo as c on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState =0");
                 if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
                     sql += $"and c.CommodityName='%'" + orderforms.CommodityName + "'%'";

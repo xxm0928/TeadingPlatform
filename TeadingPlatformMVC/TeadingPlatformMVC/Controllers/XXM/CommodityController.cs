@@ -83,6 +83,10 @@ namespace TeadingPlatformMVC.Controllers.XXM
         public JsonResult ShowCommoditys()
         {
             var request = Request["data"];
+            if (request!=null)
+            {
+                request =  "1";
+            }
             var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
             if (res != null)
