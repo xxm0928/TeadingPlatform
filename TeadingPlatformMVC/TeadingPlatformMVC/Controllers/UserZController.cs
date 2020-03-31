@@ -9,7 +9,7 @@ namespace TeadingPlatformMVC.Controllers
 {
     public class UserZController : Controller
     {
-
+        LogHelper logHelper = new LogHelper();
         // GET: UserZ
         public ActionResult Index()
         {
@@ -21,7 +21,16 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public ActionResult Login()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                logHelper.WriteLog("Login", "登录注册");
+                throw;
+            }
+            
         }
         /// <summary>
         /// 验证码
@@ -30,17 +39,26 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public int Loginyanz(string yzm)
         {
-            int res = 0;
-            string code = Session["CheckCode"].ToString();
-            if (yzm.ToLower() == code.ToLower())
+            try
             {
-                res = 1;
-                return res;
+                int res = 0;
+                string code = Session["CheckCode"].ToString();
+                if (yzm.ToLower() == code.ToLower())
+                {
+                    res = 1;
+                    return res;
+                }
+                else
+                {
+                    return res;
+                }
             }
-            else
+            catch (Exception)
             {
-                return res;
+                logHelper.WriteLog("Loginyanz", "验证码");
+                throw;
             }
+            
         }
         /// <summary>
         /// 获取登录人
@@ -62,41 +80,50 @@ namespace TeadingPlatformMVC.Controllers
         }
         public JsonResult AddCookie()
         {
-            ///保存用户名的cookie
-            var lala = Request["data"];
-            HttpCookie cookie = new HttpCookie("Name");
-            cookie.Value = HttpUtility.UrlEncode(lala);
-            Response.Cookies.Add(cookie);
-            GetName getName = new GetName()
+            try
             {
-                Name = lala
-            };
-            return Json(getName, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult GetCookie()
-        {
-            HttpCookie cookies = System.Web.HttpContext.Current.Request.Cookies["Name"];
-            string Name = HttpUtility.UrlEncode(cookies.Value);
-            GetName getName = new GetName()
+                ///保存用户名的cookie
+                var lala = Request["data"];
+                HttpCookie cookie = new HttpCookie("Name");
+                cookie.Value = HttpUtility.UrlEncode(lala);
+                Response.Cookies.Add(cookie);
+                GetName getName = new GetName()
+                {
+                    Name = lala
+                };
+                return Json(getName, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
             {
-                Name = Name
-            };
-            return Json(getName, JsonRequestBehavior.AllowGet);
+                logHelper.WriteLog("Cookie", "获取cookie值");
+                throw;
+            }
+           
         }
+       
         public JsonResult Cookie()
         {
-            var res = Request.Cookies["Name"];
-            GetName getName = new GetName();
-            if (res == null)
+            try
             {
-                getName.Name = "";
+                var res = Request.Cookies["Name"];
+                GetName getName = new GetName();
+                if (res == null)
+                {
+                    getName.Name = "";
+                }
+                else
+                {
+                    getName.Name = HttpUtility.UrlDecode(res.Value);
+                }
+                ViewBag.Name = getName.Name;
+                return Json(getName, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception)
             {
-                getName.Name = HttpUtility.UrlDecode(res.Value);
+                logHelper.WriteLog("Cookie", "读取cookie值");
+                throw;
             }
-            ViewBag.Name = getName.Name;
-            return Json(getName, JsonRequestBehavior.AllowGet);
+            
         }
         /// <summary>
         /// 店铺
@@ -104,7 +131,16 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public ActionResult ShopInfo()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                logHelper.WriteLog("ShopInfo", "店铺列表");
+                throw;
+            }
+           
         }
         /// <summary>
         /// 添加店铺
@@ -112,7 +148,15 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public ActionResult AddShopInfo()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                logHelper.WriteLog("AddShopInfo", "添加店铺");
+                throw;
+            }
         }
         /// <summary>
         /// 找回密码的视图
@@ -128,21 +172,30 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public JsonResult GetEmailPass()
         {
-            EmailAndName ands = new EmailAndName();
-            var request = Request["data"];
-            GetName data = new GetName();
-            if (request != null)
+            try
             {
-                var res = JsonConvert.DeserializeObject<EmailAndName>(request.ToString());
-                Email email = new Email();
-                ///返回的验证码
-                data.Name = email.QQ_email(res.Email, res.Name);
+                EmailAndName ands = new EmailAndName();
+                var request = Request["data"];
+                GetName data = new GetName();
+                if (request != null)
+                {
+                    var res = JsonConvert.DeserializeObject<EmailAndName>(request.ToString());
+                    Email email = new Email();
+                    ///返回的验证码
+                    data.Name = email.QQ_email(res.Email, res.Name);
+                }
+                else
+                {
+                    data.Name = "信息为空,无法获取验证码";
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception)
             {
-                data.Name = "信息为空,无法获取验证码";
+                logHelper.WriteLog("GetEmailPass", "获取邮箱验证码");
+                throw;
             }
-            return Json(data, JsonRequestBehavior.AllowGet);
+          
         }
         HttpClientHelper clientHelper = new HttpClientHelper();
         /// <summary>
@@ -179,7 +232,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                logHelper.WriteLog("SetNameGetPass", "找回密码");
                 throw;
             }
 
@@ -190,13 +243,22 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public JsonResult Token()
         {
-            GetName name = new GetName();
-            var res = clientHelper.Post("api/Token/GetAuthToken", 1);
-            if (res != null)
+            try
             {
-                name.Name = res.ToString();
+                GetName name = new GetName();
+                var res = clientHelper.Post("api/Token/GetAuthToken", 1);
+                if (res != null)
+                {
+                    name.Name = res.ToString();
+                }
+                return Json(name, JsonRequestBehavior.AllowGet);
             }
-            return Json(name, JsonRequestBehavior.AllowGet);
+            catch (Exception)
+            {
+                logHelper.WriteLog("Token", "页面首次加载生成token");
+                throw;
+            }
+            
         }
     }
 }
