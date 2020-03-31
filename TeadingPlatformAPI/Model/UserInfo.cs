@@ -13,7 +13,7 @@ namespace Model
         /// </summary>
         public int UserId { get; set; }
         /// <summary>
-        /// 商品名
+        /// 点名
         /// </summary>
         public string ShopName { get; set; }
         /// <summary>
@@ -49,5 +49,6 @@ namespace Model
         /// </summary>
         public string UserIDNumber { get; set; }
         public string token { get; set; }
+        
     }
 }
