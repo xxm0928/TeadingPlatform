@@ -52,9 +52,9 @@ namespace TeadingPlatformMVC.Controllers
             //不和请求一块发送。
             client.UseDefaultCredentials = false;
             //验证发件人身份(发件人的邮箱，邮箱里的生成授权码);
-            //这个后面的xlhomkffaenbdjjf 是qq邮箱里面打开设置 账户里面把那个授权码获取到 每个人的都不一样
+            //这个后面的xlhomkffaenbdjjf dwvwzhqyqtckeidd 是qq邮箱里面打开设置 账户里面把那个授权码获取到 每个人的都不一样
             //这个授权码是2235577158@qq.com 邮箱的 你们填自己的就好
-            client.Credentials = new NetworkCredential(Email, "xlhomkffaenbdjjf");
+            client.Credentials = new NetworkCredential(Email, "dwvwzhqyqtckeidd");
             //发送
             client.Send(mailMessage);
             //这个返回值是用来验证你找回密码是否跟这个一致 如果一致 则可以找回密码

@@ -83,44 +83,15 @@ namespace TeadingPlatformMVC.Controllers.XXM
         public JsonResult ShowCommoditys()
         {
             var request = Request["data"];
-            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", 1);
+            if (request!=null)
+            {
+                request =  "1";
+            }
+            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
             if (res != null)
             {
-                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                data = JsonConvert.DeserializeObject<List<CommodityInfo>>(mata.data.ToString());
-            }
-            if (request != null)
-            {
-                var orderforms = JsonConvert.DeserializeObject<CommodityInfo>(request);
-                if (orderforms.CommodityState >= 0)
-                {
-                    data = data.Where(s => s.CommodityState == orderforms.CommodityState).ToList();
-                }
-                if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
-                {
-                    data = data.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
-                }
-                if (orderforms.TypeName.Length > 0 && !string.IsNullOrEmpty(orderforms.TypeName))
-                {
-                    data = data.Where(s => s.TypeName.Contains(orderforms.TypeName)).ToList();
-                }
-                if (orderforms.ShopName.Length > 0 && !string.IsNullOrEmpty(orderforms.ShopName))
-                {
-                    data = data.Where(s => s.ShopName.Contains(orderforms.ShopName)).ToList();
-                }
-                if (orderforms.ComndityImg.Length > 0 && !string.IsNullOrEmpty(orderforms.ComndityImg))
-                {
-                    data = data.Where(s => s.ComndityImg == orderforms.ComndityImg).ToList();
-                }
-                if (orderforms.CommditySum > 0)
-                {
-                    data = data.Where(s => s.CommditySum == orderforms.CommditySum).ToList();
-                }
-                if (orderforms.Price > 0)
-                {
-                    data = data.Where(s => s.Price == orderforms.Price).ToList();
-                }
+                data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -136,44 +107,11 @@ namespace TeadingPlatformMVC.Controllers.XXM
         public JsonResult ShowOutCommoditys()
         {
             var request = Request["data"];
-            var res = clientHelper.Post("api/XXM_Commodity/SelOutCommodity", 1);
+            var res = clientHelper.Post("api/XXM_Commodity/SelOutCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
             if (res != null)
             {
-                var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                data = JsonConvert.DeserializeObject<List<CommodityInfo>>(mata.data.ToString());
-            }
-            if (request != null)
-            {
-                var orderforms = JsonConvert.DeserializeObject<CommodityInfo>(request);
-                if (orderforms.CommodityState >= 0)
-                {
-                    data = data.Where(s => s.CommodityState == orderforms.CommodityState).ToList();
-                }
-                if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
-                {
-                    data = data.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
-                }
-                if (orderforms.TypeName.Length > 0 && !string.IsNullOrEmpty(orderforms.TypeName))
-                {
-                    data = data.Where(s => s.TypeName.Contains(orderforms.TypeName)).ToList();
-                }
-                if (orderforms.ShopName.Length > 0 && !string.IsNullOrEmpty(orderforms.ShopName))
-                {
-                    data = data.Where(s => s.ShopName.Contains(orderforms.ShopName)).ToList();
-                }
-                if (orderforms.ComndityImg.Length > 0 && !string.IsNullOrEmpty(orderforms.ComndityImg))
-                {
-                    data = data.Where(s => s.ComndityImg == orderforms.ComndityImg).ToList();
-                }
-                if (orderforms.CommditySum > 0)
-                {
-                    data = data.Where(s => s.CommditySum == orderforms.CommditySum).ToList();
-                }
-                if (orderforms.Price > 0)
-                {
-                    data = data.Where(s => s.Price == orderforms.Price).ToList();
-                }
+                data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
