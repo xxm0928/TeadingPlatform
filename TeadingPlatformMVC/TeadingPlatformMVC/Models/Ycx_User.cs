@@ -39,5 +39,6 @@ namespace TeadingPlatformMVC.Models
         /// 用户身份证
         /// </summary>
         public string UserIDNumber { get; set; }
+        public string ShopName { get; set; }
     }
 }
