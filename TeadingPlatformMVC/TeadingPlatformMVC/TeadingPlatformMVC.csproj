@@ -45,8 +45,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -142,6 +142,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\httpClient.cs" />
     <Compile Include="Upload.ashx.cs">
       <DependentUpon>Upload.ashx</DependentUpon>
     </Compile>
@@ -765,6 +766,9 @@
     <Content Include="Views\UserZ\ShopAdd.cshtml" />
     <Content Include="Views\UserZ\AddShopInfo.cshtml" />
     <Content Include="Views\UserZ\GetPass.cshtml" />
+    <Content Include="Views\YcxCode\AddUser.cshtml" />
+    <Content Include="Views\YcxCode\Z_SelectUser.cshtml" />
+    <Content Include="Views\YcxCode\ExUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

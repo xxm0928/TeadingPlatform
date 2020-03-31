@@ -106,7 +106,7 @@ namespace DAL
         public UnitedReturn AddShopInfo(object data)
         {
             ShopInfo Info = JsonConvert.DeserializeObject<ShopInfo>(data.ToString());
-            var sql = string.Format($"insert into [dbo].[ShopInfo] values('{Info.ShopName}',' ','2')");
+            var sql = string.Format($"insert into [dbo].[ShopInfo] values('{Info.ShopName}')");
             var res = dBHelper.ExecuteNonQuery(sql);
             UnitedReturn united = new UnitedReturn();
             if (res > 0)
