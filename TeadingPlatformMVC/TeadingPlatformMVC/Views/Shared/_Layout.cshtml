@@ -55,8 +55,7 @@
                         <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">
                             <img style="width:40px;height:40px" id="imgs" src="~/Image/头像.jpg" />
                             &nbsp;当前用户:
-                            <input type="reset" style="width:50px;color:#ff0000;height:40px" readonly id="Text1" />
-                            <label>@ViewBag.Name</label>
+                            <input type="reset" style="width:50px;color:#ff0000;height:40px" readonly id="Tes" />
                         </a>
                     </li>
                     <li class="layui-nav-item"><a href="javascript:;" onclick="loca()">退出</a></li>
@@ -94,7 +93,7 @@
             dataType: "JSON",
             success: function (res) {
                 $(res).each(function () {
-                    $("#Text1").val(this.Name);
+                    $("#Tes").val(this.Name);
                 })
             }
         })

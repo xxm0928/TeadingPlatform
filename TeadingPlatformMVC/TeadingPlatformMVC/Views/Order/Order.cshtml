@@ -7,7 +7,7 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <div style="margin-top:10px;margin-left:10px;width:300px;border-color:aqua;">
-    <a style="color:#0026ff" onclick="Query(1)">待付款</a> 丨<a style="color:#ff0000" onclick="Query(2)">待发货</a> 丨<a style="color:#00ff21" onclick="Query(3)">已发货</a>丨 <a style="color:#ff00dc" onclick="Query(4)">已完成</a> 丨<a style="color:#ffd800" onclick="Query(5)">已关闭</a>
+    <a style="color:#0026ff" onclick="Query(1)" >待付款</a> 丨<a style="color:#ff0000" onclick="Query(2)">待发货</a> 丨<a style="color:#00ff21" onclick="Query(3)">已发货</a>丨 <a style="color:#ff00dc" onclick="Query(4)">已完成</a> 丨<a style="color:#ffd800" onclick="Query(5)">已关闭</a>
 </div>
 
 <div class="wrap-container" style="padding-top:20px">
@@ -159,18 +159,18 @@
             success: function (res) {
                 var select = "";
                 $(res).each(function () {
-                    select += "<tr>" +
-                        '<td><img src=' + this.ComndityImg + ' style="width:100px;height:100px"/></td>' +
-                        "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "发货快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
-                        "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.Price + "</td>" +
-                        "<td>" + this.CommodityCount + "</td>" +
-                        "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
-                        "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
-                        "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
-                        "</tr>";
+                     select += "<tr>" +
+                            '<td><img src=' + this.ComndityImg + ' style="width:100px;height:100px"/></td>' +
+                            "<td>" + "订单编号:3328992142" + this.OrderformId + "</br>" + "发货快递:" + (this.LogisticsName == "" ? "" : this.LogisticsName) + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            "<td>" + this.CommodityCount + "</td>" +
+                            "<td>" + "　　" + this.UserName + "</br>" + this.UserNumder + "</td>" +
+                            "<td>" + (this.Price * this.CommodityCount) + ".00" + "</td>" +
+                            "<td style='color:red'>" + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + "</td>" +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "待付款" : this.OrderState == 2 ? "待发货" : this.OrderState == 3 ? "已发货" : this.OrderState == 4 ? "已收货" : "已完成") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.OrderformId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "修改" + '</button></td>' +
+                            "</tr>";
                 })
                 $("#datas").html(select);
             }
