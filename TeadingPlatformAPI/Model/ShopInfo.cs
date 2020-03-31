@@ -16,10 +16,5 @@ namespace Model
         /// 店铺名称
         /// </summary>
         public string ShopName { get; set; }
-        /// <summary>
-        /// 店铺状态
-        /// </summary>
-        public int ShopState { get; set; }
-        public int CommodityId { get; set; }
     }
 }

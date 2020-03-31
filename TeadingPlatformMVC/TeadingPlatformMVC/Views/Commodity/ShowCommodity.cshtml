@@ -10,7 +10,7 @@
         <div style="top:5px">
             <div style="margin-top:20px">
                 <span tyle="margin-left:10px;margin-top:-10px">
-                    <input type="text" placeholder="请输入商品名称">
+                    <input type="text" id="text1" placeholder="请输入商品名称">
                 </span>
 
                 <span tyle="margin-left:10px;margin-top:10px">
@@ -107,7 +107,7 @@
         });
     })
     function Sel() {
-        var ass = $("#text").val();
+        var ass = $("#text1").val();
         var tid = $("#category").val();
         var sid = $("#shop").val();
         var datass = {
