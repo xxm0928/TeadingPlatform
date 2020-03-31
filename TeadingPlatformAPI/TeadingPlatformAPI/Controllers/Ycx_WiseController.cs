@@ -1,4 +1,5 @@
 ﻿using BLL;
+using DAL;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -62,7 +63,36 @@ namespace TeadingPlatformAPI.Controllers
         }
         #endregion
 
-        #region Oper
+        DBHelper helpx = new DBHelper();
+        #region 真
+
+
+        [HttpPost,Route("Z_Add")]
+        public UnitedReturn Add(UserInfo um,object obj)
+        {
+            if (obj.ToString() !="System.object" && obj.ToString()!="1")
+            {
+                um = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(obj));
+            }
+            string sql = $"insert into UserInfo values('{um.UserName}','{um.UserPhoto}',{um.UserSex},{um.ShopId},'{um.UserNumder}',{um.UserAge},'{um.UserIDNumber}')";
+            var res = helpx.ExecuteNonQuery(sql);
+            UnitedReturn united = new UnitedReturn();
+            if (res>0)
+            {
+                united.data = res;
+                united.msg = "添加成功！";
+                united.res = 1;
+            }
+            else
+            {
+                united.data = null;
+                united.msg = "添加失败！";
+                united.res = 0;
+            }
+            return united;
+
+
+        }
 
         #endregion
     }

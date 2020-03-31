@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Zhdal\Dal.cs" />
-    <Compile Include="DBHelper .cs" />
+    <Compile Include="XXM\DBHelper .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XXM\XXMdal.cs" />
     <Compile Include="YxDal\YxDBHelper .cs" />
