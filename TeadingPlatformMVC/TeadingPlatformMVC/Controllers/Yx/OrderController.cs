@@ -185,7 +185,7 @@ namespace TeadingPlatformMVC.Controllers
                 var splitArr = strUrl.Split('/');
                 var splitId = (splitArr[splitArr.Length - 1]).Split('s');
                 var Id = splitId[splitId.Length - 1];
-                ViewBag.Id = Id;
+                Session["Id"] = Id;
                 return View();
             }
             catch (Exception)

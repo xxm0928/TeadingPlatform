@@ -140,13 +140,61 @@ namespace TeadingPlatformMVC.Controllers
 
         }
 
-
-        public ActionResult Z_SelectUser(object data)
+        public ActionResult ExUser()
         {
-            data = clientHelper.Post("api/User/SelectUser", 1);
-            List<Ycx_User> list = JsonConvert.DeserializeObject<List<Ycx_User>>(JsonConvert.SerializeObject(data));
+            return View();
+        }
+        [HttpPost]
+        public void ExUser(Ycx_User um,int id)
+        {
+            try
+            {
+                var data = JsonConvert.SerializeObject(um);
+                var request = Request["data"];
+                UnitedReturn united = new UnitedReturn();
+                var res = clientHelper.Post("api/User/UpdateUser?UserId="+id+"", data);
+                united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
-            return View(list.ToList());
+
+                GetName name = new GetName();
+                name.Name = united.msg;
+                if (united.res > 0)
+                {
+                    Response.Write("<script>alert('修改成功');</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('修改失败');</script>");
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public ActionResult Z_SelectUser()
+        {
+            
+            
+            var GetList = clientHelper.Post("api/User/SelectUser", 1);
+            List<Ycx_User> GetData = new List<Ycx_User>();
+            UnitedReturn united = new UnitedReturn();
+            if (GetList!=null)
+            {
+                united = JsonConvert.DeserializeObject<UnitedReturn>(GetList.ToString());
+                GetData = JsonConvert.DeserializeObject<List<Ycx_User>>(JsonConvert.SerializeObject(united.data));
+            }
+            
+            
+
+
+            return View(GetData.ToList());
         }
         
 

@@ -46,20 +46,16 @@ namespace TeadingPlatformAPI.Controllers
         public UnitedReturn SelectUser(object data)
         {
             string sql = "select * from UserInfo a join ShopInfo b on a.ShopId = b.ShopId ";
-            var ass = 0;
-            Orderform orderforms = new Orderform();
+         
+            UserInfo User = new UserInfo();
             //object初始值是System.object 所以判断一下
             if (data.ToString() != "System.object" && data.ToString() != "1")
             {
-                orderforms = JsonConvert.DeserializeObject<Orderform>(data.ToString());
+                User = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
             }
-            else
-            {
-                ass = 1;
-                data = 1;
-            }
+           
             List<UserInfo> list=helpx.Getlist<UserInfo>(sql);
-            data = JsonConvert.SerializeObject(list);
+           
             UnitedReturn united = new UnitedReturn();
             if (list.Count>0 && list!=null)
             {

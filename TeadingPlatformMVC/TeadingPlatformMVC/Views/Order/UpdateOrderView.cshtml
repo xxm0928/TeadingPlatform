@@ -164,6 +164,7 @@
             success: function (res) {
                 $(res).each(function () {
                     if (this.Name == "修改成功") {
+                        alert(this.Name);
                         location.href = '/Order/Order';
                     }
                     else {
