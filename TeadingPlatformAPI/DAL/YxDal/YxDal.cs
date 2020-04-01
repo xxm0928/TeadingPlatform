@@ -211,5 +211,39 @@ namespace DAL
             }
             return unitedReturn;
         }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UpdatePwd(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            if (data != null || data.ToString() != "System.object")
+            {
+                var info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+                string sql = string.Format($"update UserInfo set UserPass='{info.UserPass}' where UserName='{info.UserName}'");
+                var res = YxDBHelper.ExecuteNonQuery(sql);
+                if (res > 0)
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 1;
+                    unitedReturn.msg = "修改成功";
+                }
+                else
+                {
+                    unitedReturn.data = null;
+                    unitedReturn.res = 0;
+                    unitedReturn.msg = "修改失败";
+                }
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.res = 0;
+                unitedReturn.msg = "修改失败";
+            }
+            return unitedReturn;
+        }
     }
 }
