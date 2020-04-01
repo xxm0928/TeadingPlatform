@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model IEnumerable<TeadingPlatformMVC.Models.Ycx_User>
 
@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <td> 昵称：<input type="text" name="" value="@item.UserName" /></td>
-                <td> 头像：</td>
+                <td> 头像：<input type="image" name="name" value="@item.UserPhoto" /></td>
             </tr>
             <tr>
                 <td>年龄：<input type="text" name="name" value="@item.UserAge" /></td>
@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td>
-                    @Html.ActionLink("编辑","ExUser","YcxCode")
+                    @Html.ActionLink("编辑","ExUser","YcxCode",new {id=item.ShopId}) 
                 </td>
 
             </tr>
