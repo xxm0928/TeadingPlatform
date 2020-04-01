@@ -1,4 +1,5 @@
 ﻿using BLL;
+using DAL;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +13,7 @@ using System.Web.Http;
 
 namespace TeadingPlatformAPI.Controllers
 {
-    [RoutePrefix("ycx")]  //路由名字
+      //路由名字
     public class Ycx_WiseController : ApiController
     {
         #region online
@@ -24,7 +25,7 @@ namespace TeadingPlatformAPI.Controllers
         /// </summary>
         /// <param name="sing"></param>
         /// <returns></returns>
-        [Route("PersonalInformation"), HttpGet]
+        [HttpPost]
         public IHttpActionResult PersonalInformation(object data)
         {
             var list = b.PersonalInformation(data);
@@ -34,7 +35,7 @@ namespace TeadingPlatformAPI.Controllers
         /// 添加用户信息
         /// </summary>
         /// <returns></returns>
-        [Route("add"), HttpPost]
+        [HttpPost]
         public IHttpActionResult AddPersonalInformation(UserInfo model,object data)
         {
 
@@ -49,20 +50,54 @@ namespace TeadingPlatformAPI.Controllers
         /// <param name="model"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("exit"),HttpPost]
+        [HttpPost]
         public IHttpActionResult ExitPersonalInformation(UserInfo model, int ids,object data)
         {
             var result = b.ExitPersonalInformation(model, ids, data);
             return Json(result);
         }
-        [HttpPost,Route("list")]
+        [HttpPost]
         public UnitedReturn GetList(object data)
         {
             return b.PersonalInformation(data);
         }
         #endregion
 
-        #region Oper
+        Ycx_Helper helpx = new Ycx_Helper();
+        #region 真
+
+
+       [HttpPost]
+        public UnitedReturn Add(UserInfo um,object obj)
+        {
+            if (obj.ToString() !="System.object" && obj.ToString()!="1")
+            {
+                um = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(obj));
+            }
+            string sql = $"insert into UserInfo values('{um.UserName}','{um.UserPhoto}',{um.UserSex},{um.ShopId},'{um.UserNumder}',{um.UserAge},'{um.UserIDNumber}')";
+            var res = helpx.ExecuteNonQuery(sql);
+            UnitedReturn united = new UnitedReturn();
+            if (res>0)
+            {
+                united.data = res;
+                united.msg = "添加成功！";
+                united.res = 1;
+            }
+            else
+            {
+                united.data = null;
+                united.msg = "添加失败！";
+                united.res = 0;
+            }
+            return united;
+
+
+        }
+
+        //public UnitedReturn SelectWere()
+        //{
+        //    string sql = "";
+        //}
 
         #endregion
     }

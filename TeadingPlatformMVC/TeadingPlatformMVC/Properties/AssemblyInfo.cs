@@ -33,3 +33,6 @@ using System.Runtime.InteropServices;
 // 方法是按如下所示使用 "*":
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+//开关日志记录的操作
+//Watch= true是必须的，否则程序就不会对这个进行监听
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]

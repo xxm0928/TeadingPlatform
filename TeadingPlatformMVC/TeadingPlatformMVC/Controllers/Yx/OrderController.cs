@@ -11,6 +11,7 @@ namespace TeadingPlatformMVC.Controllers
 {
     public class OrderController : Controller
     {
+        LogHelper log = new LogHelper();
         HttpClientHelper clientHelper = new HttpClientHelper();
         /// <summary>
         /// 订单视图
@@ -71,7 +72,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("GetOrder", "获取订单数据");
                 throw;
             }
 
@@ -94,7 +95,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("GetCookie", "获取Cookie");
                 throw;
             }
 
@@ -117,7 +118,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("DropListLogistics", "快递下拉列表");
                 throw;
             }
 
@@ -141,7 +142,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("UpdateOrderState", "修改订单状态");
                 throw;
             }
 
@@ -167,7 +168,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("GetState", "通过订单编号来获取订单状态 进行不同的操作 查看详情 或者 订单发货");
                 throw;
             }
 
@@ -184,12 +185,12 @@ namespace TeadingPlatformMVC.Controllers
                 var splitArr = strUrl.Split('/');
                 var splitId = (splitArr[splitArr.Length - 1]).Split('s');
                 var Id = splitId[splitId.Length - 1];
-                ViewBag.Id = Id;
+                Session["Id"] = Id;
                 return View();
             }
             catch (Exception)
             {
-
+                log.WriteLog("GetOrderDetailView", "获取订单详情的视图");
                 throw;
             }
 
@@ -215,7 +216,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("GetOrderDetail", "获取订单详情返回前台的数据");
                 throw;
             }
 
@@ -242,7 +243,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("Cookie", "判断cookie是否通过登录来保存");
                 throw;
             }
 
@@ -261,7 +262,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("UpdateOrder", "用cookie保存修改订单的id");
                 throw;
             }
 
@@ -308,7 +309,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("UpdateOrderData", "反填用的视图");
                 throw;
             }
 
@@ -333,7 +334,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("DropListShop", "店铺的下拉列表");
                 throw;
             }
 
@@ -366,7 +367,7 @@ namespace TeadingPlatformMVC.Controllers
             }
             catch (Exception)
             {
-
+                log.WriteLog("UpdateOrderDataAndReturnData", "修改订单并接受返回数据");
                 throw;
             }
 

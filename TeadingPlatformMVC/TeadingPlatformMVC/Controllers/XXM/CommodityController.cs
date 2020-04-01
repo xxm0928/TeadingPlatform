@@ -83,7 +83,7 @@ namespace TeadingPlatformMVC.Controllers.XXM
         public JsonResult ShowCommoditys()
         {
             var request = Request["data"];
-            if (request!=null)
+            if (request==null)
             {
                 request =  "1";
             }

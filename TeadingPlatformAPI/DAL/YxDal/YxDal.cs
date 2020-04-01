@@ -29,7 +29,7 @@ namespace DAL
                 ass = 1;
                 data = 1;
             }
-            string sql = string.Format("select * from [dbo].[Orderform] as o join [dbo].[UserInfo] as u on o.UserId=u.UserId join CommodityInfo as c on c.CommodityId = o.CommodityId join LogisticsInfo as l on l.LogisticsId = o.LogisticsId join ShopInfo s on s.ShopId = c.ShopId join TypeInfo as t on t.TypeId = c.TypeId ");
+            string sql = string.Format("select * from Orderform o join UserInfo u on u.UserId=o.UserId join CommodityInfo c on c.CommodityId = o.CommodityId join LogisticsInfo l on l.LogisticsId = o.LogisticsId join ShopInfo s on s.ShopId = u.ShopId join TypeInfo t on t.TypeId = c.TypeId ");
             var datas = YxDBHelper.GetToList<Orderform>(sql);
             UnitedReturn unitedReturn = new UnitedReturn();
             if (datas.Count > 0 && datas != null)

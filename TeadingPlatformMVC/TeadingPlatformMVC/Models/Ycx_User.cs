@@ -8,7 +8,7 @@ namespace TeadingPlatformMVC.Models
     public class Ycx_User
     {
         /// <summary>
-        /// 用户编号
+        /// 用户编号+
         /// </summary>
         public int UserId { get; set; }
         /// <summary>
@@ -39,5 +39,6 @@ namespace TeadingPlatformMVC.Models
         /// 用户身份证
         /// </summary>
         public string UserIDNumber { get; set; }
+        public string ShopName { get; set; }
     }
 }

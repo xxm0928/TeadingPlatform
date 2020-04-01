@@ -1,0 +1,71 @@
+﻿
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<TeadingPlatformMVC.Models.Ycx_User>
+
+@foreach (var item in Model)
+{
+    <div>
+        @*昵称：@item.UserName
+        头像：@item.UserPhoto
+        店铺:@item.ShopName
+        性别：@item.UserSex
+        手机号：@item.UserNumder
+        年龄:@item.UserAge
+        身份证：@item.UserIDNumber*@
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td> 昵称：<input type="text" name="" value="@item.UserName" /></td>
+                <td> 头像：<input type="image" name="name" value="@item.UserPhoto" /></td>
+            </tr>
+            <tr>
+                <td>年龄：<input type="text" name="name" value="@item.UserAge" /></td>
+            </tr>
+            <tr>
+                <td>
+                    性别：<input type="text" name="sex" value="@item.UserSex" />
+                       
+                    
+                </td>
+
+            </tr>
+            <tr>
+                <td>手机号：<input type="text" name="name" value="@item.UserNumder" /></td>
+            </tr>
+
+            <tr>
+                <td>店铺：<input type="text" name="name" value="@item.ShopName" /></td>
+            </tr>
+            <tr>
+                <td>身份证：<input type="text" name="name" value="@item.UserIDNumber" /></td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("编辑","ExUser","YcxCode",new {id=item.ShopId}) 
+                </td>
+
+            </tr>
+        </table>
+       
+
+    </div>
+}
+<div>
+    <p>
+        个人信息
+
+    </p>
+    <div>
+        <div>
+
+            昵称:
+        </div>
+
+    </div>
+
+
+</div>
+
