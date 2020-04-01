@@ -8,34 +8,38 @@
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<table class="table">
-    <tr>
-        <td>输入要验证的邮箱</td>
-        <td>
-            <input id="Email" type="text" />
-        </td>
-    </tr>
-    <tr>
-        <td>你的真实姓名</td>
-        <td>
-            <input id="Name" type="text" />
-        </td>
-    </tr>
-    <tr>
-        <td>请输入验证码</td>
-        <td>
-            <input id="Code" type="text" /><input id="Codes" type="hidden" />
-        </td>
-        <td>
-            <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" class="btn btn-primary" />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input id="Button1" type="button" value="找回密码" onclick="GetPass()" />
-        </td>
-    </tr>
-</table>
+<div>
+    <table>
+        <tr style="width:300px">
+            <td>输入要验证的邮箱:</td>
+            <td>
+                <input id="Email" type="text" />
+            </td>
+        </tr>
+        <tr style="width:300px">
+            <td>你的真实姓名:</td>
+            <td>
+                <input id="Name" type="text" />
+            </td>
+        </tr>
+        <tr style="width:300px">
+            <td>请输入验证码:</td>
+            <td>
+                <input id="Code" type="text" /><input id="Codes" type="hidden" />
+            </td>
+            <td>
+                <input id="Button1" onclick="GetCode()" type="button" style="margin-left:20px" value="获取验证码" class="btn btn-primary" />
+            </td>
+        </tr>
+        <tr style="width:300px">
+            <td>
+                <input id="Button1" type="button" value="重置密码" onclick="GetPass()" style="margin-left:200px;margin-top:20px;" class="btn btn-primary" />
+            </td>
+        </tr>
+        <tbody id="tbss"></tbody>
+    </table>
+</div>
+
 <script>
     function GetCode() {
 
@@ -87,28 +91,47 @@
             return;
         }
         if (code == codes) {
-            alert("开始找回密码,请稍等三秒");
-            var data = {
-                Name: Name_
-            }
-            $.ajax({
-                url: "/UserZ/SetNameGetPass",
-                dataType: "json",
-                data: {
-                    data: JSON.stringify(data)
-                },
-                type: "POST",
-                success: function (res)
-                {
-                    $(res).each(function () {
-                        alert("密码是:"+this.UserPass+",记好了");
-                    })
-                }
-            })
+        var tbss = "";
+        tbss += "<tr>" +
+            "<td>新密码:</td>" +
+            "<td><input id='Pwd1' type='text' /></td>" +
+            "<td> <input  type='button' value='修改密码'  style='margin-left:20px' onclick='Update()' /></td>"
+            + "</tr>";
+        $("#tbss").html(tbss);
         }
         else {
             alert("找你妹啊");
         }
 
+    }
+    ///修改密码
+    function Update() {
+        var Name_ = $("#Name").val();
+        var Pwd_ = $("#Pwd1").val();
+        var data = {
+            UserName: Name_,
+            UserPass: Pwd_
+        }
+        $.ajax({
+            url: "/UserZ/UpdatePwd",
+            dataType: "JSON",
+            data: {
+                data: JSON.stringify(data)
+            },
+            type: "POST",
+            success: function (res) {
+                $(res).each(function () {
+                    if (this.msg == "修改成功") {
+                        alert(this.msg);
+                        location.href = '/UserZ/Login';
+                    }
+                    else {
+                        alert(this.msg);
+                    }
+
+
+                })
+            }
+        })
     }
 </script>

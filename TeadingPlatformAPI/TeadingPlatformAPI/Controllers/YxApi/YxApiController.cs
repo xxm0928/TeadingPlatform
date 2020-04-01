@@ -70,5 +70,15 @@ namespace TeadingPlatformAPI.Controllers
         {
             return YxBll.UpdateOrderDataAndReturnData(data);
         }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn UpdatePwd(object data)
+        {
+            return YxBll.UpdatePwd(data);
+        }
     }
 }
