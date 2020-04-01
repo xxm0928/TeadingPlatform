@@ -5,7 +5,7 @@
 }
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<input id="Text1" type="text" value="@ViewBag.Id" />
+<input id="Te" type="hidden" value="@Session["Id"]" />
 <div class="wrap-container">
     <div class="layui-form" id="category-table-list">
         <table class="layui-table" lay-even lay-skin="nob">
@@ -25,9 +25,9 @@
 </div>
 <script>
     $(document).ready(function () {
-        var id = $("#Text1").val();
+        var id = $("#Te").val();
         if (id == "GetOrderDetailView" || id <= 0) {
-            alert("请先选择要查看的商品");
+            alert("请先选择要查看的商品订单");
             location.href = '/Order/Order';
         }
         else {
