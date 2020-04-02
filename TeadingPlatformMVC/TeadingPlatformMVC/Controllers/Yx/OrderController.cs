@@ -374,5 +374,53 @@ namespace TeadingPlatformMVC.Controllers
 
 
         }
+        /// <summary>
+        /// 根据名字查询是否存在
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult SelectName()
+        {
+            try
+            {
+                //拿到要判断的名字
+                var Name = Request["data"];
+                GetName get = new GetName();
+                //调用httpclient获取返回数据
+                var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+                List<Orderform> data = new List<Orderform>();
+                if (res != null)
+                {
+                    var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                    data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                    if (!string.IsNullOrEmpty(Name))
+                    {
+                        data = data.Where(s => s.UserName == Name.ToString()).ToList();
+                        if (data.Count >= 1)
+                        {
+                            get.Name = "有该用户";
+                        }
+                        else
+                        {
+                            get.Name = "没有该用户";
+                        }
+                    }
+                    else
+                    {
+                        get.Name = "用户名不能为空";
+                    }
+                }
+                else
+                {
+                    get.Name = "服务器内部错误";
+                }
+                return Json(get, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                log.WriteLog("SelectName", "判断用户是否存在");
+                throw;
+            }
+
+        }
     }
 }
