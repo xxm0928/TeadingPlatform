@@ -80,26 +80,33 @@ namespace DAL
         /// <returns></returns>
         public UnitedReturn IsExistPhone(object data)
         {
-           
-            UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
-            string sql = string.Format("select count(*) from UserInfo where UserNumder='{0}'", Info.UserNumder);
-            var res = Convert.ToInt32(dBHelper.ExecuteScalar(sql));
             UnitedReturn united = new UnitedReturn();
-            if (res > 0)
+            if (data != null || data.ToString() != "System.object")
             {
-                //给统一返回类型的model赋值
-                united.data = null;//返回的数据
-                united.msg = "手机号已存在";//返回的字符串
-                united.res = 1;//返回的int值
+                UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+                string sql = string.Format("select count(*) from UserInfo where UserNumder='{0}'", Info.UserNumder);
+                var res = Convert.ToInt32(dBHelper.ExecuteScalar(sql));
+                if (res > 0)
+                {
+                    //给统一返回类型的model赋值
+                    united.data = null;//返回的数据
+                    united.msg = "手机号已存在";//返回的字符串
+                    united.res = 1;//返回的int值
+                }
+                else
+                {
+                    //给统一返回类型的model赋值
+                    united.data = null;
+                    united.msg = "查询失败";
+                    united.res = 0;
+                }
+             
             }
             else
             {
-                //给统一返回类型的model赋值
-                united.data = null;
-                united.msg = "查询失败";
                 united.res = 0;
             }
-            return united;
+            return united; ;
         }
         /// <summary>
         /// 店铺列表

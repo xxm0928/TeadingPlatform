@@ -61,6 +61,14 @@ namespace BLL
         {
             return dal.UpdatShopInfo(data);
         }
-    
+        /// <summary>
+        /// 手机号验证
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public UnitedReturn IsExistPhone(object data)
+        {
+            return dal.IsExistPhone(data);
+        }
     }
 }
