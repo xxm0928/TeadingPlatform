@@ -199,45 +199,6 @@ namespace TeadingPlatformMVC.Controllers
         }
         HttpClientHelper clientHelper = new HttpClientHelper();
         /// <summary>
-        /// 邮箱验证成功 根据用户名找密码
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult SetNameGetPass()
-        {
-            try
-            {
-                List<Orderform> data = new List<Orderform>();
-                var request = Request["data"];
-                User user = new User();
-                if (request != null)
-                {
-                    var GetName = JsonConvert.DeserializeObject<GetName>(request.ToString());
-                    var res = clientHelper.Post("api/YxApi/OrderShow", 1);
-                    if (res != null)
-                    {
-                        var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                        data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
-                    }
-                    if (GetName != null)
-                    {
-                        data = data.Where(s => s.UserName == GetName.Name).ToList();
-                    }
-                }
-                if (data.Count == 0)
-                {
-                    user.UserPass = "找不到该用户,请确认后重新输入";
-                    return Json(user, JsonRequestBehavior.AllowGet);
-                }
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-                logHelper.WriteLog("SetNameGetPass", "找回密码");
-                throw;
-            }
-
-        }
-        /// <summary>
         /// 页面首次加载 生成token
         /// </summary>
         /// <returns></returns>
@@ -259,6 +220,29 @@ namespace TeadingPlatformMVC.Controllers
                 throw;
             }
             
+        }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult UpdatePwd()
+        {
+            try
+            {
+                UnitedReturn united = new UnitedReturn();
+                var request = Request["Data"];
+                if (request != null)
+                {
+                    var res = clientHelper.Post("api/YxApi/UpdatePwd", request);
+                    united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                }
+                return Json(united, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                logHelper.WriteLog("UpdatePwd", "修改密码");
+                throw;
+            } 
         }
     }
 }

@@ -64,5 +64,14 @@ namespace BLL
         {
             return YxDal.UpdateOrderDataAndReturnData(data);
         }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UpdatePwd(object data)
+        {
+            return YxDal.UpdatePwd(data);
+        }
     }
 }

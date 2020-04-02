@@ -76,31 +76,49 @@
     }
 
     function regist() {
-        var pwd = $("#Rpwd").val();
-        var pwdtwo = $("#Rpwdtwo").val();
-        if (pwd == pwdtwo && pwd != "") {
-
-            var datas = {
-                UserName: $("#name").val(),
-                UserPass: $("#Rpwd").val(),
-                UserNumder: $("#Rphone").val()
-            };
-
-            $.ajax({
-                url: "http://localhost:55041/api/UserApi/UserAdd",
-                type: "POST",
-                data: JSON.stringify(datas),
-                dataType: "JSON",
-                contentType: "application/json",
-                success: function (res) {
+        var data = {
+            UserNumder: $("#Rphone").val()
+        };
+        $.ajax({
+            url: "http://localhost:55041/api/UserApi/IsExistPhone",
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (res) {
+                if (res.res > 0) {
                     alert(res.msg);
-                    if (res.msg == "注册成功") {
-                        location.reload();
+                }
+                else {
+                    var pwd = $("#Rpwd").val();
+                    var pwdtwo = $("#Rpwdtwo").val();
+                    if (pwd == pwdtwo && pwd != "") {
+
+                        var datas = {
+                            UserName: $("#name").val(),
+                            UserPass: $("#Rpwd").val(),
+                            UserNumder: $("#Rphone").val()
+                        };
+
+                        $.ajax({
+                            url: "http://localhost:55041/api/UserApi/UserAdd",
+                            type: "POST",
+                            data: JSON.stringify(datas),
+                            dataType: "JSON",
+                            contentType: "application/json",
+                            success: function (res) {
+                                alert(res.msg);
+                                if (res.msg == "注册成功") {
+                                    location.reload();
+                                }
+                            }
+                        });
+
                     }
                 }
-            });
+            }
+        });
 
-        }
 
     }
     function GetPass() {
