@@ -73,5 +73,14 @@ namespace BLL
         {
             return YxDal.UpdatePwd(data);
         }
+        /// <summary>
+        /// 获取用户表 存到redis
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn GetUserInfo(object data)
+        {
+            return YxDal.GetUserInfo(data);
+        }
     }
 }

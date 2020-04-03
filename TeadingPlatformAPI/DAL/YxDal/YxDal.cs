@@ -245,6 +245,30 @@ namespace DAL
             }
             return unitedReturn;
         }
+        /// <summary>
+        /// 获取用户表 存到redis
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn GetUserInfo(object data)
+        {
+            UnitedReturn unitedReturn = new UnitedReturn();
+            string sql = string.Format(" select UserName from UserInfo");
+            var res = YxDBHelper.GetToList<UserInfo>(sql);
+            if (res != null)
+            {
+                unitedReturn.data = res;
+                unitedReturn.msg = "获取成功";
+                unitedReturn.res = 1;
+            }
+            else
+            {
+                unitedReturn.data = null;
+                unitedReturn.msg = "获取失败";
+                unitedReturn.res = 0;
+            }
+            return unitedReturn;
+        }
 
     }
 }

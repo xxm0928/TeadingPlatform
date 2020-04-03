@@ -80,5 +80,15 @@ namespace TeadingPlatformAPI.Controllers
         {
             return YxBll.UpdatePwd(data);
         }
+        /// <summary>
+        /// 获取用户表 存到redis
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn GetUserInfo(object data)
+        {
+            return YxBll.GetUserInfo(data);
+        }
     }
 }
