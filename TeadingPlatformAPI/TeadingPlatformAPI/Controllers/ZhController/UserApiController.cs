@@ -80,6 +80,15 @@ namespace TeadingPlatformAPI.Controllers
         {
             return bll.UpdatShopInfo(data);
         }
-
+        /// <summary>
+        /// 手机号验证
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn IsExistPhone(object data)
+        {
+            return bll.IsExistPhone(data);
+        }
     }
 }
