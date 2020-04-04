@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,6 +14,7 @@ namespace TeadingPlatformMVC.Controllers
 {
     public class OrderController : Controller
     {
+
         LogHelper log = new LogHelper();
         HttpClientHelper clientHelper = new HttpClientHelper();
         /// <summary>
@@ -382,11 +384,11 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         //public JsonResult DataRedis()
         //{
-
+        //    RedisHelper Redishelper = new RedisHelper();
         //    var msg = "";
         //    //从redis里面拿到这个数据
-        //    var NameList = Redishelper.getList<RedisUserName>("NameList", 0);
-        //    if (NameList == null)
+        //    var str = Redishelper.StringGetRedis("NameList");
+        //    if (str == "Redis取出数据失败" || str == "发生错误")
         //    {
 
         //        var res = clientHelper.Post("api/YxApi/GetUserInfo", 1);
@@ -394,12 +396,10 @@ namespace TeadingPlatformMVC.Controllers
         //        {
         //            var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
         //            var Data = data.data;
-        //            List<RedisUserName> namelist = JsonConvert.DeserializeObject<List<RedisUserName>>(Data.ToString());
-
         //            //把范形集合数据存到redis里面
-        //            Redishelper.addList("NameList", namelist, 0);
-        //            var Redis = Redishelper.getList<RedisUserName>("NameList", 0);
-        //            if (Redis != null)
+        //            Redishelper.StringSetToRedis("NameList", Data.ToString());
+        //            var Redis = Redishelper.StringGetRedis("NameList");
+        //            if (Redis != null && Redis != "Redis取出数据失败")
         //            {
         //                msg = "数据存到Redis成功";
         //            }
@@ -407,17 +407,18 @@ namespace TeadingPlatformMVC.Controllers
         //            {
         //                msg = "数据存到Redis失败";
         //            }
-
-
         //        }
         //        else
         //        {
         //            msg = "获取不到数据";
-
         //        }
         //    }
         //    else
         //    {
+        //        //把获取到的Redis数据存到cookie中
+        //        HttpCookie cookie = new HttpCookie("NameList");
+        //        cookie.Value = HttpUtility.UrlEncode(str);
+        //        Response.Cookies.Add(cookie);
         //        msg = "获取Redis数据成功";
         //    }
 
@@ -434,14 +435,8 @@ namespace TeadingPlatformMVC.Controllers
                 GetName get = new GetName();
                 //拿到要判断的名字
                 var Name = Request["data"];
-                ////从redis里面拿到这个数据
-                //var NameList = Redishelper.getList<RedisUserName>("NameList", 0);
-                ////根据名字查询redis数据
-                //NameList = NameList.Where(s => s.UserName == Name).ToList();
-                ////如果没查到 再去数据库查询
-                //if (NameList.Count <= 0)
-                //{
-                //调用httpclient获取返回数据
+
+                //如果没查到 再去数据库查询
                 var res = clientHelper.Post("api/YxApi/OrderShow", 1);
                 List<Orderform> data = new List<Orderform>();
                 if (res != null)
@@ -469,12 +464,6 @@ namespace TeadingPlatformMVC.Controllers
                 {
                     get.Name = "服务器内部错误";
                 }
-                //}
-                ////如果查到了 就返回到前台 提示
-                //else
-                //{
-                //    get.Name = "有该用户";
-                //}
                 return Json(get, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)

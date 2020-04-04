@@ -9,7 +9,12 @@ namespace TeadingPlatformMVC.Controllers
 {
     public class RedisHelper
     {
-        ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+        ConnectionMultiplexer redis;
+
+        public RedisHelper()
+        {
+            redis = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+        }
         /// <summary>
         /// string类型存储到Redis
         /// </summary>
@@ -20,10 +25,8 @@ namespace TeadingPlatformMVC.Controllers
         {
             try
             {
-                //写入redis缓存
-                ConnectionMultiplexer rediss = ConnectionMultiplexer.Connect("localhost");
                 //设置0号端口
-                IDatabase db1 = rediss.GetDatabase();
+                IDatabase db1 = redis.GetDatabase();
                 //根据键值对格式存
                 db1.StringSet(RedisName, RedisValue);
                 //如果存到Redis成功 给到一个前台提示
@@ -42,6 +45,33 @@ namespace TeadingPlatformMVC.Controllers
                 throw;
             }
 
+        }
+        /// <summary>
+        /// Redis取出string类型数据
+        /// </summary>
+        /// <param name="RedisName">要取出的键</param>
+        /// <returns></returns>
+        public string StringGetRedis(string RedisName)
+        {
+            try
+            {
+                //设置0号端口
+                IDatabase db1 = redis.GetDatabase();
+                string RedisValue = db1.StringGet(RedisName);
+                if (!string.IsNullOrEmpty(RedisValue))
+                {
+                    return RedisValue;
+                }
+                else
+                {
+                    return "Redis取出数据失败";
+                }
+            }
+            catch (Exception)
+            {
+                return "发生错误";
+                throw;
+            }
         }
 
         /// <summary>

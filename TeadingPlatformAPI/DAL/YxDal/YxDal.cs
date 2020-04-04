@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 using Newtonsoft.Json;
+using System.Data.SqlClient;
 namespace DAL
 {
     public class YxDal
@@ -252,12 +253,27 @@ namespace DAL
         /// <returns></returns>
         public UnitedReturn GetUserInfo(object data)
         {
+            SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=TeadingPlatform;Integrated Security=True");
+            if (conn.State==System.Data.ConnectionState.Closed)
+            {
+                conn.Open();
+            }
             UnitedReturn unitedReturn = new UnitedReturn();
             string sql = string.Format(" select UserName from UserInfo");
-            var res = YxDBHelper.GetToList<UserInfo>(sql);
-            if (res != null)
+            SqlCommand comm = new SqlCommand(sql,conn);
+            var ress = comm.ExecuteReader();
+            string str = null;
+            while (ress.Read())
             {
-                unitedReturn.data = res;
+                str += ress["UserName"]+",";
+            }
+            if (conn.State == System.Data.ConnectionState.Open)
+            {
+                conn.Close();
+            }
+            if (ress != null)
+            {
+                unitedReturn.data = str;
                 unitedReturn.msg = "获取成功";
                 unitedReturn.res = 1;
             }
