@@ -4,43 +4,67 @@
     Layout = null;
 }
 
-<h2>找回密码</h2>
+
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<div>
-    <table>
-        <tr style="width:300px">
-            <td>输入要验证的邮箱:</td>
-            <td>
-                <input id="Email" type="text" />
-            </td>
-        </tr>
-        <tr style="width:300px">
-            <td>你的真实姓名:</td>
-            <td>
-                <input id="Name" type="text" />
-            </td>
-        </tr>
-        <tr style="width:300px">
-            <td>请输入验证码:</td>
-            <td>
-                <input id="Code" type="text" /><input id="Codes" type="hidden" />
-            </td>
-            <td>
-                <input id="Button1" onclick="GetCode()" type="button" style="margin-left:20px" value="获取验证码" class="btn btn-primary" />
-            </td>
-        </tr>
-        <tr style="width:300px">
-            <td>
-                <input id="Button1" type="button" value="重置密码" onclick="GetPass()" style="margin-left:200px;margin-top:20px;" class="btn btn-primary" />
-            </td>
-        </tr>
-        <tbody id="tbss"></tbody>
-    </table>
+<link href="~/Content/admin/css/style.css" rel="stylesheet" />
+<title>F4交易平台--找回密码</title>
+<h2>修改密码</h2>
+<div class="content">
+    <div class="form sign-in">
+        <table style="width:700px;height:200px;color:#4cff00">
+            <tr>
+                <td>输入要验证的邮箱:</td>
+                <td>
+                    <input id="Email" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td>你的真实姓名:</td>
+                <td>
+                    <input id="Name" type="text" onchange="NameChange()" />
+                </td>
+                <td id="NameText"></td>
+            </tr>
+            <tr>
+                <td>请输入验证码:</td>
+                <td>
+                    <input id="Code" type="text" /><input id="Codes" type="hidden" />
+                </td>
+                <td>
+                    <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" class="btn btn-primary" />
+                </td>
+            </tr>
+            <tr style="margin-left:300px">
+                <td id="euww1">
+                    <input id="Button2" type="button" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
+                </td>
+            </tr>
+            <tbody id="tbss"></tbody>
+        </table>
+    </div>
 </div>
 
 <script>
+    /// 重置密码 第一次加载
+    ///使用Redis把数据库的用户数据存到缓存里面
+    ///通过查询缓存里面的数据 来判断用户名是否存在
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        url: "/Order/DataRedis",
+    //        dataType: "JSON",
+    //        type: "POST",
+    //        success: function (res) {
+    //            $(res).each(function () {
+    //                if (this.Name == "数据存到Redis成功") { alert(this.Name); }
+    //                if (this.Name == "数据存到Redis失败") { alert(this.Name); }
+    //                if (this.Name == "获取不到数据") { alert(this.Name); }
+    //                if (this.Name == "获取Redis数据成功") { alert(this.Name) }
+    //            })
+    //        }
+    //    })
+    //})
     function GetCode() {
 
         var Email_ = $("#Email").val();
@@ -73,6 +97,39 @@
 
         })
     }
+    function NameChange() {
+        var Name_ = $("#Name").val();
+        if (Name_ == "") {
+            alert("用户名不能为空");
+            return;
+        }
+        $.ajax({
+            url: "/Order/SelectName",
+            dataType: "JSON",
+            data: {
+                data: Name_
+            },
+            type: "POST",
+            success: function (res) {
+                var ass = "";
+                $(res).each(function () {
+                    if (this.Name == "有该用户") {
+                        ass = "<label>" + "" + "</label>";
+                    }
+                    if (this.Name == "没有该用户") {
+                        ass = "<label>" + this.Name + "</label>";
+                    }
+                    if (this.Name == "用户名不能为空") {
+                        ass = "<label>" + this.Name + "</label>";
+                    }
+                    if (this.Name == "服务器内部错误") {
+                        alert(this.Name);
+                    }
+                })
+                $("#NameText").html(ass);
+            }
+        })
+    }
     function GetPass() {
         var code = $("#Code").val();
         var codes = $("#Codes").val();
@@ -91,20 +148,20 @@
             return;
         }
         if (code == codes) {
-        var tbss = "";
-        tbss += "<tr>" +
-            "<td>新密码:</td>" +
-            "<td><input id='Pwd1' type='text' /></td>" +
-            "<td> <input  type='button' value='修改密码'  style='margin-left:20px' onclick='Update()' /></td>"
-            + "</tr>";
-        $("#tbss").html(tbss);
+            var tbss = "";
+            tbss += "<tr>" +
+                "<td>新密码:</td>" +
+                "<td><input id='Pwd1' type='text' /></td>" +
+                "<td> <input  type='button' value='修改密码'  style='margin-left:20px' onclick='Update()' /></td>"
+                + "</tr>";
+            $("#tbss").html(tbss);
         }
         else {
             alert("找你妹啊");
         }
 
     }
-    ///修改密码
+    //修改密码
     function Update() {
         var Name_ = $("#Name").val();
         var Pwd_ = $("#Pwd1").val();

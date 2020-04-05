@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 using DAL;
+
 namespace BLL
 {
     public class Bll
@@ -31,7 +32,7 @@ namespace BLL
         /// <returns></returns>
         public UnitedReturn UserAdd(object data)
         {
-            return dal.UserAdd(data);
+            return  dal.UserAdd(data);
         }
         /// <summary>
         /// 店铺列表
@@ -60,6 +61,14 @@ namespace BLL
         {
             return dal.UpdatShopInfo(data);
         }
-    
+        /// <summary>
+        /// 手机号验证
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public UnitedReturn IsExistPhone(object data)
+        {
+            return dal.IsExistPhone(data);
+        }
     }
 }
