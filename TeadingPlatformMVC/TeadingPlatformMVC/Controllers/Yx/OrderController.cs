@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using Newtonsoft.Json;
-using StackExchange.Redis;
+
 
 namespace TeadingPlatformMVC.Controllers
 {
