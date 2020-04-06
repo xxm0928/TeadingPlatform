@@ -3,17 +3,16 @@
     ViewBag.Title = "GetPass";
     Layout = null;
 }
-
-
-<script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<link href="~/Content/admin/css/style.css" rel="stylesheet" />
-<title>F4交易平台--找回密码</title>
-<h2>修改密码</h2>
-<div class="content">
-    <div class="form sign-in">
-        <table style="width:700px;height:200px;color:#4cff00">
+
+<title>F4交易平台--修改密码</title>
+<h2 style="margin-left:42%">修改密码</h2>
+<div class="wrap-container" style="padding-top:20px">
+    <hr style="color:#000000;height:3px;" />
+    <div class="layui-form" id="category-table-list">
+
+        <table style="width:700px;height:400px;color:#4cff00;margin-left:30%">
             <tr>
                 <td>输入要验证的邮箱:</td>
                 <td>
@@ -33,38 +32,36 @@
                     <input id="Code" type="text" /><input id="Codes" type="hidden" />
                 </td>
                 <td>
-                    <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" class="btn btn-primary" />
+                    <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" />
                 </td>
             </tr>
             <tr style="margin-left:300px">
                 <td id="euww1">
-                    <input id="Button2" type="button" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
+                    <input id="Button2" type="button" style="margin-left:82%;width:90px;height:40px" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
                 </td>
             </tr>
             <tbody id="tbss"></tbody>
         </table>
     </div>
+    <hr style="color:#000000;height:3px;" />
 </div>
-
 <script>
     /// 重置密码 第一次加载
     ///使用Redis把数据库的用户数据存到缓存里面
     ///通过查询缓存里面的数据 来判断用户名是否存在
-    //$(document).ready(function () {
-    //    $.ajax({
-    //        url: "/Order/DataRedis",
-    //        dataType: "JSON",
-    //        type: "POST",
-    //        success: function (res) {
-    //            $(res).each(function () {
-    //                if (this.Name == "数据存到Redis成功") { alert(this.Name); }
-    //                if (this.Name == "数据存到Redis失败") { alert(this.Name); }
-    //                if (this.Name == "获取不到数据") { alert(this.Name); }
-    //                if (this.Name == "获取Redis数据成功") { alert(this.Name) }
-    //            })
-    //        }
-    //    })
-    //})
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Order/DataRedis",
+            dataType: "JSON",
+            type: "POST",
+            success: function (res) {
+                $(res).each(function () {
+                    alert(this.Name);
+                })
+            }
+        })
+    })
+    //获取验证码
     function GetCode() {
 
         var Email_ = $("#Email").val();
@@ -97,6 +94,7 @@
 
         })
     }
+    //查询名字是否注册
     function NameChange() {
         var Name_ = $("#Name").val();
         if (Name_ == "") {
@@ -114,10 +112,10 @@
                 var ass = "";
                 $(res).each(function () {
                     if (this.Name == "有该用户") {
-                        ass = "<label>" + "" + "</label>";
+                        ass = "<label>" + "√" + "</label>";
                     }
                     if (this.Name == "没有该用户") {
-                        ass = "<label>" + this.Name + "</label>";
+                        ass = "<label>" + "×" + "</label>";
                     }
                     if (this.Name == "用户名不能为空") {
                         ass = "<label>" + this.Name + "</label>";
@@ -130,6 +128,7 @@
             }
         })
     }
+    //弹出确认修改
     function GetPass() {
         var code = $("#Code").val();
         var codes = $("#Codes").val();
@@ -151,13 +150,13 @@
             var tbss = "";
             tbss += "<tr>" +
                 "<td>新密码:</td>" +
-                "<td><input id='Pwd1' type='text' /></td>" +
-                "<td> <input  type='button' value='修改密码'  style='margin-left:20px' onclick='Update()' /></td>"
+                "<td><input id='Pwd1' type='password' /></td>" +
+                "<td> <input  type='button' value='确认修改'  onclick='Update()' /></td>"
                 + "</tr>";
             $("#tbss").html(tbss);
         }
         else {
-            alert("找你妹啊");
+            alert("验证码不正确");
         }
 
     }
@@ -184,6 +183,7 @@
                     }
                     else {
                         alert(this.msg);
+                        location.reload();
                     }
 
 

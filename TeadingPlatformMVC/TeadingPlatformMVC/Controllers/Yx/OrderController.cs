@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using Newtonsoft.Json;
+using ServiceStack.Redis;
 using StackExchange.Redis;
 
 namespace TeadingPlatformMVC.Controllers
@@ -425,6 +426,38 @@ namespace TeadingPlatformMVC.Controllers
         //    return Json(new { Name = msg }, JsonRequestBehavior.AllowGet);
         //}
         /// <summary>
+        /// 写入Redis
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult DataRedis()
+        {
+            try
+            {
+                RedisClient client = new RedisClient("127.0.0.1", 6379);
+                var res = clientHelper.Post("api/YxApi/GetUserInfo", 1);
+                var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                var Data = data.data;
+                client.Add<string>("NameList", Data.ToString());
+                var getData = client.Get<string>("NameList");
+                var msg = "";
+                if (!string.IsNullOrEmpty(getData))
+                {
+                    msg = "数据存入Redis成功";
+                }
+                else
+                {
+                    msg = "数据存入Redis失败";
+                }
+                return Json(new { Name = msg }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                log.WriteLog("DataRedis","写入redis");
+                throw;
+            }
+            
+        }
+        /// <summary>
         /// 根据名字查询是否存在
         /// </summary>
         /// <returns></returns>
@@ -432,38 +465,84 @@ namespace TeadingPlatformMVC.Controllers
         {
             try
             {
+                RedisClient client = new RedisClient("127.0.0.1", 6379);
                 GetName get = new GetName();
                 //拿到要判断的名字
                 var Name = Request["data"];
-
-                //如果没查到 再去数据库查询
-                var res = clientHelper.Post("api/YxApi/OrderShow", 1);
-                List<Orderform> data = new List<Orderform>();
-                if (res != null)
+                //先去Redis里面查询 
+                var getData= client.Get<string>("NameList");
+                //如果Redis有数据 进行查询
+                if (!string.IsNullOrEmpty(getData))
                 {
-                    var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                    data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
-                    if (!string.IsNullOrEmpty(Name))
+                    var arr = getData.Split(',');
+                    var bools = ((IList)arr).Contains(Name);
+                    //redis里面有这个数据
+                    if (bools)
                     {
-                        data = data.Where(s => s.UserName == Name.ToString()).ToList();
-                        if (data.Count >= 1)
+                        get.Name = "有该用户";
+                    }
+                    else
+                    {
+                        var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+                        List<Orderform> data = new List<Orderform>();
+                        if (res != null)
                         {
-                            get.Name = "有该用户";
+                            var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                            data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                            if (!string.IsNullOrEmpty(Name))
+                            {
+                                data = data.Where(s => s.UserName == Name.ToString()).ToList();
+                                if (data.Count >= 1)
+                                {
+                                    get.Name = "有该用户";
+                                }
+                                else
+                                {
+                                    get.Name = "没有该用户";
+                                }
+                            }
+                            else
+                            {
+                                get.Name = "用户名不能为空";
+                            }
                         }
                         else
                         {
-                            get.Name = "没有该用户";
+                            get.Name = "服务器内部错误";
+                        }
+                    }
+                }
+                else //否则就去数据库查询
+                {
+                    var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+                    List<Orderform> data = new List<Orderform>();
+                    if (res != null)
+                    {
+                        var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                        data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                        if (!string.IsNullOrEmpty(Name))
+                        {
+                            data = data.Where(s => s.UserName == Name.ToString()).ToList();
+                            if (data.Count >= 1)
+                            {
+                                get.Name = "有该用户";
+                            }
+                            else
+                            {
+                                get.Name = "没有该用户";
+                            }
+                        }
+                        else
+                        {
+                            get.Name = "用户名不能为空";
                         }
                     }
                     else
                     {
-                        get.Name = "用户名不能为空";
+                        get.Name = "服务器内部错误";
                     }
                 }
-                else
-                {
-                    get.Name = "服务器内部错误";
-                }
+            
                 return Json(get, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
