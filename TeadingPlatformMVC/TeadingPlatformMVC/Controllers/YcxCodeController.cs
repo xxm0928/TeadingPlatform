@@ -110,7 +110,7 @@ namespace TeadingPlatformMVC.Controllers
                 name.Name = united.msg;
                 if (united.res>0)
                 {
-                    Response.Write("<script>alert('添加成功');</script>");
+                    Response.Write("<script>alert('添加成功');location.href='/YcxCode/ExUser'</script>");
                 }
                 else
                 {
@@ -145,14 +145,14 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         [HttpPost]
-        public void ExUser(Ycx_User um,int id)
+        public void ExUser(Ycx_User um)
         {
             try
             {
                 var data = JsonConvert.SerializeObject(um);
                 var request = Request["data"];
                 UnitedReturn united = new UnitedReturn();
-                var res = clientHelper.Post("api/User/UpdateUser?UserId="+id+"", data);
+                var res = clientHelper.Post("api/User/UpdateUser", data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
 
@@ -196,12 +196,32 @@ namespace TeadingPlatformMVC.Controllers
 
             return View(GetData.ToList());
         }
+        public ActionResult Z_SelectShop()
+        {
+            var GetList = clientHelper.Post("api/User/SelectType", 1);
+            List<ShopInfo> shopSee = new List<ShopInfo>();
+            UnitedReturn united = new UnitedReturn();
+            if (GetList != null)
+            {
+                united = JsonConvert.DeserializeObject<UnitedReturn>(GetList.ToString());
+                shopSee = JsonConvert.DeserializeObject<List<ShopInfo>>(JsonConvert.SerializeObject(united.data));
+                List<Upload> items = new List<Upload>();
+                items.Add(new Upload() { text = "请选择", value = "0", Selected = true });
+                ViewData["DromDownlist"] = items;
+                
+                
+            }
+            return View(shopSee.ToList());
+        }
         
 
     }
 
     public class Upload
     {
+        public string text { get; set; }
+        public string value { get; set; }
+        public bool Selected { get; set; }
         public string uploadImage(FileUpload FUSShopURL, string UpladURL)
         {
             if (FUSShopURL.HasFile)

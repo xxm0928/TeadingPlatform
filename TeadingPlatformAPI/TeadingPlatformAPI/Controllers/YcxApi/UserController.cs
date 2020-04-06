@@ -45,7 +45,7 @@ namespace TeadingPlatformAPI.Controllers
         [HttpPost]
         public UnitedReturn SelectUser(object data)
         {
-            string sql = "select * from UserInfo a join ShopInfo b on a.ShopId = b.ShopId ";
+            string sql = "select * from UserInfo ";
          
             UserInfo User = new UserInfo();
             //object初始值是System.object 所以判断一下
@@ -71,8 +71,37 @@ namespace TeadingPlatformAPI.Controllers
             }
             return united;
         }
+        [HttpPost]
+        public UnitedReturn SelectType(object data)
+        {
+            string sql = "select * from ShopInfo ";
 
-        public UnitedReturn UpdateUser(object data,int id)
+            UserInfo User = new UserInfo();
+            //object初始值是System.object 所以判断一下
+            if (data.ToString() != "System.object" && data.ToString() != "1")
+            {
+                User = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+            }
+
+            List<ShopInfo> list = helpx.Getlist<ShopInfo>(sql);
+
+            UnitedReturn united = new UnitedReturn();
+            if (list.Count > 0 && list != null)
+            {
+                united.data = list;
+                united.res = 1;
+                united.msg = "获取信息成功";
+            }
+            else
+            {
+                united.data = null;
+                united.res = 0;
+                united.msg = "获取信息失败";
+            }
+            return united;
+        }
+
+        public UnitedReturn UpdateUser(object data)
         {
             UserInfo um = new UserInfo();
 
@@ -80,7 +109,7 @@ namespace TeadingPlatformAPI.Controllers
             {
                 um = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(data));
             }
-            string sql = $"update UserInfo set UserName='{um.UserName}',UserPhoto='{um.UserPhoto}',UserSex={um.UserSex},ShopId={um.ShopId},UserNumder='{um.UserNumder}',UserAge={um.UserAge},UserIDNumber='{um.UserIDNumber}' where UserId = {id}";
+            string sql = $"update UserInfo set UserName='{um.UserName}',UserPhoto='{um.UserPhoto}',UserSex={um.UserSex},ShopId={um.ShopId},UserNumder='{um.UserNumder}',UserAge={um.UserAge},UserIDNumber='{um.UserIDNumber}'";
             var res = helpx.ExecuteNonQuery(sql);
             UnitedReturn united = new UnitedReturn();
             if (res > 0)
