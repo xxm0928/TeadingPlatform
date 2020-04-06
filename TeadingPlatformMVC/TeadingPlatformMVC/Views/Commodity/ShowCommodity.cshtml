@@ -61,6 +61,24 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script>
     $(document).ready(function () {
+        var Sid = 0;
+        $.ajax({
+            url: "/Order/Cookie",
+            type: "POST",
+            data: {
+            },
+            dataType: "JSON",
+            success: function (res) {
+                $(res).each(function () {
+                    if (this.Name == "" || this.Name == null) {
+                        alert("请先登录");
+                        location.href = "/UserZ/Login";
+                        Sid = 1;
+                        return;
+                    }
+                })
+            }
+        })
         $.ajax({
             url: "/Commodity/CommodityType",
             type: "POST",

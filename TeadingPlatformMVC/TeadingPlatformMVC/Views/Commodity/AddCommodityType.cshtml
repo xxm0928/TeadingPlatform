@@ -23,6 +23,27 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script>
+    $(document).ready(function () {
+        //判断是否通过登录保存cookie
+        var Sid = 0;
+        $.ajax({
+            url: "/Order/Cookie",
+            type: "POST",
+            data: {
+            },
+            dataType: "JSON",
+            success: function (res) {
+                $(res).each(function () {
+                    if (this.Name == "" || this.Name == null) {
+                        alert("请先登录");
+                        location.href = "/UserZ/Login";
+                        Sid = 1;
+                        return;
+                    }
+                })
+            }
+        })
+    })
     function add() {
         var name = $("#name").val();
         if (name == "") {
@@ -30,7 +51,7 @@
             return;
         }
         var datas = {
-           TypeName: name
+            TypeName: name
         };
         $.ajax({
             url: '/Commodity/AddCommodityTypes',
