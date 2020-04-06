@@ -20,7 +20,7 @@
                     <input id="Email" type="text" />
                 </td>
             </tr>
-            <tr >
+            <tr>
                 <td>你的真实姓名:</td>
                 <td>
                     <input id="Name" type="text" onchange="NameChange()" />
@@ -33,21 +33,38 @@
                     <input id="Code" type="text" /><input id="Codes" type="hidden" />
                 </td>
                 <td>
-                    <input id="Button1" onclick="GetCode()" type="button"  value="获取验证码" class="btn btn-primary" />
+                    <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" class="btn btn-primary" />
                 </td>
             </tr>
             <tr style="margin-left:300px">
-                <td id="euww1" >
-                    <input id="Button2" type="button" value="重置密码"  onclick="GetPass()"  class="btn btn-primary" />
+                <td id="euww1">
+                    <input id="Button2" type="button" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
                 </td>
             </tr>
             <tbody id="tbss"></tbody>
         </table>
     </div>
-
 </div>
 
 <script>
+    /// 重置密码 第一次加载
+    ///使用Redis把数据库的用户数据存到缓存里面
+    ///通过查询缓存里面的数据 来判断用户名是否存在
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        url: "/Order/DataRedis",
+    //        dataType: "JSON",
+    //        type: "POST",
+    //        success: function (res) {
+    //            $(res).each(function () {
+    //                if (this.Name == "数据存到Redis成功") { alert(this.Name); }
+    //                if (this.Name == "数据存到Redis失败") { alert(this.Name); }
+    //                if (this.Name == "获取不到数据") { alert(this.Name); }
+    //                if (this.Name == "获取Redis数据成功") { alert(this.Name) }
+    //            })
+    //        }
+    //    })
+    //})
     function GetCode() {
 
         var Email_ = $("#Email").val();
