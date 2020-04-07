@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using Newtonsoft.Json;
-
 using ServiceStack.Redis;
 using StackExchange.Redis;
 

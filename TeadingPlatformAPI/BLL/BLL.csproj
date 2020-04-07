@@ -49,6 +49,10 @@
     <Compile Include="YxBll\YxBll.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{a3a50c74-9a85-4868-a078-385585dbf34c}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{6f4f82cc-12cf-4751-9317-258cb7bb5a43}</Project>
       <Name>DAL</Name>

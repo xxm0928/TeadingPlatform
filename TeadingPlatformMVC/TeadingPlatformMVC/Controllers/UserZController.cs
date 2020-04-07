@@ -5,10 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using System.Text;
+using System.Security.Cryptography;
+
 namespace TeadingPlatformMVC.Controllers
 {
     public class UserZController : Controller
     {
+        
         LogHelper logHelper = new LogHelper();
         // GET: UserZ
         public ActionResult Index()
@@ -31,6 +35,37 @@ namespace TeadingPlatformMVC.Controllers
                 throw;
             }
             
+        }
+        public JsonResult AddUser()
+        {
+            var password = Request["mm"];
+            User user = new User();
+            user.UserPass = GenerateMD5(password);
+            GetName getName = new GetName()
+            {
+                Name = user.UserPass
+            };
+            return Json(getName, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// MD5字符串加密
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns>加密后字符串</returns>
+        public static string GenerateMD5(string txt)
+        {
+            using (MD5 mi = MD5.Create())
+            {
+                byte[] buffer = Encoding.Default.GetBytes(txt);
+                //开始加密
+                byte[] newBuffer = mi.ComputeHash(buffer);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < newBuffer.Length; i++)
+                {
+                    sb.Append(newBuffer[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
         }
         /// <summary>
         /// 验证码

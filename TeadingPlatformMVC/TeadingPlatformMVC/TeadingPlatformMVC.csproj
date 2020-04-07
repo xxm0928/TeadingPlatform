@@ -56,13 +56,13 @@
       <HintPath>..\packages\Pipelines.Sockets.Unofficial.2.1.8\lib\net472\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
-      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Redis缓存帮助类以及引用\ServiceStack.dll</HintPath>
+      <HintPath>..\..\..\QQ文件\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Redis缓存帮助类以及引用\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\QQ文件\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Redis缓存帮助类以及引用\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\..\QQ文件\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.1.30\lib\net472\StackExchange.Redis.dll</HintPath>
