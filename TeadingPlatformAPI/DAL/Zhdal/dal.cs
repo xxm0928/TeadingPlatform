@@ -47,6 +47,35 @@ namespace DAL
             return united;
         }
         /// <summary>
+        /// 查询密码
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UserPass(object data)
+        {
+            UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+            //sql语句
+            var sql = string.Format($"select UserPass from UserInfo where UserNumder='{0}'", Info.UserNumder);
+            //返回值
+            var res = dBHelper.ExecuteScalar(sql);
+            UnitedReturn united = new UnitedReturn();
+            if (res != null)
+            {
+                //给统一返回类型的model赋值
+                united.data = res;//返回的数据
+                united.msg = "登陆成功";//返回的字符串
+                united.res = 1;//返回的int值
+            }
+            else
+            {
+                //给统一返回类型的model赋值
+                united.data = null;
+                united.msg = "登陆失败";
+                united.res = 0;
+            }
+            return united;
+        }
+        /// <summary>
         /// 用户注册
         /// </summary>
         /// <param name="data"></param>
