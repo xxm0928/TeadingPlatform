@@ -23,6 +23,7 @@
                 <td>你的真实姓名:</td>
                 <td>
                     <input id="Name" type="text" onchange="NameChange()" />
+                    <input type="hidden" id="NameTrueOrFalse"/>
                 </td>
                 <td id="NameText"></td>
             </tr>
@@ -113,15 +114,19 @@
                 $(res).each(function () {
                     if (this.Name == "有该用户") {
                         ass = "<label>" + "√" + "</label>";
+                        $("#NameTrueOrFalse").val(1);
                     }
                     if (this.Name == "没有该用户") {
                         ass = "<label>" + "×" + "</label>";
+                        $("#NameTrueOrFalse").val(2);
                     }
                     if (this.Name == "用户名不能为空") {
                         ass = "<label>" + this.Name + "</label>";
+                         $("#NameTrueOrFalse").val(2);
                     }
                     if (this.Name == "服务器内部错误") {
                         alert(this.Name);
+                         $("#NameTrueOrFalse").val(2);
                     }
                 })
                 $("#NameText").html(ass);
@@ -130,6 +135,12 @@
     }
     //弹出确认修改
     function GetPass() {
+        var False = $("#NameTrueOrFalse").val();
+        if (False == 2)
+        {
+            alert("用户名不正确");
+            return;
+        }
         var code = $("#Code").val();
         var codes = $("#Codes").val();
         var Email_ = $("#Email").val();
@@ -162,6 +173,12 @@
     }
     //修改密码
     function Update() {
+        var False = $("#NameTrueOrFalse").val();
+        if (False == 2)
+        {
+            alert("用户名不正确");
+            return;
+        }
         var Name_ = $("#Name").val();
         var Pwd_ = $("#Pwd1").val();
         var data = {

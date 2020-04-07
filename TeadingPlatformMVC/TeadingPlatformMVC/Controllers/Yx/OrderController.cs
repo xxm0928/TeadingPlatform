@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using Newtonsoft.Json;
-
 using ServiceStack.Redis;
 using StackExchange.Redis;
 
@@ -25,6 +24,7 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns></returns>
         public ActionResult Order()
         {
+            //cookie存入
             //HttpCookie cookie = new HttpCookie("NamePass");
             //cookie.Value = HttpUtility.UrlEncode("张三");
             //Response.Cookies.Add(cookie);
@@ -53,9 +53,9 @@ namespace TeadingPlatformMVC.Controllers
                     {
                         data = data.Where(s => s.OrderState == orderforms.OrderState).ToList();
                     }
-                    if (Convert.ToInt32(orderforms.OrderformId) > 0)
+                    if (orderforms.OrderformId > 0)
                     {
-                        data = data.Where(s => s.OrderformId == orderforms.OrderformId).ToList();
+                        data = data.Where(s => s.OrderformId.ToString().Contains( orderforms.OrderformId.ToString())).ToList();
                     }
                     if (orderforms.UserName.Length > 0 && !string.IsNullOrEmpty(orderforms.UserName))
                     {
@@ -63,7 +63,7 @@ namespace TeadingPlatformMVC.Controllers
                     }
                     if (orderforms.UserNumder.Length > 0 && !string.IsNullOrEmpty(orderforms.UserNumder))
                     {
-                        data = data.Where(s => s.UserNumder == orderforms.UserNumder).ToList();
+                        data = data.Where(s => s.UserNumder.Contains(orderforms.UserNumder)).ToList();
                     }
                     if (orderforms.CommodityName.Length > 0 && !string.IsNullOrEmpty(orderforms.CommodityName))
                     {
@@ -380,10 +380,6 @@ namespace TeadingPlatformMVC.Controllers
 
 
         }
-        /// <summary>
-        /// 写入Redis
-        /// </summary>
-        /// <returns></returns>
         //public JsonResult DataRedis()
         //{
         //    RedisHelper Redishelper = new RedisHelper();
@@ -434,29 +430,37 @@ namespace TeadingPlatformMVC.Controllers
         {
             try
             {
-                RedisClient client = new RedisClient("127.0.0.1", 6379);
-                var res = clientHelper.Post("api/YxApi/GetUserInfo", 1);
-                var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                var Data = data.data;
-                client.Add<string>("NameList", Data.ToString());
-                var getData = client.Get<string>("NameList");
                 var msg = "";
+                RedisClient client = new RedisClient("127.0.0.1", 6379);
+                var getData = client.Get<string>("NameList");
                 if (!string.IsNullOrEmpty(getData))
                 {
-                    msg = "数据存入Redis成功";
+                    msg = "Redis已有数据,不用存储";
                 }
                 else
                 {
-                    msg = "数据存入Redis失败";
+                    var res = clientHelper.Post("api/YxApi/GetUserInfo", 1);
+                    var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                    var Data = data.data;
+                    client.Add<string>("NameList", Data.ToString());
+                    var getData1 = client.Get<string>("NameList");
+                    if (!string.IsNullOrEmpty(getData1))
+                    {
+                        msg = "数据存入Redis成功";
+                    }
+                    else
+                    {
+                        msg = "数据存入Redis失败";
+                    }
                 }
                 return Json(new { Name = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
-                log.WriteLog("DataRedis","写入redis");
+                log.WriteLog("DataRedis", "写入redis");
                 throw;
             }
-            
+
         }
         /// <summary>
         /// 根据名字查询是否存在
@@ -471,7 +475,7 @@ namespace TeadingPlatformMVC.Controllers
                 //拿到要判断的名字
                 var Name = Request["data"];
                 //先去Redis里面查询 
-                var getData= client.Get<string>("NameList");
+                var getData = client.Get<string>("NameList");
                 //如果Redis有数据 进行查询
                 if (!string.IsNullOrEmpty(getData))
                 {
@@ -543,7 +547,7 @@ namespace TeadingPlatformMVC.Controllers
                         get.Name = "服务器内部错误";
                     }
                 }
-            
+
                 return Json(get, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
