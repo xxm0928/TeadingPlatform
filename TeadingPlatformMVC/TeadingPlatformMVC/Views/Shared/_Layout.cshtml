@@ -27,7 +27,7 @@
                         <dd><a href="javascript:;" data-url="menu3.html" data-id='3' data-text="添加店铺" onclick="addshop()"><span class="l-line"></span>添加店铺</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="iconfont">&#xe608;</i>商品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="article-list.html" data-id='5' data-text="发布商品" onclick="addcommodity()"><span class="l-line"></span>发布商品</a></dd>
@@ -36,7 +36,7 @@
                         <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="添加商品分类" onclick="addtype()"><span class="l-line"></span>添加商品分类</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="iconfont">&#xe608;</i>订单管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/Order/Order" data-url="" data-id='9' data-text="查看订单列表" onclick="LookOrder()"><span class="l-line"></span>查看订单列表</a></dd>
@@ -56,7 +56,7 @@
                         <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">
                             <img style="width:40px;height:40px" id="imgs" src="~/Image/头像.jpg" />
                             &nbsp;当前用户:
-                            <input type="reset" style="width:50px;color:#ff0000;height:40px" readonly id="Tes" />
+                            <input type="reset" style="width:80px;color:#ff0000;height:40px;border:0px;background-color:#FFFFFF" readonly id="Tes" />
                         </a>
                     </li>
                     <li class="layui-nav-item"><a href="javascript:;" onclick="loca()">退出</a></li>
@@ -71,6 +71,9 @@
                     </ul>
                     <div class="layui-tab-content">
                         @RenderBody()
+                        <div class="layui-tab-item layui-show">
+                            <img src="~/Img/20160523094608_4687.png" style="max-width: 100%; height: 100%" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +128,7 @@
     }
     //赵航**添加店铺
     function addshop() {
-        location.href = '/Commodity/AddShopInfo';
+        location.href = '/UserZ/AddShopInfo';
     }
     //闫重旭**个人信息
     function ShowUser() {
