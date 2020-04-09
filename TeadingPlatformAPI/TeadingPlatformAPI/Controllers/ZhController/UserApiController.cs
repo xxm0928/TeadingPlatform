@@ -51,6 +51,16 @@ namespace TeadingPlatformAPI.Controllers
             return bll.UserAdd(data);
         }
         /// <summary>
+        /// 查询密码
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public UnitedReturn UserPass(object data)
+        {
+            return bll.UserPass(data);
+        }
+        /// <summary>
         /// 店铺列表
         /// </summary>
         /// <param name="data"></param>

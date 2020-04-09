@@ -83,9 +83,9 @@ namespace TeadingPlatformMVC.Controllers.XXM
         public JsonResult ShowCommoditys()
         {
             var request = Request["data"];
-            if (request==null)
+            if (request == null)
             {
-                request =  "1";
+                request = "1";
             }
             var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
@@ -93,6 +93,40 @@ namespace TeadingPlatformMVC.Controllers.XXM
             {
                 data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
             }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 用来获取总数据条数
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Count()
+        {
+            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", 1);
+            List<CommodityInfo> data = new List<CommodityInfo>();
+            if (res != null)
+            {
+                data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
+            }
+            return Json(new { Count = data.Count }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult IndexData()
+        {
+            var request = Request["data"];
+            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", request);
+            List<CommodityInfo> data = new List<CommodityInfo>();
+            if (res != null)
+            {
+                data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
+            }
+            PageIndex page = new PageIndex();
+            if (!string.IsNullOrEmpty(request))
+            {
+                page = JsonConvert.DeserializeObject<PageIndex>(request);
+            }
+            page.Count = data.Count;
+            data = data.Skip((Convert.ToInt32(page.Page) - 1) * page.Size).Take(page.Size).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -113,6 +147,39 @@ namespace TeadingPlatformMVC.Controllers.XXM
             {
                 data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
             }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 用来获取总数据条数
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Counts()
+        {
+            var res = clientHelper.Post("api/XXM_Commodity/SelOutCommodity", 1);
+            List<CommodityInfo> data = new List<CommodityInfo>();
+            if (res != null)
+            {
+                data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
+            }
+            return Json(new { Count = data.Count }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult IndexDatas()
+        {
+            var request = Request["data"];
+            var res = clientHelper.Post("api/XXM_Commodity/SelOutCommodity", request);
+            List<CommodityInfo> data = new List<CommodityInfo>();
+            if (res != null)
+            {
+                data = JsonConvert.DeserializeObject<List<CommodityInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
+            }
+            PageIndex page = new PageIndex();
+            if (!string.IsNullOrEmpty(request))
+            {
+                page = JsonConvert.DeserializeObject<PageIndex>(request);
+            }
+            page.Count = data.Count;
+            data = data.Skip((Convert.ToInt32(page.Page) - 1) * page.Size).Take(page.Size).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -146,21 +213,6 @@ namespace TeadingPlatformMVC.Controllers.XXM
                 data = JsonConvert.DeserializeObject<List<ShopInfo>>((JsonConvert.DeserializeObject<UnitedReturn>(res.ToString())).data.ToString());
             }
             return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// 获取cookie
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetCookie()
-        {
-            HttpCookie cookies = System.Web.HttpContext.Current.Request.Cookies["NamePass"];
-            string Name = HttpUtility.UrlDecode(cookies.Value);
-            GetName getName = new GetName()
-            {
-                Name = Name
-            };
-            return Json(getName, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

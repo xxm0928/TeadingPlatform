@@ -22,6 +22,7 @@
         })
     })
     function login() {
+        var PassStr = "";
         var yzm = $("#yzm").val();
         $.ajax({
             url: "/UserZ/Loginyanz/yzm",
@@ -32,38 +33,53 @@
             dataType: "JSON",
             success: function (res) {
                 if (res > 0) {
-                    var datas = {
-                        UserNumder: $("#phone").val(),
-                        UserPass: $("#pwd").val(),
-                        token: $("#token").val()
-                    };
+                    var pwd = $("#pwd").val();
                     $.ajax({
-                        url: "http://localhost:55041/api/UserApi/UserLogin",
+                        url: "/UserZ/AddUser",
                         type: "POST",
-                        data: JSON.stringify(datas),
+                        data: {
+                            mm: pwd
+                        },
                         dataType: "JSON",
-                        contentType: "application/json",
                         success: function (res) {
-                            var Rdata = res.data;
-                            if (res.res > 0) {
-                                alert("登录成功");
-                                $.ajax({
-                                    url: "/UserZ/AddCookie",
-                                    type: "POST",
-                                    data: {
-                                        data: Rdata
-                                    },
-                                    dataType: "JSON",
-                                    success: function (res) {
+                            $(res).each(function () {
+                                PassStr = this.Name;
+                            });
+                            var datas = {
+                                UserNumder: $("#phone").val(),
+                                UserPass: PassStr,
+                                token: $("#token").val()
+                            };
+                            $.ajax({
+                                url: "http://localhost:55041/api/UserApi/UserLogin",
+                                type: "POST",
+                                data: JSON.stringify(datas),
+                                dataType: "JSON",
+                                contentType: "application/json",
+                                success: function (res) {
+                                    var Rdata = res.data;
+                                    if (res.res>0) {
+                                        alert("登录成功");
+                                        $.ajax({
+                                            url: "/UserZ/AddCookie",
+                                            type: "POST",
+                                            data: {
+                                                data: Rdata
+                                            },
+                                            dataType: "JSON",
+                                            success: function (res) {
 
+                                            }
+                                        })
+                                        location.href = "/UserZ/Mainpage";
                                     }
-                                })
-                                location.href = "/UserZ/Mainpage";
-                            }
-                            else {
-                                alert(res.msg);
-                            }
+                                    else {
+                                        alert(res.msg);
+                                    }
+                                }
+                            });
                         }
+
                     });
                 }
                 else {
@@ -71,11 +87,11 @@
                 }
             }
         });
-
-
     }
 
+
     function regist() {
+        var PassStr = "";
         var data = {
             UserNumder: $("#Rphone").val()
         };
@@ -87,34 +103,48 @@
             contentType: "application/json",
             success: function (res) {
                 if (res.res > 0) {
-                    alert(res.msg);
+                    alert("手机号已注册");
                 }
                 else {
                     var pwd = $("#Rpwd").val();
                     var pwdtwo = $("#Rpwdtwo").val();
                     if (pwd == pwdtwo && pwd != "") {
-
-                        var datas = {
-                            UserName: $("#name").val(),
-                            UserPass: $("#Rpwd").val(),
-                            UserNumder: $("#Rphone").val()
-                        };
-
                         $.ajax({
-                            url: "http://localhost:55041/api/UserApi/UserAdd",
+                            url: "/UserZ/AddUser",
                             type: "POST",
-                            data: JSON.stringify(datas),
+                            data: {
+                                mm: pwd
+                            },
                             dataType: "JSON",
-                            contentType: "application/json",
                             success: function (res) {
-                                alert(res.msg);
-                                if (res.msg == "注册成功") {
-                                    location.reload();
-                                }
+                                $(res).each(function () {
+                                    PassStr = this.Name;
+                                });
+                                var datas = {
+                                    UserName: $("#name").val(),
+                                    UserPass: PassStr,
+                                    UserNumder: $("#Rphone").val()
+                                };
+
+                                $.ajax({
+                                    url: "http://localhost:55041/api/UserApi/UserAdd",
+                                    type: "POST",
+                                    data: JSON.stringify(datas),
+                                    dataType: "JSON",
+                                    contentType: "application/json",
+                                    success: function (res) {
+                                        alert(res.msg);
+                                        if (res.msg == "注册成功") {
+                                            location.reload();
+                                        }
+                                    }
+                                });
+
                             }
                         });
-
                     }
+
+
                 }
             }
         });

@@ -57,13 +57,13 @@
       <HintPath>..\packages\Pipelines.Sockets.Unofficial.2.1.8\lib\net472\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
-      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Redis缓存帮助类以及引用\ServiceStack.dll</HintPath>
+      <HintPath>..\..\..\QQ文件\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Redis缓存帮助类以及引用\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\QQ文件\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>C:\Users\Lenovo\Desktop\专高 dll\Redis缓存帮助类以及引用\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\..\QQ文件\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.1.30\lib\net472\StackExchange.Redis.dll</HintPath>
@@ -674,6 +674,7 @@
     <Content Include="Image\娃哈哈.jpg" />
     <Content Include="Image\矿泉水.jpg" />
     <Content Include="Image\面包.jpg" />
+    <Content Include="Img\20160523094608_4687.png" />
     <Content Include="lay\dest\layui.all.js" />
     <Content Include="lay\modules\code.js" />
     <Content Include="lay\modules\element.js" />
@@ -811,9 +812,6 @@
     <Content Include="Views\Order\UpdateOrderView.cshtml" />
     <Content Include="Views\Commodity\OutCommodity.cshtml" />
     <Content Include="Views\Commodity\AddCommodityType.cshtml" />
-    <Content Include="Views\UserZ\Shop_list.cshtml" />
-    <Content Include="Views\UserZ\ShopInfo.cshtml" />
-    <Content Include="Views\UserZ\ShopAdd.cshtml" />
     <Content Include="Views\UserZ\AddShopInfo.cshtml" />
     <Content Include="Views\UserZ\GetPass.cshtml" />
     <Content Include="Views\YcxCode\AddUser.cshtml" />
@@ -823,7 +821,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
