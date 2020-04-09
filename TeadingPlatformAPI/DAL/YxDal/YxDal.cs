@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Model;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+
 namespace DAL
 {
     public class YxDal
@@ -223,6 +225,7 @@ namespace DAL
             if (data != null || data.ToString() != "System.object")
             {
                 var info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
+                info.UserPass = GenerateMD5(info.UserPass);
                 string sql = string.Format($"update UserInfo set UserPass='{info.UserPass}' where UserName='{info.UserName}'");
                 var res = YxDBHelper.ExecuteNonQuery(sql);
                 if (res > 0)
@@ -284,6 +287,26 @@ namespace DAL
                 unitedReturn.res = 0;
             }
             return unitedReturn;
+        }
+        /// <summary>
+        /// MD5字符串加密
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns>加密后字符串</returns>
+        public static string GenerateMD5(string txt)
+        {
+            using (MD5 mi = MD5.Create())
+            {
+                byte[] buffer = Encoding.Default.GetBytes(txt);
+                //开始加密
+                byte[] newBuffer = mi.ComputeHash(buffer);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < newBuffer.Length; i++)
+                {
+                    sb.Append(newBuffer[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
         }
 
     }

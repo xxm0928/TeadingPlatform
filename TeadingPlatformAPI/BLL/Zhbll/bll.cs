@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 using DAL;
+using Common;
+using Newtonsoft.Json;
 
 namespace BLL
 {
@@ -24,7 +26,15 @@ namespace BLL
         {
             return dal.UserLogin(data);
         }
-
+        /// <summary>
+        /// 查询密码
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public UnitedReturn UserPass(object data)
+        {
+            return dal.UserPass(data);
+        }
         /// <summary>
         /// 用户注册
         /// </summary>

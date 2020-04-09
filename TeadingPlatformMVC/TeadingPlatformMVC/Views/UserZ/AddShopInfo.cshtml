@@ -1,29 +1,48 @@
 ﻿
 @{
     ViewBag.Title = "AddShopInfo";
-    Layout = "~/Views/UserZ/ShopAdd.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2></h2>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="wrap-container">
+
+    <div class="layui-form-item" style="width: 90%;padding-top: 20px">
+        <label class="layui-form-label">店铺名称：</label>
+        <div class="layui-input-block">
+            <input type="text" id="name" required lay-verify="required" autocomplete="off" class="layui-input " placeholder="请输入" ;>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="move()">立即提交</button>
+        </div>
+    </div>
+
+</div>
 <script>
     function move() {
-            var datas = {
-                ShopName: $("#name").val(),
-            };
+        var datas = {
+            ShopName: $("#name").val(),
+        };
 
-            $.ajax({
-                url: "http://localhost:55041/api/UserApi/AddShopInfo",
-                type: "POST",
-                data: JSON.stringify(datas),
-                dataType: "JSON",
-                contentType: "application/json",
-                success: function (res) {
-                    alert(res.msg);
+        $.ajax({
+            url: "http://localhost:55041/api/UserApi/AddShopInfo",
+            type: "POST",
+            data: JSON.stringify(datas),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (res) {
+                alert(res.msg);
+                if (res.msg == "添加成功") {
+                    location.reload();
                 }
-            });
+            }
+        });
 
-        
+
 
     }
 </script>
