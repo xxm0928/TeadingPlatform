@@ -50,8 +50,14 @@
                 </thead>
                 <tbody id="rb"></tbody>
             </table>
-
         </div>
+        <input type="button" class="layui-btn" onclick="Query(1)" value="首页" />
+        <input type="button" class="layui-btn" onclick="Query(2)" value="上一页" />
+        <input type="button" class="layui-btn" onclick="Query(3)" value="下一页" />
+        <input type="button" class="layui-btn" onclick="Query(4)" value="尾页" />
+        <input type="hidden" id="Page" value="1" />
+        <input type="hidden" id="Size" value="2" />
+        <input type="hidden" id="Count" value="3" />
     </div>
 </div>
 <script src="~/Scripts/lay/modules/layui.js"></script>
@@ -103,14 +109,24 @@
                 $("#shop").append(select);
             }
         });
+        var Page_ = $("#Page").val();//第几页开始
+        var Size_ = $("#Size").val();//每页多少条
+        var Count_ = $("#Count").val();//总数据
+        var data = {
+            Page: Page_,
+            Size: Size_
+        };
         $.ajax({
-            url: "/Commodity/ShowCommoditys",
-            type: "POST",
+            url: "/Commodity/IndexData",
+            data: {
+                data: JSON.stringify(data)
+            },
             dataType: "json",
+            type: "POST",
             success: function (res) {
-                var select = "";
+                var ress = "";
                 $(res).each(function () {
-                    select += "<tr>" +
+                    ress += "<tr>" +
                         "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
                         "<td>" + this.CommodityName + "</td>" +
                         "<td>" + this.ShopName + "</td>" +
@@ -120,9 +136,21 @@
                         '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
                         "</tr>";
                 })
-                $("#rb").html(select);
+                $("#rb").html(ress);
             }
-        });
+        })
+        $.ajax({
+            url: "/Commodity/Count",
+            data: {
+            },
+            dataType: "json",
+            type: "POST",
+            success: function (res) {
+                $(res).each(function () {
+                    $("#Count").val(this.Count);
+                })
+            }
+        })
     })
     function Sel() {
         var ass = $("#text1").val();
@@ -174,5 +202,152 @@
                 }
             }
         });
+    }
+
+    function Query(type) {
+        var Page_ = $("#Page").val();//第几页开始
+        var Size_ = $("#Size").val();//每页多少条
+        var Count_ = $("#Count").val();//总数据
+        //首页
+        if (type == 1) {
+            Page_ = 1;
+            var data1 = {
+                Page: Page_,
+                Size: Size_
+            };
+            $.ajax({
+                url: "/Commodity/IndexData",
+                data: {
+                    data: JSON.stringify(data1)
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var ress = "";
+                    $(res).each(function () {
+                        ress += "<tr>" +
+                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.ShopName + "</td>" +
+                        "<td>" + this.TypeName + "</td>" +
+                        "<td>" + this.CommditySum + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#rb").html(ress);
+                }
+            })
+            $("#Page").val(Page_);
+        }
+        //上一页
+        if (type == 2) {
+            Page_ = Page_ - 1;
+            if (Page_ <= 1) {
+                Page_ = 1;
+            }
+            var data2 = {
+                Page: Page_,
+                Size: Size_
+            };
+            $.ajax({
+                url: "/Commodity/IndexData",
+                data: {
+                    data: JSON.stringify(data2)
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var ress = "";
+                    $(res).each(function () {
+                        ress += "<tr>" +
+                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.ShopName + "</td>" +
+                        "<td>" + this.TypeName + "</td>" +
+                        "<td>" + this.CommditySum + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#rb").html(ress);
+                }
+            })
+            $("#Page").val(Page_);
+        }
+        //下一页
+        if (type == 3) {
+            if (Page_ >= (Count_ / Size_)) {
+                Page_ = (Count_ / Size_);
+            }
+            else {
+                Page_ = parseInt(Page_) + parseInt(1);
+            }
+            var data3 = {
+                Page: Page_,
+                Size: Size_
+            };
+            $.ajax({
+                url: "/Commodity/IndexData",
+                data: {
+                    data: JSON.stringify(data3)
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var ress = "";
+                    $(res).each(function () {
+                        ress += "<tr>" +
+                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.ShopName + "</td>" +
+                        "<td>" + this.TypeName + "</td>" +
+                        "<td>" + this.CommditySum + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#rb").html(ress);
+                }
+            })
+            $("#Page").val(Page_);
+        }
+        //尾页
+        if (type == 4) {
+            if ((Count_ % Size_) > 0) {
+                Page_ = Math.floor(Count_ / Size_) + parseInt(1);
+            }
+            else {
+                Page_ = Math.floor(Count_ / Size_);
+            }
+            var data4 = {
+                Page: Page_,
+                Size: Size_
+            };
+            $.ajax({
+                url: "/Commodity/IndexData",
+                data: {
+                    data: JSON.stringify(data4)
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (res) {
+                    var ress = "";
+                    $(res).each(function () {
+                        ress += "<tr>" +
+                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                        "<td>" + this.CommodityName + "</td>" +
+                        "<td>" + this.ShopName + "</td>" +
+                        "<td>" + this.TypeName + "</td>" +
+                        "<td>" + this.CommditySum + "</td>" +
+                        "<td>" + this.Price + "</td>" +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                        "</tr>";
+                })
+                $("#rb").html(ress);
+                }
+            })
+            $("#Page").val(Page_);
+        }
     }
 </script>
