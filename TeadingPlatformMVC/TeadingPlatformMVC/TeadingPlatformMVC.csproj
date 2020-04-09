@@ -679,9 +679,11 @@
     <Content Include="images\login\login_line.jpg" />
     <Content Include="images\login\yzm.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="Image\bg-5921ee0.png" />
     <Content Include="Image\头像.jpg" />
     <Content Include="Image\娃哈哈.jpg" />
     <Content Include="Image\矿泉水.jpg" />
+    <Content Include="Image\蓝色渐变背景简单设计8K壁纸7680x4320_彼岸图网.jpg" />
     <Content Include="Image\面包.jpg" />
     <Content Include="Img\20160523094608_4687.png" />
     <Content Include="lay\dest\layui.all.js" />
