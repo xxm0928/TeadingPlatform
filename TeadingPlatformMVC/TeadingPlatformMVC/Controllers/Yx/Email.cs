@@ -52,8 +52,10 @@ namespace TeadingPlatformMVC.Controllers
             //不和请求一块发送。
             client.UseDefaultCredentials = false;
             //验证发件人身份(发件人的邮箱，邮箱里的生成授权码);
-            //这个后面的xlhomkffaenbdjjf dwvwzhqyqtckeidd 是qq邮箱里面打开设置 账户里面把那个授权码获取到 每个人的都不一样
-            //这个授权码是2235577158@qq.com 邮箱的 你们填自己的就好
+            //这个后面的字符串 是qq邮箱里面打开设置 账户里面把那个授权码获取到 每个人的都不一样
+            //杨兴邮箱 2235577158@qq.com 授权码xtwvzvhkxeivdjjg
+            //许学铭邮箱 2041314558@qq.com 授权码dwvwzhqyqtckeidd
+            //赵航邮箱2385389803@qq.com 授权码tdnxowddgwnaeaib
             client.Credentials = new NetworkCredential(Email, "dwvwzhqyqtckeidd");
             //发送
             client.Send(mailMessage);
