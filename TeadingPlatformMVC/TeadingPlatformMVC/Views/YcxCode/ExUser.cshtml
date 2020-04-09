@@ -4,6 +4,11 @@
 }
 @model IEnumerable<TeadingPlatformMVC.Models.Ycx_User>
 
+@foreach (var item in Model)
+{
+@item.UserName
+}
+
 
 @using (Html.BeginForm("ExUser", "YcxCode"))
 {
@@ -79,20 +84,13 @@
             <div>
 
                 <div class="layui-input-block">
-                    <input type="submit" name="UserName" value="编辑" class="layui-input" placeholder="请输入昵称" />
+                    <input type="submit"  value="编辑" class="layui-input" placeholder="请输入昵称" />
                 </div>
             </div>
         </div>
 
 
-        <div class="layui-form-item layui-form-text">
-            @*
-            <label class="layui-form-label">文章内容：</label>
-            <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
-            </div>
-            *@
-        </div>
+       
 
 
 

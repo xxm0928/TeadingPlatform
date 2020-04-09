@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using TeadingPlatformMVC.Models;
@@ -139,20 +138,26 @@ namespace TeadingPlatformMVC.Controllers
             //return Json(name, JsonRequestBehavior.AllowGet);
 
         }
-
+        
         public ActionResult ExUser()
         {
+
+            
             return View();
         }
         [HttpPost]
-        public void ExUser(Ycx_User um)
+        public void ExUser(string id,Ycx_User um)
         {
+            
+            
             try
             {
+               
+                int ids = Convert.ToInt32(id);
                 var data = JsonConvert.SerializeObject(um);
                 var request = Request["data"];
                 UnitedReturn united = new UnitedReturn();
-                var res = clientHelper.Post("api/User/UpdateUser", data);
+                var res = clientHelper.Post("api/User/UpdateUser?ids="+ids, data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
 
