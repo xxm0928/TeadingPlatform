@@ -30,12 +30,12 @@
             <table class="layui-table" lay-even lay-skin="nob">
                 <colgroup>
                     <col width="150">
-                    <col width="85">
-                    <col width="85">
-                    <col width="85">
-                    <col width="85">
-                    <col width="85">
-                    <col width="85">
+                    <col width="100">
+                    <col width="100">
+                    <col width="100">
+                    <col width="100">
+                    <col width="100">
+                    @*<col width="20">*@
                 </colgroup>
                 <thead class="layui-table">
                     <tr>
@@ -56,7 +56,7 @@
         <input type="button" class="layui-btn" onclick="Query(3)" value="下一页" />
         <input type="button" class="layui-btn" onclick="Query(4)" value="尾页" />
         <input type="hidden" id="Page" value="1" />
-        <input type="hidden" id="Size" value="2" />
+        <input type="hidden" id="Size" value="5" />
         <input type="hidden" id="Count" value="3" />
     </div>
 </div>
@@ -136,7 +136,8 @@
                         "<td>" + this.TypeName + "</td>" +
                         "<td>" + this.CommditySum + "</td>" +
                         "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                         "</tr>";
                 })
                 $("#rb").html(ress);
@@ -254,7 +255,8 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
                     $("#rb").html(ress);
@@ -289,7 +291,8 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
                     $("#rb").html(ress);
@@ -326,7 +329,8 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
                     $("#rb").html(ress);
@@ -363,7 +367,8 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
                     $("#rb").html(ress);
