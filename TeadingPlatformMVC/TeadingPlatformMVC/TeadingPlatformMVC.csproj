@@ -198,7 +198,6 @@
     <Compile Include="Controllers\Yx\HttpClientHelper.cs" />
     <Compile Include="Controllers\Yx\LogHelper.cs" />
     <Compile Include="Controllers\Yx\OrderController.cs" />
-    <Compile Include="Controllers\Yx\RedisHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -850,6 +849,9 @@
       <Project>{006bfa31-a6f9-4ccd-a229-1febb0dfcda1}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
