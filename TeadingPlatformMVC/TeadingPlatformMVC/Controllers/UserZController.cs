@@ -54,7 +54,7 @@ namespace TeadingPlatformMVC.Controllers
         /// <returns>加密后字符串</returns>
         public static string GenerateMD5(string txt)
         {
-            using (MD5 mi = MD5.Create())
+            using (MD5 mi = System.Security.Cryptography.MD5.Create())
             {
                 byte[] buffer = Encoding.Default.GetBytes(txt);
                 //开始加密
