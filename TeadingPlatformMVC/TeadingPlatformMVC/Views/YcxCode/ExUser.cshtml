@@ -1,54 +1,52 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/ExUser/_Layout.cshtml";
 }
-@model IEnumerable<TeadingPlatformMVC.Models.Ycx_User>
-
-@foreach (var item in Model)
-{
-@item.UserName
-}
+    @*<form action="/YcxCode/UpLoad3" method="post" enctype="multipart/form-data">
+        <input type="file" name="img" value="" />
+        <input type="submit" name="name" value="submit" />
+    </form>*@
 
 
 @using (Html.BeginForm("ExUser", "YcxCode"))
 {
-    <form class="layui-form">
+    @*<div class="layui-tab-item layui-show">*@
+    @*---------*@
 
-
-        @*<div class="layui-tab-item layui-show">*@
-        @*---------*@
-
-        <div>
-            <label class="layui-form-label">昵称：</label>
-            <div class="layui-input-block">
-                <input type="text" name="UserName" value="" class="layui-input" placeholder="请输入昵称" />
-            </div>
+    <div>
+        <label class="layui-form-label">昵称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="UserName" value="" class="layui-input" placeholder="请输入昵称" />
         </div>
+    </div>
 
 
-        @*<div class="layui-form-item">
+    @*<div class="layui-form-item">
             <label class="layui-form-label">文章名称：</label>
             <div class="layui-input-block">
                 <input type="text" name="name" required lay-verify="required" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
             </div>
         </div>*@
-        <div>
-            <label class="layui-form-label">头像:</label>
-            <div class="layui-input-block">
-                <input type="file" name="img" class="layui-upload-button" />
 
-            </div>
+    <div>
+        <label class="layui-form-label">头像:</label>
+        <div class="layui-input-block">
+            <input type="file" name="UserPhoto" class="layui-upload-button" />
+
         </div>
 
+    </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">性别：</label>
-            <div class="layui-input-block">
-                <input type="radio" name="static" value="1" title="男" checked="">男
-                <input type="radio" name="static" value="0" title="女">女
-            </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="static" value="1" title="男" checked="">男
+            <input type="radio" name="static" value="0" title="女">女
         </div>
-        @*<div>
+    </div>
+    @*<div>
             <label class="layui-form-label">性别：</label>
             <div class="layui-input-block">
                 <input type="radio" name="sex" value="1" title="男"  />男
@@ -59,55 +57,57 @@
         </div>*@
 
 
+    <div>
         <div>
-            <div>
-                <label class="layui-form-label">手机号：</label>
-                <div class="layui-input-block">
-                    <input type="text" name="UserNumder" value="" class="layui-input" placeholder="请输入手机号码" />
-                </div>
-            </div>
-
-
-            <div>
-                <label class="layui-form-label">年龄：</label>
-                <div class="layui-input-block">
-                    <input type="text" name="UserAge" value="" class="layui-input" placeholder="请输入年龄" />
-                </div>
-            </div>
-
-            <div>
-                <label class="layui-form-label">身份证：</label>
-                <div class="layui-input-block">
-                    <input type="text" name="UserIDNumber" value="" class="layui-input" placeholder="请输入身份证" />
-                </div>
-            </div>
-            <div>
-
-                <div class="layui-input-block">
-                    <input type="submit"  value="编辑" class="layui-input" placeholder="请输入昵称" />
-                </div>
+            <label class="layui-form-label">手机号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="UserNumder" value="" class="layui-input" placeholder="请输入手机号码" />
             </div>
         </div>
 
 
-       
+        <div>
+            <label class="layui-form-label">年龄：</label>
+            <div class="layui-input-block">
+                <input type="text" name="UserAge" value="" class="layui-input" placeholder="请输入年龄" />
+            </div>
+        </div>
+
+        <div>
+            <label class="layui-form-label">身份证：</label>
+            <div class="layui-input-block">
+                <input type="text" name="UserIDNumber" value="" class="layui-input" placeholder="请输入身份证" />
+            </div>
+        </div>
+        <div>
+
+            <div class="layui-input-block">
+                <input type="submit" value="编辑" class="layui-input" placeholder="请输入昵称" />
+            </div>
+        </div>
+    </div>
 
 
 
 
 
-        @*</div>*@
 
 
 
-        @*<div class="layui-form-item" style="padding-left: 10px;">
+    @*</div>*@
+
+
+
+    @*<div class="layui-form-item" style="padding-left: 10px;">
             <div class="layui-input-block">
                 <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>*@
 
-    </form>
 
-   
+
+
 }
+
+

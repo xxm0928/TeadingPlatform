@@ -735,6 +735,8 @@
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="admin\lib\ueditor\third-party\video-js\font\vjs.woff" />
     <Content Include="Content\验证码\ValidateCode.ashx" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Upload.ashx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -832,6 +834,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserPhoto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
