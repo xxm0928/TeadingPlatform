@@ -58,6 +58,7 @@ namespace TeadingPlatformAPI.Controllers
         [HttpPost]
         public UnitedReturn UserPass(object data)
         {
+
             return bll.UserPass(data);
         }
         /// <summary>

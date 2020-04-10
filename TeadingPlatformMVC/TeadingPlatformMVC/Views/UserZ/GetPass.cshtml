@@ -7,12 +7,11 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 <title>F4交易平台--修改密码</title>
-<h2 style="margin-left:42%">修改密码</h2>
+
 <div class="wrap-container" style="padding-top:20px">
     <hr style="color:#000000;height:3px;" />
-    <div class="layui-form" id="category-table-list">
-
-        <table style="width:700px;height:400px;color:#4cff00;margin-left:30%">
+    <div class="layui-form" id="category-table-list" style="background-image:url(/Image/bg-5921ee0.png)">
+        <table style="width:700px;height:400px;margin-left:30%">
             <tr>
                 <td>输入要验证的邮箱:</td>
                 <td>
@@ -23,7 +22,7 @@
                 <td>你的真实姓名:</td>
                 <td>
                     <input id="Name" type="text" onchange="NameChange()" />
-                    <input type="hidden" id="NameTrueOrFalse"/>
+                    <input type="hidden" id="NameTrueOrFalse" />
                 </td>
                 <td id="NameText"></td>
             </tr>
@@ -122,11 +121,11 @@
                     }
                     if (this.Name == "用户名不能为空") {
                         ass = "<label>" + this.Name + "</label>";
-                         $("#NameTrueOrFalse").val(2);
+                        $("#NameTrueOrFalse").val(2);
                     }
                     if (this.Name == "服务器内部错误") {
                         alert(this.Name);
-                         $("#NameTrueOrFalse").val(2);
+                        $("#NameTrueOrFalse").val(2);
                     }
                 })
                 $("#NameText").html(ass);
@@ -136,8 +135,7 @@
     //弹出确认修改
     function GetPass() {
         var False = $("#NameTrueOrFalse").val();
-        if (False == 2)
-        {
+        if (False == 2) {
             alert("用户名不正确");
             return;
         }
@@ -174,8 +172,7 @@
     //修改密码
     function Update() {
         var False = $("#NameTrueOrFalse").val();
-        if (False == 2)
-        {
+        if (False == 2) {
             alert("用户名不正确");
             return;
         }

@@ -177,20 +177,21 @@ namespace DAL
                 {
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from UserInfo as u join ShopInfo as s on u.ShopId = s.ShopId join CommodityInfo as c on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState > 0");
+                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price  from CommodityInfo as c join ShopInfo as s on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState > 0");
+
+                var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
-                    sql+=$"and c.CommodityName='%'"+orderforms.CommodityName+"'%'";
+                    datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
                 }
-                if (orderforms.TypeId>0)
+                if (orderforms.TypeId > 0)
                 {
-                    sql += $"and c.TypeId='{orderforms.TypeId}'";
+                    datas = datas.Where(s => s.TypeId == orderforms.TypeId).ToList();
                 }
-                if (orderforms.ShopId>0)
+                if (orderforms.ShopId > 0)
                 {
-                    sql += $"and c.ShopId='{orderforms.ShopId}'";
+                    datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
                 }
-                var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 UnitedReturn unitedReturn = new UnitedReturn();
                 if (datas.Count > 0 && datas != null)
                 {
@@ -236,20 +237,21 @@ namespace DAL
                 {
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
-                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price from UserInfo as u join ShopInfo as s on u.ShopId = s.ShopId join CommodityInfo as c on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState =0");
+                string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price  from CommodityInfo as c join ShopInfo as s on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState = 0");
+                
+                var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
-                    sql += $"and c.CommodityName='%'" + orderforms.CommodityName + "'%'";
+                    datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
                 }
                 if (orderforms.TypeId > 0)
                 {
-                    sql += $"and c.TypeId='{orderforms.TypeId}'";
+                    datas = datas.Where(s => s.TypeId == orderforms.TypeId).ToList();
                 }
                 if (orderforms.ShopId > 0)
                 {
-                    sql += $"and c.ShopId='{orderforms.ShopId}'";
+                    datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
                 }
-                var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 UnitedReturn unitedReturn = new UnitedReturn();
                 if (datas.Count > 0 && datas != null)
                 {
