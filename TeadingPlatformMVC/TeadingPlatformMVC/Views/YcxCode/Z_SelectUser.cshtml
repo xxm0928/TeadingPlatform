@@ -35,7 +35,7 @@
             <div>
                 <label class="layui-form-label">头像:</label>
                 <div class="layui-input-block">
-                    <img src="~/Img/@item.UserPhoto" style="width:120px;height:80px" />
+                    <img src="~/UserPhoto/@item.UserPhoto" style="width:120px;height:80px" />
 
                 </div>
             </div>
@@ -81,7 +81,7 @@
                         <input type="text" name="UserIDNumber" value="@item.UserIDNumber" class="layui-input" placeholder="请输入身份证" />
                     </div>
                 </div>
-                @Html.ActionLink("编辑", "ExUser", "YcxCode", new { id = @item.UserNumder }, new { })
+                @Html.ActionLink("编辑", "ExUser", "YcxCode", new { id = item.UserNumder }, new { })
                 
             </div>
 

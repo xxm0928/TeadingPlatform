@@ -101,7 +101,7 @@ namespace TeadingPlatformAPI.Controllers
             return united;
         }
         [HttpPost]
-        public UnitedReturn UpdateUser(long ids,object data)
+        public UnitedReturn UpdateUser(string id,object data,string UserPhoto)
         {
             UserInfo um = new UserInfo();
 
@@ -109,7 +109,7 @@ namespace TeadingPlatformAPI.Controllers
             {
                 um = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(data));
             }
-            string sql = $"update UserInfo set UserName='{um.UserName}',UserPhoto='{um.UserPhoto}',UserSex={um.UserSex},ShopId={um.ShopId},UserNumder='{um.UserNumder}',UserAge={um.UserAge},UserIDNumber='{um.UserIDNumber}' where UserNumder='{ids}'";
+            string sql = $"update UserInfo set UserName='{um.UserName}',UserPhoto='{UserPhoto}',UserSex={um.UserSex},ShopId={um.ShopId},UserNumder='{um.UserNumder}',UserAge={um.UserAge},UserIDNumber='{um.UserIDNumber}' where UserNumder='{id}'";
             var res = helpx.ExecuteNonQuery(sql);
             UnitedReturn united = new UnitedReturn();
             if (res > 0)
