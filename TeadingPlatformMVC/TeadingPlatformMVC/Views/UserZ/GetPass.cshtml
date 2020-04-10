@@ -39,7 +39,7 @@
                 </tr>
                 <tr style="margin-left:300px">
                     <td id="euww1">
-                        <input id="Button2" type="button" class="layui-btn layui-bg-blue" style="margin-left:99%;width:90px;height:40px" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
+                        <input id="Button2" type="button" class="layui-btn layui-bg-blue" style="margin-left:99%;width:90px;height:40px" value="重置密码" onclick="GetPass()" />
                     </td>
                 </tr>
                 <tbody id="tbss"></tbody>
@@ -175,28 +175,28 @@
     }
     //弹出确认修改
     function GetPass() {
-        //var False = $("#NameTrueOrFalse").val();
-        //if (False == 2) {
-        //    alert("用户名不正确");
-        //    return;
-        //}
-        //var code = $("#Code").val();
-        //var codes = $("#Codes").val();
-        //var Email_ = $("#Email").val();
-        //var Name_ = $("#Name").val();
-        //if (Email_ == "") {
-        //    alert("QQ邮箱不能为空");
-        //    return;
-        //}
-        //if (Name_ == "") {
-        //    alert("用户名不能为空");
-        //    return;
-        //}
-        //if (code == "") {
-        //    alert("验证码不能为空");
-        //    return;
-        //}
-        //if (code == codes) {
+        var False = $("#NameTrueOrFalse").val();
+        if (False == 2) {
+            alert("用户名不正确");
+            return;
+        }
+        var code = $("#Code").val();
+        var codes = $("#Codes").val();
+        var Email_ = $("#Email").val();
+        var Name_ = $("#Name").val();
+        if (Email_ == "") {
+            alert("QQ邮箱不能为空");
+            return;
+        }
+        if (Name_ == "") {
+            alert("用户名不能为空");
+            return;
+        }
+        if (code == "") {
+            alert("验证码不能为空");
+            return;
+        }
+        if (code == codes) {
             var tbss = "";
             tbss += "<tr>" +
                 "<td>新密码:</td>" +
@@ -204,10 +204,10 @@
                 "<td> <input  type='button' value='确认修改' class='layui-btn layui-bg-blue' style='margin-left:10px;width:120px;height:30px'  onclick='Update()' /></td>"
                 + "</tr>";
             $("#tbss").html(tbss);
-        //}
-        //else {
-        //    alert("验证码不正确");
-        //}
+        }
+        else {
+            alert("验证码不正确");
+        }
 
     }
     //修改密码
