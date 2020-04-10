@@ -9,13 +9,12 @@ using System.Web.Mvc;
 using Model;
 using Newtonsoft.Json;
 using ServiceStack.Redis;
-using StackExchange.Redis;
 
 namespace TeadingPlatformMVC.Controllers
 {
     public class OrderController : Controller
     {
-
+        
         LogHelper log = new LogHelper();
         HttpClientHelper clientHelper = new HttpClientHelper();
         /// <summary>
@@ -430,8 +429,8 @@ namespace TeadingPlatformMVC.Controllers
         {
             try
             {
-                var msg = "";
                 RedisClient client = new RedisClient("127.0.0.1", 6379);
+                var msg = "";
                 var getData = client.Get<string>("NameList");
                 if (!string.IsNullOrEmpty(getData))
                 {
