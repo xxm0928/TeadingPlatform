@@ -5,46 +5,87 @@
 }
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
+<link href="http://localhost:55243/Scripts/layui/layui.css" rel="stylesheet" />
+<link href="http://localhost:55243/admin/css/login.css" rel="stylesheet" />
 <title>F4交易平台--修改密码</title>
 
-<div class="wrap-container" style="padding-top:20px">
-    <hr style="color:#000000;height:3px;" />
-    <div class="layui-form" id="category-table-list" style="background-image:url(/Image/bg-5921ee0.png)">
-        <table style="width:700px;height:400px;margin-left:30%">
-            <tr>
-                <td>输入要验证的邮箱:</td>
-                <td>
-                    <input id="Email" type="text" />
-                </td>
-            </tr>
-            <tr>
-                <td>你的真实姓名:</td>
-                <td>
-                    <input id="Name" type="text" onchange="NameChange()" />
-                    <input type="hidden" id="NameTrueOrFalse" />
-                </td>
-                <td id="NameText"></td>
-            </tr>
-            <tr>
-                <td>请输入验证码:</td>
-                <td>
-                    <input id="Code" type="text" /><input id="Codes" type="hidden" />
-                </td>
-                <td>
-                    <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" />
-                </td>
-            </tr>
-            <tr style="margin-left:300px">
-                <td id="euww1">
-                    <input id="Button2" type="button" style="margin-left:82%;width:90px;height:40px" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
-                </td>
-            </tr>
-            <tbody id="tbss"></tbody>
-        </table>
+<div class="m-login-bg" style="width:100%;">
+    <div class="m-login">
+        <b style="font-size:30px;margin-left:90px">F4交易平台--修改密码</b>
+        <div class="m-login-warp" style="width:500px;height:400px">
+            <table style="height:330px;margin-left:20px">
+                <tr>
+                    <td>输入要验证的邮箱:</td>
+                    <td>
+                        <input id="Email" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>你的真实姓名:</td>
+                    <td>
+                        <input id="Name" type="text" onchange="NameChange()" />
+                        <input type="hidden" id="NameTrueOrFalse" />
+                    </td>
+                    <td id="NameText"></td>
+                </tr>
+                <tr>
+                    <td>请输入验证码:</td>
+                    <td>
+                        <input id="Code" type="text" /><input id="Codes" type="hidden" />
+                    </td>
+                    <td>
+                        <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" class="layui-btn layui-bg-blue" style="margin-left:10px;width:120px;height:30px" />
+                    </td>
+                </tr>
+                <tr style="margin-left:300px">
+                    <td id="euww1">
+                        <input id="Button2" type="button" class="layui-btn layui-bg-blue" style="margin-left:99%;width:90px;height:40px" value="重置密码" onclick="GetPass()" />
+                    </td>
+                </tr>
+                <tbody id="tbss"></tbody>
+            </table>
+
+        </div>
     </div>
-    <hr style="color:#000000;height:3px;" />
 </div>
+
+@*<div class="wrap-container" style="padding-top:20px">
+        <hr  style="color:#000000;height:3px;" />
+        <div class="layui-form" id="category-table-list" style="background-image:url(/Image/bg-5921ee0.png)">
+            <table style="width:700px;height:400px;margin-left:30%">
+                <tr>
+                    <td>输入要验证的邮箱:</td>
+                    <td>
+                        <input id="Email" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>你的真实姓名:</td>
+                    <td>
+                        <input id="Name" type="text" onchange="NameChange()" />
+                        <input type="hidden" id="NameTrueOrFalse" />
+                    </td>
+                    <td id="NameText"></td>
+                </tr>
+                <tr>
+                    <td>请输入验证码:</td>
+                    <td>
+                        <input id="Code" type="text" /><input id="Codes" type="hidden" />
+                    </td>
+                    <td>
+                        <input id="Button1" onclick="GetCode()" type="button" value="获取验证码" />
+                    </td>
+                </tr>
+                <tr style="margin-left:300px">
+                    <td id="euww1">
+                        <input id="Button2" type="button" style="margin-left:82%;width:90px;height:40px" value="重置密码" onclick="GetPass()" class="btn btn-primary" />
+                    </td>
+                </tr>
+                <tbody id="tbss"></tbody>
+            </table>
+        </div>
+        <hr style="color:#000000;height:3px;" />
+    </div>*@
 <script>
     /// 重置密码 第一次加载
     ///使用Redis把数据库的用户数据存到缓存里面
@@ -160,7 +201,7 @@
             tbss += "<tr>" +
                 "<td>新密码:</td>" +
                 "<td><input id='Pwd1' type='password' /></td>" +
-                "<td> <input  type='button' value='确认修改'  onclick='Update()' /></td>"
+                "<td> <input  type='button' value='确认修改' class='layui-btn layui-bg-blue' style='margin-left:10px;width:120px;height:30px'  onclick='Update()' /></td>"
                 + "</tr>";
             $("#tbss").html(tbss);
         }
