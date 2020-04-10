@@ -2,8 +2,10 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using TeadingPlatformMVC.Models;
@@ -147,13 +149,14 @@ namespace TeadingPlatformMVC.Controllers
         }
         [HttpPost]
         public void ExUser(string id,Ycx_User um)
-        {
-            
+         {
+           
+
             
             try
             {
-               
-                int ids = Convert.ToInt32(id);
+                
+                long ids = Convert.ToInt64(id);
                 var data = JsonConvert.SerializeObject(um);
                 var request = Request["data"];
                 UnitedReturn united = new UnitedReturn();
@@ -163,9 +166,27 @@ namespace TeadingPlatformMVC.Controllers
 
                 GetName name = new GetName();
                 name.Name = united.msg;
+
+                //查看上传的文件
+                //HttpFileCollectionBase files = Request.Files;
+                //true 有文件
+                //false  无文件
+                //if (files != null)
+                //{
+                //    HttpPostedFileBase file = files["img"];
+                //    string fullName = file.FileName;
+                //    FileInfo fi = new FileInfo(fullName);
+                //    string nameFile = fi.Name;
+                //    string uploadPath = Server.MapPath("\\img");
+                //    file.SaveAs(uploadPath + "\\" + nameFile);
+                //}
+                //else
+                //{
+
+                //}
                 if (united.res > 0)
                 {
-                    Response.Write("<script>alert('修改成功');</script>");
+                    Response.Write("<script>alert('修改成功');location.href='/YcxCode/Z_SelectUser'</script>");
                 }
                 else
                 {
