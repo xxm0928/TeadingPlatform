@@ -7,6 +7,9 @@
         <input type="submit" name="name" value="submit" />
     </form>*@
 
+@using (Html.BeginForm("ExUser", "YcxCode"))
+{
+
 
     <form action="/YcxCode/ExUser" method="post" enctype="multipart/form-data">
         @*<div class="layui-tab-item layui-show">*@
@@ -21,11 +24,11 @@
 
 
         @*<div class="layui-form-item">
-            <label class="layui-form-label">文章名称：</label>
-            <div class="layui-input-block">
-                <input type="text" name="name" required lay-verify="required" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
-            </div>
-        </div>*@
+                <label class="layui-form-label">文章名称：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>*@
 
         <div>
             <label class="layui-form-label">头像:</label>
@@ -48,14 +51,14 @@
             </div>
         </div>
         @*<div>
-            <label class="layui-form-label">性别：</label>
-            <div class="layui-input-block">
-                <input type="radio" name="sex" value="1" title="男"  />男
+                <label class="layui-form-label">性别：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="1" title="男"  />男
 
-                <input type="radio" name="sex" value="0" title="女"  />女
+                    <input type="radio" name="sex" value="0" title="女"  />女
 
-            </div>
-        </div>*@
+                </div>
+            </div>*@
 
 
         <div>
@@ -100,15 +103,16 @@
 
 
         @*<div class="layui-form-item" style="padding-left: 10px;">
-            <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
-        </div>*@
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>*@
 
 
 
 
     </form>
+}
 
 
