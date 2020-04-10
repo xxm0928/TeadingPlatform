@@ -15,16 +15,18 @@
         <!--侧边栏-->
         <div class="main-layout-side">
             <div style="width:200px;height:100px">
-                <img src="~/Logo.gif" style="width:200px;height:100px" />
+                <img src="~/LOG.jpg" style="width:200px;height:100px" />
             </div>
             <ul class="layui-nav layui-nav-tree" lay-filter="leftNav">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;"><i class="iconfont" onclick="Show()">&#xe607;</i>主页</a>
+                </li>
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="iconfont">&#xe607;</i>用户管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="menu1.html" data-id='1' data-text="个人信息" onclick="ShowUser()"><span class="l-line"></span>个人信息</a></dd>
-                        <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="添加个人信息" onclick="AddUser()"><span class="l-line"></span>添加个人信息</a></dd>
                         <dd><a href="javascript:;" data-url="menu3.html" data-id='4' data-text="编辑个人信息" onclick="ExUser()"><span class="l-line"></span>编辑个人信息</a></dd>
-                        
+
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
@@ -78,7 +80,7 @@
                     <div class="layui-tab-content">
                         @RenderBody()
                         <div class="layui-tab-item layui-show">
-                            <img src="~/Img/20160523094608_4687.png" style="max-width: 100%; height: 100%" />
+
                         </div>
                     </div>
                 </div>
@@ -108,6 +110,10 @@
             }
         })
     })
+    //**主页
+    function Show() {
+        location.href = "/UserZ/Mainpage";
+    }
     //赵航**登录注册
     function loca() {
         location.href = "/UserZ/Login";
