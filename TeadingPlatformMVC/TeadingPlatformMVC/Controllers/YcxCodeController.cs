@@ -173,7 +173,7 @@ namespace TeadingPlatformMVC.Controllers
                 var data = JsonConvert.SerializeObject(um);
                
                 UnitedReturn united = new UnitedReturn();
-                var res = clientHelper.Post($"api/User/UpdateUser?ids='{id}',UserPhoto='{nameFile}'", data);
+                var res = clientHelper.Post($"api/User/UpdateUser?ids="+id, data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
 
