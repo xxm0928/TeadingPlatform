@@ -157,17 +157,17 @@ namespace TeadingPlatformMVC.Controllers
             try
             {
 
-                //查看上传的文件
-                HttpFileCollectionBase files = Request.Files;
-                // true 有文件
-                // false  无文件
+                ////查看上传的文件
+                //HttpFileCollectionBase files = Request.Files;
+                //// true 有文件
+                //// false  无文件
 
-                HttpPostedFileBase file = files["UserPhoto"];
-                string fullName = file.FileName;
-                FileInfo fi = new FileInfo(fullName);
-                string nameFile = fi.Name;
-                string uploadPath = Server.MapPath("\\UserPhoto");
-                file.SaveAs(uploadPath + "\\" + nameFile);
+                //HttpPostedFileBase file = files["UserPhoto"];
+                //string fullName = file.FileName;
+                //FileInfo fi = new FileInfo(fullName);
+                //string nameFile = fi.Name;
+                //string uploadPath = Server.MapPath("\\UserPhoto");
+                //file.SaveAs(uploadPath + "\\" + nameFile);
 
                
                 var data = JsonConvert.SerializeObject(um);
