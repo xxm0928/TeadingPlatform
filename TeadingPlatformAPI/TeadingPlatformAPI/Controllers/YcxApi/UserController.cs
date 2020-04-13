@@ -18,7 +18,7 @@ namespace TeadingPlatformAPI.Controllers
         public UnitedReturn Add(object data)
         {
             UserInfo um = new UserInfo();
-            
+
             if (data.ToString() != "System.object" && data.ToString() != "1")
             {
                 um = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(data));
@@ -45,22 +45,21 @@ namespace TeadingPlatformAPI.Controllers
         [HttpPost]
         public UnitedReturn SelectUser(object data)
         {
-            string sql = "select * from UserInfo ";
-         
+            var ss = "康康";
             UserInfo User = new UserInfo();
             //object初始值是System.object 所以判断一下
             if (data.ToString() != "System.object" && data.ToString() != "1")
             {
                 User = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
             }
-           
-            List<UserInfo> list=helpx.Getlist<UserInfo>(sql);
-           
+            string sql = $"select * from UserInfo where UserName='{ss}'";
+            List<UserInfo> list = helpx.Getlist<UserInfo>(sql);
+
             UnitedReturn united = new UnitedReturn();
-            if (list.Count>0 && list!=null)
+            if (list.Count > 0 && list != null)
             {
                 united.data = list;
-                united.res=1;
+                united.res = 1;
                 united.msg = "获取信息成功";
             }
             else
@@ -101,7 +100,7 @@ namespace TeadingPlatformAPI.Controllers
             return united;
         }
         [HttpPost]
-        public UnitedReturn UpdateUser(string id,object data)
+        public UnitedReturn UpdateUser(string id, object data)
         {
             UserInfo um = new UserInfo();
 

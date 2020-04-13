@@ -220,8 +220,6 @@ namespace TeadingPlatformMVC.Controllers
 
         public ActionResult Z_SelectUser()
         {
-
-
             var GetList = clientHelper.Post("api/User/SelectUser", 1);
             List<Ycx_User> GetData = new List<Ycx_User>();
             UnitedReturn united = new UnitedReturn();

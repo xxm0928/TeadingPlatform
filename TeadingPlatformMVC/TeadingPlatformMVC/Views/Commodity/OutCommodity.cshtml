@@ -10,7 +10,7 @@
         <div style="top:5px">
             <div style="margin-top:20px">
                 <span tyle="margin-left:10px;margin-top:-10px">
-                    <input type="text" placeholder="请输入商品名称">
+                    <input type="text" id="text" placeholder="请输入商品名称">
                 </span>
 
                 <span tyle="margin-left:10px;margin-top:10px">
@@ -136,7 +136,7 @@
                         "<td>" + this.TypeName + "</td>" +
                         "<td>" + this.CommditySum + "</td>" +
                         "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">上架</button></td>' +
                         '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                         "</tr>";
                 })
@@ -157,16 +157,21 @@
         })
     })
     function Sel() {
+        var Page_ = $("#Page").val();//第几页开始
+        var Size_ = $("#Size").val();//每页多少条
+        var Count_ = $("#Count").val();//总数据
         var ass = $("#text").val();
         var tid = $("#category").val();
         var sid = $("#shop").val();
         var datass = {
             CommodityName: ass,
             TypeId: tid,
-            ShopId: sid
+            ShopId: sid,
+            Page: Page_,
+            Size: Size_
         };
         $.ajax({
-            url: "/Commodity/ShowOutCommoditys",
+            url: "/Commodity/IndexDatas",
             type: "POST",
             dataType: "json",
             data: { data: JSON.stringify(datass) },
@@ -180,7 +185,7 @@
                         "<td>" + this.TypeName + "</td>" +
                         "<td>" + this.CommditySum + "</td>" +
                         "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.CommodityState == 0 ? "下架" : "上架") + '</button></td>' +
+                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">上架</button></td>' +
                         '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                         "</tr>";
                 })
@@ -228,6 +233,9 @@
     }
 
     function Query(type) {
+        var ass = $("#text").val();
+        var tid = $("#category").val();
+        var sid = $("#shop").val();
         var Page_ = $("#Page").val();//第几页开始
         var Size_ = $("#Size").val();//每页多少条
         var Count_ = $("#Count").val();//总数据
@@ -235,6 +243,9 @@
         if (type == 1) {
             Page_ = 1;
             var data1 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -255,7 +266,7 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">上架</button></td>' +
                             '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
@@ -271,6 +282,9 @@
                 Page_ = 1;
             }
             var data2 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -291,7 +305,7 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">上架</button></td>' +
                             '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
@@ -309,6 +323,9 @@
                 Page_ = parseInt(Page_) + parseInt(1);
             }
             var data3 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -329,7 +346,7 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">上架</button></td>' +
                             '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })
@@ -347,6 +364,9 @@
                 Page_ = Math.floor(Count_ / Size_);
             }
             var data4 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -367,7 +387,7 @@
                             "<td>" + this.TypeName + "</td>" +
                             "<td>" + this.CommditySum + "</td>" +
                             "<td>" + this.Price + "</td>" +
-                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 0 ? "上架" : "下架") + '</button></td>' +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">上架</button></td>' +
                             '<td><button class="layui-btn layui-btn-normal" onclick="UpdateOrder(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + "删除" + '</button></td>' +
                             "</tr>";
                     })

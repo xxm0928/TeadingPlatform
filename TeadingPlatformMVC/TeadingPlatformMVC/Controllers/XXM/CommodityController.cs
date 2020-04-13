@@ -11,7 +11,7 @@ namespace TeadingPlatformMVC.Controllers.XXM
     public class CommodityController : Controller
     {
         // GET: Commodity
-
+        LogHelper log = new LogHelper();
         HttpClientHelper clientHelper = new HttpClientHelper();
 
         /// <summary>
@@ -24,25 +24,33 @@ namespace TeadingPlatformMVC.Controllers.XXM
         }
         public JsonResult AddCommoditys()
         {
-            var request = Request["data"];
-            GetName get = new GetName();
-            if (request != null)
+            try
             {
-                var res = clientHelper.Post("api/XXM_Commodity/Commodity", request);
-                var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                var Id = data.res;
-                if (Id > 0)
+                var request = Request["data"];
+                GetName get = new GetName();
+                if (request != null)
                 {
-                    get.Name = "添加成功";
-                }
-                else
-                {
-                    get.Name = "添加失败";
-                }
-            }
-            return Json(get, JsonRequestBehavior.AllowGet);
-        }
 
+                    var res = clientHelper.Post("api/XXM_Commodity/Commodity", request);
+                    var data = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                    var Id = data.res;
+                    if (Id > 0)
+                    {
+                        get.Name = "添加成功";
+                    }
+                    else
+                    {
+                        get.Name = "添加失败";
+                    }
+                }
+                return Json(get, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                log.WriteLog("GetCookie", "获取Cookie");
+                throw;
+            }
+        }
         /// <summary>
         /// 添加商品分类
         /// </summary>
@@ -103,7 +111,8 @@ namespace TeadingPlatformMVC.Controllers.XXM
         /// <returns></returns>
         public JsonResult Count()
         {
-            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", 1);
+            var request = Request["data"];
+            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
             if (res != null)
             {
@@ -114,7 +123,7 @@ namespace TeadingPlatformMVC.Controllers.XXM
         public JsonResult IndexData()
         {
             var request = Request["data"];
-            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", 1);
+            var res = clientHelper.Post("api/XXM_Commodity/SelCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
             if (res != null)
             {
@@ -156,7 +165,8 @@ namespace TeadingPlatformMVC.Controllers.XXM
         /// <returns></returns>
         public JsonResult Counts()
         {
-            var res = clientHelper.Post("api/XXM_Commodity/SelOutCommodity", 1);
+            var request = Request["data"];
+            var res = clientHelper.Post("api/XXM_Commodity/SelOutCommodity", request);
             List<CommodityInfo> data = new List<CommodityInfo>();
             if (res != null)
             {

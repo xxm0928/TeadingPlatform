@@ -68,7 +68,7 @@
             </tr>
         </table>
         <button class="layui-btn layui-btn-normal" onclick="UpdateOrderData()" style="height:40px;width:100px" value="搜索" lay-submit lay-filter="formDemo">保存修改</button>
-        <button class="layui-btn layui-btn-normal" style="height:40px;width:100px" value="搜索" lay-submit lay-filter="formDemo">取消修改</button>
+        <button class="layui-btn layui-btn-normal" style="height:40px;width:100px" value="搜索" lay-submit lay-filter="formDemo" onclick="Ordersss()">取消修改</button>
     </div>
 </div>
 <script>
@@ -132,6 +132,10 @@
             }
         })
     })
+    function Ordersss() {
+        location.href = '/Order/Order';
+    }
+
     function SumPrices() {
         var a = $("#Price").val();
         var b = $("#CommodityCount").val();
