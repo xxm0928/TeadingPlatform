@@ -24,12 +24,12 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         public ActionResult UserSelect()
-        {          
+        {
 
             return View();
         }
         [HttpPost]
-        public void UserSelect(Ycx_User model,object data)
+        public void UserSelect(Ycx_User model, object data)
         {
             string url = "http://localhost:55041/ycx/add";  //api链接
             HttpClient client = new HttpClient();  //
@@ -48,13 +48,13 @@ namespace TeadingPlatformMVC.Controllers
                 Response.Write("<script>alert('添加失败');</script>");
             }
         }
-     
-        
+
+
         public ActionResult SelectUser(object obj)
         {
             string url = "http://localhost:55041/ycx/PersonalInformation";
             HttpClient client = new HttpClient();
-            
+
             HttpResponseMessage message = client.GetAsync(url).Result;
             string result = message.Content.ReadAsStringAsync().Result;
             List<Ycx_User> list = JsonConvert.DeserializeObject<List<Ycx_User>>(result);
@@ -66,7 +66,7 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         [HttpPost]
-        public void ExitUser(Ycx_User model,int id)
+        public void ExitUser(Ycx_User model, int id)
         {
             string url = "http://localhost:55041/ycx/exit?ids=" + id;
             HttpClient client = new HttpClient();
@@ -76,7 +76,7 @@ namespace TeadingPlatformMVC.Controllers
             HttpResponseMessage message = client.PostAsync(url, content).Result;
             string result = message.Content.ReadAsStringAsync().Result;
             int key = Convert.ToInt32(result);
-            if (key>0)
+            if (key > 0)
             {
                 Response.Write("<script>alert('修改成功');</script>");
             }
@@ -96,7 +96,7 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         [HttpPost]
-        public void UserAdd(Ycx_User um) 
+        public void UserAdd(Ycx_User um)
         {
             try
             {
@@ -106,10 +106,10 @@ namespace TeadingPlatformMVC.Controllers
                 var res = clientHelper.Post("api/User/Add", data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
-               
+
                 GetName name = new GetName();
                 name.Name = united.msg;
-                if (united.res>0)
+                if (united.res > 0)
                 {
                     Response.Write("<script>alert('添加成功');location.href='/YcxCode/ExUser'</script>");
                 }
@@ -117,8 +117,8 @@ namespace TeadingPlatformMVC.Controllers
                 {
                     Response.Write("<script>alert('添加失败');</script>");
                 }
-                
-                
+
+
 
             }
             catch (Exception)
@@ -140,50 +140,47 @@ namespace TeadingPlatformMVC.Controllers
             //return Json(name, JsonRequestBehavior.AllowGet);
 
         }
-        
+
+
+
         public ActionResult ExUser()
         {
 
-            
+
             return View();
         }
         [HttpPost]
-        public void ExUser(string id,Ycx_User um)
-         {
-           
+        public void ExUser(int id, Ycx_User um)
+        {
 
-            
+
             try
             {
-                
+
+                ////查看上传的文件
+                //HttpFileCollectionBase files = Request.Files;
+                //// true 有文件
+                //// false  无文件
+
+                //HttpPostedFileBase file = files["UserPhoto"];
+                //string fullName = file.FileName;
+                //FileInfo fi = new FileInfo(fullName);
+                //string nameFile = fi.Name;
+                //string uploadPath = Server.MapPath("\\UserPhoto");
+                //file.SaveAs(uploadPath + "\\" + nameFile);
+
                 long ids = Convert.ToInt64(id);
                 var data = JsonConvert.SerializeObject(um);
-                var request = Request["data"];
+               
                 UnitedReturn united = new UnitedReturn();
-                var res = clientHelper.Post("api/User/UpdateUser?ids="+ids, data);
+                var res = clientHelper.Post($"api/User/UpdateUser?id="+ids, data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
 
                 GetName name = new GetName();
                 name.Name = united.msg;
 
-                //查看上传的文件
-                //HttpFileCollectionBase files = Request.Files;
-                //true 有文件
-                //false  无文件
-                //if (files != null)
-                //{
-                //    HttpPostedFileBase file = files["img"];
-                //    string fullName = file.FileName;
-                //    FileInfo fi = new FileInfo(fullName);
-                //    string nameFile = fi.Name;
-                //    string uploadPath = Server.MapPath("\\img");
-                //    file.SaveAs(uploadPath + "\\" + nameFile);
-                //}
-                //else
-                //{
 
-                //}
                 if (united.res > 0)
                 {
                     Response.Write("<script>alert('修改成功');location.href='/YcxCode/Z_SelectUser'</script>");
@@ -202,22 +199,51 @@ namespace TeadingPlatformMVC.Controllers
                 throw;
             }
         }
-
-
-        public ActionResult Z_SelectUser()
+        [HttpPost]
+        public JsonResult EnUser()
         {
-            
-            
             var GetList = clientHelper.Post("api/User/SelectUser", 1);
             List<Ycx_User> GetData = new List<Ycx_User>();
             UnitedReturn united = new UnitedReturn();
-            if (GetList!=null)
+            if (GetList != null)
             {
                 united = JsonConvert.DeserializeObject<UnitedReturn>(GetList.ToString());
                 GetData = JsonConvert.DeserializeObject<List<Ycx_User>>(JsonConvert.SerializeObject(united.data));
             }
-            
-            
+
+            return Json(GetData.ToList());
+        }
+
+        public void UpLoad()
+        {
+            //查看上传的文件
+            HttpFileCollectionBase files = Request.Files;
+            // true 有文件
+            // false  无文件
+
+            HttpPostedFileBase file = files["img"];
+            string fullName = file.FileName;
+            FileInfo fi = new FileInfo(fullName);
+            string nameFile = fi.Name;
+            string uploadPath = Server.MapPath("\\UserPhoto");
+            file.SaveAs(uploadPath + "\\" + nameFile);
+
+
+        }
+
+
+        public ActionResult Z_SelectUser()
+        {
+            var GetList = clientHelper.Post("api/User/SelectUser", 1);
+            List<Ycx_User> GetData = new List<Ycx_User>();
+            UnitedReturn united = new UnitedReturn();
+            if (GetList != null)
+            {
+                united = JsonConvert.DeserializeObject<UnitedReturn>(GetList.ToString());
+                GetData = JsonConvert.DeserializeObject<List<Ycx_User>>(JsonConvert.SerializeObject(united.data));
+            }
+
+
 
 
             return View(GetData.ToList());
@@ -234,12 +260,12 @@ namespace TeadingPlatformMVC.Controllers
                 List<Upload> items = new List<Upload>();
                 items.Add(new Upload() { text = "请选择", value = "0", Selected = true });
                 ViewData["DromDownlist"] = items;
-                
-                
+
+
             }
             return View(shopSee.ToList());
         }
-        
+
 
     }
 

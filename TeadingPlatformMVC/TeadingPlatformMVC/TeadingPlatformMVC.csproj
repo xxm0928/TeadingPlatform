@@ -203,6 +203,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LOG.jpg" />
     <Content Include="admin\css\admin.css" />
     <Content Include="admin\css\avatar.css" />
     <Content Include="admin\css\column.css" />
@@ -680,6 +681,7 @@
     <Content Include="Image\蓝色渐变背景简单设计8K壁纸7680x4320_彼岸图网.jpg" />
     <Content Include="Image\面包.jpg" />
     <Content Include="Img\20160523094608_4687.png" />
+    <Content Include="Img\330685-1PRH3564611.jpg" />
     <Content Include="lay\dest\layui.all.js" />
     <Content Include="lay\modules\code.js" />
     <Content Include="lay\modules\element.js" />

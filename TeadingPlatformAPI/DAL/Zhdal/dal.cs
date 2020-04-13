@@ -83,7 +83,7 @@ namespace DAL
         public UnitedReturn UserAdd(object data)
         {
             UserInfo Info = JsonConvert.DeserializeObject<UserInfo>(data.ToString());
-            var sql = string.Format($"insert into UserInfo  values('{Info.UserName}','{Info.UserPass}',' ',' ',' ','{Info.UserNumder}',' ',' ')");
+            var sql = string.Format($"insert into UserInfo (UserName,UserPass,UserNumder)  values('{Info.UserName}','{Info.UserPass}','{Info.UserNumder}')");
             var res = dBHelper.ExecuteNonQuery(sql);
             UnitedReturn united = new UnitedReturn();
             if (res > 0)

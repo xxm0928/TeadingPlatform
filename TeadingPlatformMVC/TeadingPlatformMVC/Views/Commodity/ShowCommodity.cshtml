@@ -56,7 +56,7 @@
         <input type="button" class="layui-btn" onclick="Query(3)" value="下一页" />
         <input type="button" class="layui-btn" onclick="Query(4)" value="尾页" />
         <input type="hidden" id="Page" value="1" />
-        <input type="hidden" id="Size" value="2" />
+        <input type="hidden" id="Size" value="5" />
         <input type="hidden" id="Count" value="3" />
     </div>
 </div>
@@ -153,16 +153,21 @@
         })
     })
     function Sel() {
+        var Page_ = $("#Page").val();//第几页开始
+        var Size_ = $("#Size").val();//每页多少条
+        var Count_ = $("#Count").val();//总数据
         var ass = $("#text1").val();
         var tid = $("#category").val();
         var sid = $("#shop").val();
         var datass = {
             CommodityName: ass,
             TypeId: tid,
-            ShopId: sid
+            ShopId: sid,
+            Page: Page_,
+            Size: Size_
         };
         $.ajax({
-            url: "/Commodity/ShowCommoditys",
+            url: "/Commodity/IndexData",
             type: "POST",
             dataType: "json",
             data: { data: JSON.stringify(datass) },
@@ -208,10 +213,16 @@
         var Page_ = $("#Page").val();//第几页开始
         var Size_ = $("#Size").val();//每页多少条
         var Count_ = $("#Count").val();//总数据
+        var ass = $("#text1").val();
+        var tid = $("#category").val();
+        var sid = $("#shop").val();
         //首页
         if (type == 1) {
             Page_ = 1;
             var data1 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -226,16 +237,16 @@
                     var ress = "";
                     $(res).each(function () {
                         ress += "<tr>" +
-                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
-                        "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.ShopName + "</td>" +
-                        "<td>" + this.TypeName + "</td>" +
-                        "<td>" + this.CommditySum + "</td>" +
-                        "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
-                        "</tr>";
-                })
-                $("#rb").html(ress);
+                            "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.ShopName + "</td>" +
+                            "<td>" + this.TypeName + "</td>" +
+                            "<td>" + this.CommditySum + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            "</tr>";
+                    })
+                    $("#rb").html(ress);
                 }
             })
             $("#Page").val(Page_);
@@ -247,6 +258,9 @@
                 Page_ = 1;
             }
             var data2 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -261,16 +275,16 @@
                     var ress = "";
                     $(res).each(function () {
                         ress += "<tr>" +
-                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
-                        "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.ShopName + "</td>" +
-                        "<td>" + this.TypeName + "</td>" +
-                        "<td>" + this.CommditySum + "</td>" +
-                        "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
-                        "</tr>";
-                })
-                $("#rb").html(ress);
+                            "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.ShopName + "</td>" +
+                            "<td>" + this.TypeName + "</td>" +
+                            "<td>" + this.CommditySum + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            "</tr>";
+                    })
+                    $("#rb").html(ress);
                 }
             })
             $("#Page").val(Page_);
@@ -284,6 +298,9 @@
                 Page_ = parseInt(Page_) + parseInt(1);
             }
             var data3 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -298,16 +315,16 @@
                     var ress = "";
                     $(res).each(function () {
                         ress += "<tr>" +
-                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
-                        "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.ShopName + "</td>" +
-                        "<td>" + this.TypeName + "</td>" +
-                        "<td>" + this.CommditySum + "</td>" +
-                        "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
-                        "</tr>";
-                })
-                $("#rb").html(ress);
+                            "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.ShopName + "</td>" +
+                            "<td>" + this.TypeName + "</td>" +
+                            "<td>" + this.CommditySum + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            "</tr>";
+                    })
+                    $("#rb").html(ress);
                 }
             })
             $("#Page").val(Page_);
@@ -321,6 +338,9 @@
                 Page_ = Math.floor(Count_ / Size_);
             }
             var data4 = {
+                CommodityName: ass,
+                TypeId: tid,
+                ShopId: sid,
                 Page: Page_,
                 Size: Size_
             };
@@ -335,16 +355,16 @@
                     var ress = "";
                     $(res).each(function () {
                         ress += "<tr>" +
-                        "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
-                        "<td>" + this.CommodityName + "</td>" +
-                        "<td>" + this.ShopName + "</td>" +
-                        "<td>" + this.TypeName + "</td>" +
-                        "<td>" + this.CommditySum + "</td>" +
-                        "<td>" + this.Price + "</td>" +
-                        '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
-                        "</tr>";
-                })
-                $("#rb").html(ress);
+                            "<td>" + "<img src=" + this.ComndityImg + " style='width:120px;height:80px'/>" + "</td>" +
+                            "<td>" + this.CommodityName + "</td>" +
+                            "<td>" + this.ShopName + "</td>" +
+                            "<td>" + this.TypeName + "</td>" +
+                            "<td>" + this.CommditySum + "</td>" +
+                            "<td>" + this.Price + "</td>" +
+                            '<td><button class="layui-btn layui-btn-normal" onclick="Update(' + this.CommodityId + ')" style="height:40px;width:80px" lay-submit lay-filter="formDemo">' + (this.OrderState == 1 ? "上架" : "下架") + '</button></td>' +
+                            "</tr>";
+                    })
+                    $("#rb").html(ress);
                 }
             })
             $("#Page").val(Page_);

@@ -37,7 +37,7 @@
             success: function (res) {
                 alert(res.msg);
                 if (res.msg == "添加成功") {
-                    location.reload();
+                    location.href = "/Commodity/ShowCommodity";
                 }
             }
         });

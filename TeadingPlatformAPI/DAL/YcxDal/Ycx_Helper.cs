@@ -15,7 +15,7 @@ namespace DAL
         /// <summary>
         /// ycx 连接数据库字符串
         /// </summary>
-        string strconn = "Data Source=追着;Initial Catalog=TeadingPlatform;Integrated Security=True";
+        string strconn = "Data Source=.;Initial Catalog=TeadingPlatform;Integrated Security=True";
         /// <summary>
         /// 返回集合（反序列化）
         /// </summary>

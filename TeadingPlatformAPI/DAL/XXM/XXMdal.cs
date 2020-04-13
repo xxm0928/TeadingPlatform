@@ -178,19 +178,19 @@ namespace DAL
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
                 string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price  from CommodityInfo as c join ShopInfo as s on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState > 0");
-
+                if (orderforms.TypeId > 0)
+                {
+                    sql += $"and c.TypeId={orderforms.TypeId}";
+                }
+                if (orderforms.ShopId > 0)
+                {
+                    sql += $"and c.ShopId={orderforms.ShopId}";
+                }
+                sql += "ORDER BY c.CommodityId DESC";
                 var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
                     datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
-                }
-                if (orderforms.TypeId > 0)
-                {
-                    datas = datas.Where(s => s.TypeId == orderforms.TypeId).ToList();
-                }
-                if (orderforms.ShopId > 0)
-                {
-                    datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
                 }
                 UnitedReturn unitedReturn = new UnitedReturn();
                 if (datas.Count > 0 && datas != null)
@@ -238,19 +238,20 @@ namespace DAL
                     orderforms = JsonConvert.DeserializeObject<CommodityInfo>(data.ToString());
                 }
                 string sql = string.Format($"select c.CommodityId,s.ShopName,c.CommodityName,c.ComndityImg,t.TypeName,c.CommditySum,c.Price  from CommodityInfo as c join ShopInfo as s on c.ShopId = s.ShopId join TypeInfo as t on t.TypeId = c.TypeId where c.CommodityState = 0");
-                
+
+                if (orderforms.TypeId > 0)
+                {
+                    sql += $"and c.TypeId={orderforms.TypeId}";
+                }
+                if (orderforms.ShopId > 0)
+                {
+                    sql += $"and c.ShopId={orderforms.ShopId}";
+                }
+                sql += "ORDER BY c.CommodityId DESC";
                 var datas = DBHelper.GetToList<CommodityInfo>(sql);
                 if (!string.IsNullOrEmpty(orderforms.CommodityName))
                 {
                     datas = datas.Where(s => s.CommodityName.Contains(orderforms.CommodityName)).ToList();
-                }
-                if (orderforms.TypeId > 0)
-                {
-                    datas = datas.Where(s => s.TypeId == orderforms.TypeId).ToList();
-                }
-                if (orderforms.ShopId > 0)
-                {
-                    datas = datas.Where(s => s.ShopId == orderforms.ShopId).ToList();
                 }
                 UnitedReturn unitedReturn = new UnitedReturn();
                 if (datas.Count > 0 && datas != null)
