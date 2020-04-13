@@ -150,7 +150,7 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         [HttpPost]
-        public void ExUser(string id, Ycx_User um)
+        public void ExUser(int id, Ycx_User um)
         {
 
 
@@ -169,11 +169,11 @@ namespace TeadingPlatformMVC.Controllers
                 //string uploadPath = Server.MapPath("\\UserPhoto");
                 //file.SaveAs(uploadPath + "\\" + nameFile);
 
-               
+                long ids = Convert.ToInt64(id);
                 var data = JsonConvert.SerializeObject(um);
                
                 UnitedReturn united = new UnitedReturn();
-                var res = clientHelper.Post($"api/User/UpdateUser?ids="+id, data);
+                var res = clientHelper.Post($"api/User/UpdateUser?id="+ids, data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
 

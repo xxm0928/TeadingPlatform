@@ -101,7 +101,7 @@ namespace TeadingPlatformAPI.Controllers
             return united;
         }
         [HttpPost]
-        public UnitedReturn UpdateUser(string id,object data)
+        public UnitedReturn UpdateUser(long id,object data)
         {
             UserInfo um = new UserInfo();
 
