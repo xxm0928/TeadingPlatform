@@ -7,6 +7,9 @@
         <input type="submit" name="name" value="submit" />
     </form>*@
 
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
 @using (Html.BeginForm("ExUser", "YcxCode"))
 {
 
@@ -18,7 +21,7 @@
         <div>
             <label class="layui-form-label">昵称：</label>
             <div class="layui-input-block">
-                <input type="text" name="UserName" value="" class="layui-input" placeholder="请输入昵称" />
+                <input type="text" name="UserName" id="UName" value=""  class="layui-input" placeholder="请输入昵称" />
             </div>
         </div>
 
@@ -114,5 +117,29 @@
 
     </form>
 }
+<script>
+    $(EnUser);
+    function EnUser() {
+        $.ajax({
+            url: '/YcxCode/EnUser',
+            type: 'post',
+            data: {
+                
+            },
+            dataType:'json',
+            success: {
+                function (data) {
+                    $("#UName").val() = $(this.UserName);
+            }
+            },
+
+
+        });
+    }
+
+
+</script>
+
+
 
 

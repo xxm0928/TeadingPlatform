@@ -150,30 +150,30 @@ namespace TeadingPlatformMVC.Controllers
             return View();
         }
         [HttpPost]
-        public void ExUser(string id, Ycx_User um)
+        public void ExUser(int id, Ycx_User um)
         {
 
 
             try
             {
 
-                //查看上传的文件
-                HttpFileCollectionBase files = Request.Files;
-                // true 有文件
-                // false  无文件
+                ////查看上传的文件
+                //HttpFileCollectionBase files = Request.Files;
+                //// true 有文件
+                //// false  无文件
 
-                HttpPostedFileBase file = files["UserPhoto"];
-                string fullName = file.FileName;
-                FileInfo fi = new FileInfo(fullName);
-                string nameFile = fi.Name;
-                string uploadPath = Server.MapPath("\\UserPhoto");
-                file.SaveAs(uploadPath + "\\" + nameFile);
+                //HttpPostedFileBase file = files["UserPhoto"];
+                //string fullName = file.FileName;
+                //FileInfo fi = new FileInfo(fullName);
+                //string nameFile = fi.Name;
+                //string uploadPath = Server.MapPath("\\UserPhoto");
+                //file.SaveAs(uploadPath + "\\" + nameFile);
 
-               
+                long ids = Convert.ToInt64(id);
                 var data = JsonConvert.SerializeObject(um);
                
                 UnitedReturn united = new UnitedReturn();
-                var res = clientHelper.Post($"api/User/UpdateUser?ids="+id, data);
+                var res = clientHelper.Post($"api/User/UpdateUser?id="+ids, data);
                 united = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
 
 
@@ -198,6 +198,20 @@ namespace TeadingPlatformMVC.Controllers
 
                 throw;
             }
+        }
+        [HttpPost]
+        public JsonResult EnUser()
+        {
+            var GetList = clientHelper.Post("api/User/SelectUser", 1);
+            List<Ycx_User> GetData = new List<Ycx_User>();
+            UnitedReturn united = new UnitedReturn();
+            if (GetList != null)
+            {
+                united = JsonConvert.DeserializeObject<UnitedReturn>(GetList.ToString());
+                GetData = JsonConvert.DeserializeObject<List<Ycx_User>>(JsonConvert.SerializeObject(united.data));
+            }
+
+            return Json(GetData.ToList());
         }
 
         public void UpLoad()
