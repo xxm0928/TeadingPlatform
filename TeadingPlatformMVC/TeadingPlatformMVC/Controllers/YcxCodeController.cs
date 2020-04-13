@@ -199,6 +199,20 @@ namespace TeadingPlatformMVC.Controllers
                 throw;
             }
         }
+        [HttpPost]
+        public JsonResult EnUser()
+        {
+            var GetList = clientHelper.Post("api/User/SelectUser", 1);
+            List<Ycx_User> GetData = new List<Ycx_User>();
+            UnitedReturn united = new UnitedReturn();
+            if (GetList != null)
+            {
+                united = JsonConvert.DeserializeObject<UnitedReturn>(GetList.ToString());
+                GetData = JsonConvert.DeserializeObject<List<Ycx_User>>(JsonConvert.SerializeObject(united.data));
+            }
+
+            return Json(GetData.ToList());
+        }
 
         public void UpLoad()
         {
