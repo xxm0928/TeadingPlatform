@@ -204,20 +204,36 @@ namespace TeadingPlatformMVC.Controllers
         /// 获取订单详情返回前台的数据
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetOrderDetail()
+        public JsonResult GetOrderDetail(int id)
         {
             try
             {
-                var request = Request["data"];
-                var res = clientHelper.Post("api/YxApi/OrderShow", 1);
-                var data = new List<Orderform>();
-                if (res != null)
+                //var request = Request["data"];
+                //var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+                //var data = new List<Orderform>();
+                //if (res != null)
+                //{
+                //    var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                //    data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                //}
+                //data = data.Where(s => s.OrderformId == Convert.ToInt32(request)).ToList();
+                //return Json(data, JsonRequestBehavior.AllowGet);
+                if (id != 0)
                 {
-                    var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
-                    data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                    var res = clientHelper.Post("api/YxApi/OrderShow", 1);
+                    var data = new List<Orderform>();
+                    if (res != null)
+                    {
+                        var mata = JsonConvert.DeserializeObject<UnitedReturn>(res.ToString());
+                        data = JsonConvert.DeserializeObject<List<Orderform>>(mata.data.ToString());
+                    }
+                    data = data.Where(s => s.OrderformId == Convert.ToInt32(id)).ToList();
+                    return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                data = data.Where(s => s.OrderformId == Convert.ToInt32(request)).ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception)
             {

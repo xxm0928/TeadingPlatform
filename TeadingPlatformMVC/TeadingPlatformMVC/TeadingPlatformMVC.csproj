@@ -698,6 +698,7 @@
     <Content Include="lay\modules\upload.js" />
     <Content Include="lay\modules\util.js" />
     <Content Include="Logo.gif" />
+    <Content Include="Scripts\axios.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="iconfont.woff" />
@@ -733,6 +734,7 @@
     <Content Include="Content\验证码\ValidateCode.ashx" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Upload.ashx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
